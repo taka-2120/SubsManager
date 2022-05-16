@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:subsmanager/lists.dart';
 import '../globals.dart' as globals;
 
@@ -19,43 +20,46 @@ class SubsPage extends StatefulWidget {
 }
 
 class _SubsState extends State<SubsPage> {
-  List<SubsList> subsList = [SubsList(name: "Apple One", fee: 1030.toDouble())];
-
-  void _add() { //W
-    setState(() {
-      subsList.add(SubsList(name: "Apple One", fee: 1030.toDouble()));
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(15),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              const Text(globals.subs,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
-              Expanded(
-                child: ListView.builder(
-                  itemBuilder: (BuildContext context, int index) {
-                    return _subsItem(subsList[index].name,subsList[index].fee);
-                  },
-                  itemCount: subsList.length,
-                ),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => SubsModel()),
+      ],
+      child: Consumer<SubsModel>(builder: (context, subsList, child) {
+        return Scaffold(
+          body: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  const Text(globals.subs,
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+                  Expanded(
+                    child: ListView.builder(
+                      itemBuilder: (BuildContext context, int index) {
+                        return _subsItem(subsList.subsList[index].name,
+                            subsList.subsList[index].fee);
+                      },
+                      itemCount: subsList.subsList.length,
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _add,
-        tooltip: 'Add a Subscriptiom',
-        child: const Icon(Icons.add),
-      ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              subsList.add(SubsList(name: "Apple One", fee: 1030.toDouble()));
+            },
+            tooltip: 'Add a Subscriptiom',
+            child: const Icon(Icons.add),
+          ),
+        );
+      }),
     );
   }
 }
