@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-//StatelessとStatefulの違いも理解できると良い(うまく使えています)
+
 class BasePage extends StatefulWidget {
   const BasePage({Key? key, required this.title}) : super(key: key);
 
@@ -36,22 +36,11 @@ class BasePage extends StatefulWidget {
 }
 
 class _BasePageState extends State<BasePage> {
-  @override
-  void initState() {
-    //initStateは最初に処理が走るので、データをUIに反映させるために
-    //Firebaseあるいはローカルに保存するようなもの取得して、UIに反映させるように使う(参考程度)
-    super.initState();
-  }
-
   int _currentIndex = 0;
-//_pageListsとpageListsの違いはグローバルに定義できるかどうか、つまり _ を最初につけるかどうかで変わる(private)
-  static List<Widget> pageLists = const [
-    Stream(),
-    Subs(),
-    Settings(),
-  ];
 
-  //BottomNavBar このような関数はUIページに書いても良いが複数回使うことがある関数は、関数ページに書く
+  static List<Widget> pageLists = const [Stream(), Subs(), Settings()];
+
+  //W
   void _onItemTapped(int index) {
     setState(() {
       _currentIndex = index;
@@ -65,7 +54,7 @@ class _BasePageState extends State<BasePage> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.add),
+            icon: Icon(Icons.fork),
             label: 'Stream',
           ),
           BottomNavigationBarItem(
@@ -78,7 +67,6 @@ class _BasePageState extends State<BasePage> {
           ),
         ],
         currentIndex: _currentIndex,
-        //globalに定義しているテーマを使うの良い(使い方うまい)
         selectedItemColor: globals.themeColor,
         onTap: _onItemTapped,
       ),
