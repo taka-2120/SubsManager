@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
+import 'package:subsmanager/pages/subs/subs_add.dart';
 import 'package:subsmanager/pages/subs/subs_list.dart';
 import '../../globals.dart' as globals;
 import 'subs_functions.dart' as subs_func;
@@ -57,6 +59,11 @@ class _SubsState extends State<SubsPage> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
+            showBarModalBottomSheet(
+              context: context,
+              builder: (context) => const SubsAdd(),
+              bounce: true,
+            );
             subsList.add(
                 SubsList(name: "Apple One", fee: 1100.toDouble(), period: 0));
           },
@@ -76,7 +83,8 @@ Widget _subsItem(String name, double fee, int period, String locale) {
     padding: const EdgeInsets.all(15),
     height: 130,
     decoration: BoxDecoration(
-        border: Border.all(color: Color.fromARGB(255, 207, 207, 207), width: 2),
+        border: Border.all(
+            color: const Color.fromARGB(255, 207, 207, 207), width: 2),
         borderRadius: BorderRadius.circular(15)),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
