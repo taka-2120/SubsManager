@@ -1,7 +1,11 @@
 library subsmanager.globals;
 
 import 'package:flutter/material.dart';
+import 'package:subsmanager/pages/settings.dart';
+import 'package:subsmanager/pages/stream.dart';
+import 'package:subsmanager/pages/subs.dart';
 
+const List<Widget> pageLists = [Stream(), Subs(), Settings()];
 const String stream = "Stream";
 const String subs = "Subscriptions";
 const String settings = "Settings";

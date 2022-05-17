@@ -8,7 +8,9 @@ class Subs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SubsPage();
+    return MultiProvider(providers: [
+      ChangeNotifierProvider(create: (_) => SubsModel()),
+    ], child: const SubsPage());
   }
 }
 
@@ -22,45 +24,40 @@ class SubsPage extends StatefulWidget {
 class _SubsState extends State<SubsPage> {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => SubsModel()),
-      ],
-      child: Consumer<SubsModel>(builder: (context, subsList, child) {
-        return Scaffold(
-          body: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(15),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  const Text(globals.subs,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
-                  Expanded(
-                    child: ListView.builder(
-                      itemBuilder: (BuildContext context, int index) {
-                        return _subsItem(subsList.subsList[index].name,
-                            subsList.subsList[index].fee);
-                      },
-                      itemCount: subsList.subsList.length,
-                    ),
+    return Consumer<SubsModel>(builder: (context, subsList, child) {
+      return Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                const Text(globals.subs,
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+                Expanded(
+                  child: ListView.builder(
+                    itemBuilder: (BuildContext context, int index) {
+                      return _subsItem(subsList.subsList[index].name,
+                          subsList.subsList[index].fee);
+                    },
+                    itemCount: subsList.subsList.length,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              subsList.add(SubsList(name: "Apple One", fee: 1030.toDouble()));
-            },
-            tooltip: 'Add a Subscriptiom',
-            child: const Icon(Icons.add),
-          ),
-        );
-      }),
-    );
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            subsList.add(SubsList(name: "Apple One", fee: 1030.toDouble()));
+          },
+          tooltip: 'Add a Subscription',
+          child: const Icon(Icons.add),
+        ),
+      );
+    });
   }
 }
 
@@ -81,7 +78,7 @@ Widget _subsItem(String name, double fee) {
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
         ),
         Text(
-          fee.toString(), //W
+          fee.toString(), //FIX: not reccommended
           style: const TextStyle(
               fontSize: 18, color: Color.fromARGB(255, 104, 104, 104)),
         ),

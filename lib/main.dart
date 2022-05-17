@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:subsmanager/pages/settings.dart';
-import 'package:subsmanager/pages/stream.dart';
-import 'package:subsmanager/pages/subs.dart';
 import 'globals.dart' as globals;
 import 'models.dart' as models;
-
-//Page Name
 
 void main() {
   runApp(const MyApp());
@@ -43,14 +38,15 @@ class BasePage extends StatefulWidget {
 }
 
 class _BasePageState extends State<BasePage> {
-  final List<Widget> _pageLists = const [Stream(), Subs(), Settings()];
-
   @override
   Widget build(BuildContext context) {
     return Consumer<models.TabModel>(
       builder: ((context, model, child) {
         return Scaffold(
-          body: _pageLists[model.currentIndex],
+          body: IndexedStack(
+            index: model.currentIndex,
+            children: globals.pageLists,
+          ),
           bottomNavigationBar: BottomNavigationBar(
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
