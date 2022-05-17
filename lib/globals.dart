@@ -1,9 +1,9 @@
 library subsmanager.globals;
 
 import 'package:flutter/material.dart';
-import 'package:subsmanager/pages/settings.dart';
-import 'package:subsmanager/pages/stream.dart';
-import 'package:subsmanager/pages/subs.dart';
+import 'package:subsmanager/pages/settings/settings.dart';
+import 'package:subsmanager/pages/stream/stream.dart';
+import 'package:subsmanager/pages/subs/subs.dart';
 
 const List<Widget> pageLists = [Stream(), Subs(), Settings()];
 const String stream = "Stream";

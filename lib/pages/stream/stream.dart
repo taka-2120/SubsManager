@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../globals.dart' as globals;
+import '../../globals.dart' as globals;
 
 class Stream extends StatelessWidget {
   const Stream({Key? key}) : super(key: key);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../globals.dart' as globals;
+import '../../globals.dart' as globals;
 
 class Settings extends StatelessWidget {
   const Settings({Key? key}) : super(key: key);
