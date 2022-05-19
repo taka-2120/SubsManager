@@ -5,7 +5,7 @@ import 'package:subsmanager/pages/settings/settings.dart';
 import 'package:subsmanager/pages/stream/stream.dart';
 import 'package:subsmanager/pages/subs/subs.dart';
 
-const List<Widget> pageLists = [Stream(), Subs(), Settings()];
+const List<Widget> pageLists = [Subs(), Settings()];
 const String stream = "Stream";
 const String subs = "Subscriptions";
 const String settings = "Settings";

@@ -61,10 +61,10 @@ class _BasePageState extends State<BasePage> {
           ),
           bottomNavigationBar: BottomNavigationBar(
             items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.fork_right),
-                label: 'Stream',
-              ),
+              // BottomNavigationBarItem(
+              //   icon: Icon(Icons.fork_right),
+              //   label: 'Stream',
+              // ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.account_balance_wallet),
                 label: 'Subscriptions',

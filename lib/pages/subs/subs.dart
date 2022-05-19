@@ -61,6 +61,7 @@ class _SubsState extends State<SubsPage> {
               context: context,
               builder: (context) => const SubsAdd(),
               bounce: true,
+              expand: true,
             );
             subsList.add(SubsList(
                 name: "Apple One",

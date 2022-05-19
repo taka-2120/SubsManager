@@ -14,3 +14,14 @@ class TabModel with ChangeNotifier {
     currentIndex = index;
   }
 }
+
+class SubsAddModel with ChangeNotifier {
+  DateTime _date = DateTime.now();
+
+  set date(newValue) {
+    _date = newValue;
+    notifyListeners();
+  }
+
+  DateTime get date => _date;
+}
