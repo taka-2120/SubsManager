@@ -1,5 +1,11 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:intl/intl.dart';
+
 class SubsFunctions {
-  String roundedFeeToString(double fee, String locale) {
+  String roundedFeeToString(double fee, BuildContext context) {
+    String locale = Localizations.localeOf(context).toString();
+
     //FIX: not reccommended
     if (locale == "ja_JP") {
       return fee.toStringAsFixed(0);
@@ -26,5 +32,11 @@ class SubsFunctions {
         break;
     }
     return periodStr;
+  }
+
+  String dateToString(DateTime date, BuildContext context) {
+    String locale = Localizations.localeOf(context).languageCode;
+    String ymd = DateFormat.yMMMd(locale).format(date);
+    return ymd;
   }
 }

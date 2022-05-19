@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'globals.dart' as globals;
 import 'models.dart' as models;
 
@@ -18,11 +19,22 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => models.TabModel()),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: globals.title,
         theme: ThemeData(
           primarySwatch: globals.customSwatch,
         ),
+        darkTheme: ThemeData.dark(),
+        themeMode: ThemeMode.system,
         home: const BasePage(title: globals.stream),
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale("en", "US"),
+          Locale("ja", "JP"),
+        ],
       ),
     );
   }

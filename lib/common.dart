@@ -24,7 +24,7 @@ Widget header(String title, BuildContext context) {
         child: const Icon(Icons.close),
       ),
       const Text("Add",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
       ElevatedButton(
         style: ElevatedButton.styleFrom(
           primary: const Color.fromARGB(255, 194, 194, 194),
@@ -46,14 +46,14 @@ Widget header(String title, BuildContext context) {
   );
 }
 
-Widget TextFieldSet(String title, TextEditingController controller) {
+Widget textFieldSet(String title, TextEditingController controller) {
   return Column(children: [
     Padding(
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.symmetric(vertical: 15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text(title),
+          Text(title, style: const TextStyle(fontSize: 18)),
         ],
       ),
     ),
@@ -61,7 +61,7 @@ Widget TextFieldSet(String title, TextEditingController controller) {
       padding: const EdgeInsets.only(bottom: 15),
       child: Container(
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 216, 216, 216),
+          color: const Color.fromARGB(255, 216, 216, 216),
           borderRadius: BorderRadius.circular(10),
         ),
         child: TextField(
@@ -75,4 +75,17 @@ Widget TextFieldSet(String title, TextEditingController controller) {
       ),
     ),
   ]);
+}
+
+Widget settingsItem() {
+  return Padding(
+    padding: const EdgeInsets.all(15),
+    child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: const [
+          Icon(Icons.notifications),
+          Text(""),
+          Icon(Icons.arrow_right)
+        ]),
+  );
 }

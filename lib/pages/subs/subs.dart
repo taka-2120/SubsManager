@@ -28,8 +28,6 @@ class _SubsState extends State<SubsPage> {
   @override
   Widget build(BuildContext context) {
     return Consumer<SubsModel>(builder: (context, subsList, child) {
-      final String locale = Localizations.localeOf(context).toString();
-
       return Scaffold(
         body: SafeArea(
           child: Padding(
@@ -48,7 +46,7 @@ class _SubsState extends State<SubsPage> {
                           subsList.subsList[index].name,
                           subsList.subsList[index].fee,
                           subsList.subsList[index].period,
-                          locale);
+                          context);
                     },
                     itemCount: subsList.subsList.length,
                   ),
@@ -64,8 +62,11 @@ class _SubsState extends State<SubsPage> {
               builder: (context) => const SubsAdd(),
               bounce: true,
             );
-            subsList.add(
-                SubsList(name: "Apple One", fee: 1100.toDouble(), period: 0));
+            subsList.add(SubsList(
+                name: "Apple One",
+                fee: 1100.toDouble(),
+                period: 0,
+                date: DateTime.now()));
           },
           tooltip: 'Add a Subscription',
           child: const Icon(Icons.add),
@@ -75,7 +76,7 @@ class _SubsState extends State<SubsPage> {
   }
 }
 
-Widget _subsItem(String name, double fee, int period, String locale) {
+Widget _subsItem(String name, double fee, int period, BuildContext context) {
   subs_func.SubsFunctions func = subs_func.SubsFunctions();
 
   return Container(
@@ -97,7 +98,7 @@ Widget _subsItem(String name, double fee, int period, String locale) {
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
             ),
             Text(
-              "${func.roundedFeeToString(fee, locale)}/${func.periodToString(period)}",
+              "${func.roundedFeeToString(fee, context)}/${func.periodToString(period)}",
               style: const TextStyle(fontSize: 18),
             ),
           ],
