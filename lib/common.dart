@@ -1,40 +1,44 @@
-// ignore_for_file: unnecessary_const
-
 import 'package:flutter/material.dart';
 import '../../globals.dart' as globals;
 
-Widget header(String title, BuildContext context) {
+Widget sheetHeader(String title, BuildContext context) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 20),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        MaterialButton(
-          color: const Color.fromARGB(255, 224, 224, 224),
-          textColor: Colors.black,
-          shape: const CircleBorder(side: BorderSide.none),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: const Icon(Icons.close),
-        ),
-        const Text("Add",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
-        MaterialButton(
-          color: const Color.fromARGB(255, 224, 224, 224),
-          textColor: Colors.black,
-          shape: const CircleBorder(),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: const Icon(Icons.check),
-        ),
+        circleButton(context, const Icon(Icons.close)),
+        Text(title,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+        circleButton(context, const Icon(Icons.check)),
       ],
     ),
   );
 }
 
-Widget textFieldSet(String title, bool num, TextEditingController controller) {
+Widget pageTitle(String title) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 15),
+    child: Text(title,
+        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22)),
+  );
+}
+
+Widget circleButton(BuildContext context, Icon icon) {
+  return GestureDetector(
+    onTap: () {
+      Navigator.pop(context);
+    },
+    child: CircleAvatar(
+      radius: 20,
+      backgroundColor: const Color.fromARGB(255, 238, 238, 238),
+      child: icon,
+    ),
+  );
+}
+
+Widget textFieldSet(BuildContext context, String title, bool num,
+    TextEditingController controller) {
   return Column(children: [
     Padding(
       padding: const EdgeInsets.only(bottom: 15),
@@ -47,7 +51,7 @@ Widget textFieldSet(String title, bool num, TextEditingController controller) {
     ),
     Container(
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 232, 232, 232),
+        color: Theme.of(context).dividerColor.withOpacity(0.1),
         borderRadius: BorderRadius.circular(10),
       ),
       child: TextField(
@@ -66,35 +70,4 @@ Widget textFieldSet(String title, bool num, TextEditingController controller) {
 
 Widget defaultDivider() {
   return const Divider(height: 40, thickness: 1);
-}
-
-Widget settingsItem(Icon icon, String left, String right, bool navigatable) {
-  return Container(
-    margin: const EdgeInsets.symmetric(vertical: 7),
-    padding: const EdgeInsets.all(15),
-    decoration: BoxDecoration(
-      border: Border.all(color: globals.borderColor),
-      borderRadius: BorderRadius.circular(15),
-    ),
-    child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      Row(
-        children: [
-          icon,
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Text(left),
-          ),
-        ],
-      ),
-      navigatable ? const Icon(Icons.arrow_right) : Text(right)
-    ]),
-  );
-}
-
-Widget pageTitle(String title) {
-  return Padding(
-    padding: const EdgeInsets.only(bottom: 10),
-    child: Text(title,
-        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22)),
-  );
 }

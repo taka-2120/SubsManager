@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
+import 'dart:io';
 
-class SubsFunctions {
+class Functions {
   String roundedFeeToString(double fee, BuildContext context) {
-    String locale = Localizations.localeOf(context).toString();
+    final localeStr = Platform.localeName;
 
-    //FIX: not reccommended
-    if (locale == "ja_JP") {
-      return fee.toStringAsFixed(0);
+    if (localeStr.contains("JP") == true) {
+      final value = NumberFormat("#,##0", localeStr);
+      return "¥${value.format(fee)}";
     } else {
-      return fee.toStringAsFixed(2);
+      final value = NumberFormat("#,##0.00", localeStr);
+      return "\$${value.format(fee)}";
     }
   }
 
