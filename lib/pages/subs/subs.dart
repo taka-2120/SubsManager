@@ -3,6 +3,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:subsmanager/pages/subs/subs_add.dart';
 import 'package:subsmanager/pages/subs/subs_list.dart';
+import '../../common.dart';
 import '../../globals.dart' as globals;
 import 'subs_functions.dart' as subs_func;
 
@@ -36,9 +37,7 @@ class _SubsState extends State<SubsPage> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                const Text(globals.subs,
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+                pageTitle(globals.subs),
                 Expanded(
                   child: ListView.builder(
                     itemBuilder: (BuildContext context, int index) {
@@ -85,8 +84,7 @@ Widget _subsItem(String name, double fee, int period, BuildContext context) {
     padding: const EdgeInsets.all(15),
     height: 130,
     decoration: BoxDecoration(
-        border: Border.all(
-            color: const Color.fromARGB(255, 207, 207, 207), width: 2),
+        border: Border.all(color: globals.borderColor, width: 2),
         borderRadius: BorderRadius.circular(15)),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -109,8 +107,7 @@ Widget _subsItem(String name, double fee, int period, BuildContext context) {
           children: const [
             Text(
               "Next: ",
-              style: TextStyle(
-                  color: Color.fromARGB(255, 122, 122, 122), fontSize: 18),
+              style: TextStyle(color: globals.borderColor, fontSize: 18),
             ),
           ],
         ),

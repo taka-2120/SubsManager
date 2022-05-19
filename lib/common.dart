@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_const
 
 import 'package:flutter/material.dart';
+import '../../globals.dart' as globals;
 
 Widget header(String title, BuildContext context) {
   return Padding(
@@ -67,23 +68,33 @@ Widget defaultDivider() {
   return const Divider(height: 40, thickness: 1);
 }
 
-Widget settingsItem(Icon icon, String title, bool navigatable) {
-  return Padding(
+Widget settingsItem(Icon icon, String left, String right, bool navigatable) {
+  return Container(
+    margin: const EdgeInsets.symmetric(vertical: 7),
     padding: const EdgeInsets.all(15),
+    decoration: BoxDecoration(
+      border: Border.all(color: globals.borderColor),
+      borderRadius: BorderRadius.circular(15),
+    ),
     child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      RichText(
-        text: TextSpan(
-          children: [
-            WidgetSpan(
-              child: icon,
-            ),
-            TextSpan(
-              text: title,
-            ),
-          ],
-        ),
+      Row(
+        children: [
+          icon,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Text(left),
+          ),
+        ],
       ),
-      const Icon(Icons.arrow_right)
+      navigatable ? const Icon(Icons.arrow_right) : Text(right)
     ]),
+  );
+}
+
+Widget pageTitle(String title) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 10),
+    child: Text(title,
+        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22)),
   );
 }

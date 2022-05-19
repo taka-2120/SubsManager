@@ -11,6 +11,7 @@ const String subs = "Subscriptions";
 const String settings = "Settings";
 const String title = "Money Stream";
 const Color themeColor = Color.fromARGB(255, 50, 201, 189);
+const Color borderColor = Color.fromARGB(255, 160, 160, 160);
 
 const MaterialColor customSwatch = MaterialColor(0xFF36DCCF, <int, Color>{
   50: Color(0xFFE7FBF9),
