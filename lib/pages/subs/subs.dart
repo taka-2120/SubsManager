@@ -6,6 +6,7 @@ import 'package:subsmanager/pages/subs/subs_list.dart';
 import '../../common.dart';
 import '../../globals.dart' as globals;
 import '../../functions.dart' as func;
+import '../settings/notifications.dart';
 
 class Subs extends StatelessWidget {
   const Subs({Key? key}) : super(key: key);
@@ -35,7 +36,7 @@ class _SubsState extends State<SubsPage> {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              pageTitle(globals.subs),
+              pageTitle(context, globals.subs, false, true),
               Expanded(
                 child: ListView.builder(
                   itemBuilder: (BuildContext context, int index) {

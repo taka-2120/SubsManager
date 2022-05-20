@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:subsmanager/pages/settings/notifications.dart';
 import '../../globals.dart' as globals;
+import 'models.dart' as models;
 
 Widget sheetHeader(String title, BuildContext context) {
   return Padding(
@@ -16,11 +18,30 @@ Widget sheetHeader(String title, BuildContext context) {
   );
 }
 
-Widget pageTitle(String title) {
+Widget pageTitle(BuildContext context, String title, bool back, bool backIcon) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 15),
-    child: Text(title,
-        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22)),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        back
+            ? GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: const CircleAvatar(
+                  radius: 20,
+                  backgroundColor: Colors.transparent,
+                  foregroundColor: globals.customSwatch,
+                  child: Icon(Icons.arrow_back_ios),
+                ),
+              )
+            : const SizedBox(width: 20, height: 20),
+        Text(title,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22)),
+        const SizedBox(width: 20, height: 20),
+      ],
+    ),
   );
 }
 
@@ -70,4 +91,69 @@ Widget textFieldSet(BuildContext context, String title, bool num,
 
 Widget defaultDivider() {
   return const Divider(height: 40, thickness: 1);
+}
+
+Widget settingsItem(BuildContext context, Icon icon, String left, String right,
+    bool navigatable,
+    {StatelessWidget? destination}) {
+  return Container(
+    margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+    decoration: BoxDecoration(
+      border: Border.all(color: globals.borderColor),
+      borderRadius: BorderRadius.circular(15),
+    ),
+    child: InkWell(
+      child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                icon,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Text(left),
+                ),
+              ],
+            ),
+            navigatable ? const Icon(Icons.arrow_right) : Text(right)
+          ],
+        ),
+      ),
+      onTap: () {
+        if (navigatable) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const Notifications()),
+          );
+        }
+      },
+    ),
+  );
+}
+
+Widget notifToggleItem(String title, models.NotificationsModel model) {
+  return Container(
+    margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+    padding: const EdgeInsets.all(15),
+    decoration: BoxDecoration(
+      border: Border.all(color: globals.borderColor),
+      borderRadius: BorderRadius.circular(15),
+    ),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(title),
+        Switch(
+          value: model.enabled,
+          onChanged: (value) {
+            model.enabled = value;
+          },
+          activeTrackColor: Colors.lightGreenAccent,
+          activeColor: Colors.green,
+        )
+      ],
+    ),
+  );
 }

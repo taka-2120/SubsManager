@@ -25,3 +25,14 @@ class SubsAddModel with ChangeNotifier {
 
   DateTime get date => _date;
 }
+
+class NotificationsModel with ChangeNotifier {
+  bool _enabled = false;
+
+  set enabled(newValue) {
+    _enabled = newValue;
+    notifyListeners();
+  }
+
+  bool get enabled => _enabled;
+}

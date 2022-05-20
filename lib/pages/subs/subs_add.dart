@@ -33,7 +33,7 @@ class _SubsAddState extends State<SubsAddSheet> {
   TextEditingController nameCtl = TextEditingController();
   TextEditingController feeCtl = TextEditingController();
   TextEditingController urlCtl = TextEditingController();
-  func.Functions _func = func.Functions();
+  final func.Functions _func = func.Functions();
   //Period List
   final List<String> periodItems = ["Monthly", "Semi-Annually", "Annually"];
   String? selectedPeriod;

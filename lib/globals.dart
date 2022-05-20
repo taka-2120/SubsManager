@@ -9,7 +9,7 @@ const List<Widget> pageLists = [Subs(), Settings()];
 const String stream = "Stream";
 const String subs = "Subscriptions";
 const String settings = "Settings";
-const String title = "Money Stream";
+const String title = "SubsManager";
 const Color themeColor = Color.fromARGB(255, 50, 201, 189);
 const Color borderColor = Color.fromARGB(255, 160, 160, 160);
 
