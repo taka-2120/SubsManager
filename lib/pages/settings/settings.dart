@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:subsmanager/common.dart';
+import 'package:subsmanager/model.dart';
 import '../../globals.dart' as globals;
 import 'notifications.dart';
 

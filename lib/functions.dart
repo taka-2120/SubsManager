@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'globals.dart';
 import 'package:intl/intl.dart';
-import 'dart:io';
 
 class Functions {
   String feeAndPeriod(BuildContext context, double fee, int period) {
@@ -11,8 +11,6 @@ class Functions {
   }
 
   String roundedFeeToString(double fee, BuildContext context) {
-    final localeStr = Platform.localeName;
-
     if (localeStr.contains("JP") == true || localeStr.contains("ja") == true) {
       final value = NumberFormat("#,##0", localeStr);
       return "¥${value.format(fee)}";
@@ -40,6 +38,26 @@ class Functions {
         break;
     }
     return periodStr;
+  }
+
+  int periodToInt(String period) {
+    int periodIndex = 0;
+
+    switch (period) {
+      case "Monthly":
+        periodIndex = 1;
+        break;
+      case "Semi-Annually":
+        periodIndex = 1;
+        break;
+      case "Annually":
+        periodIndex = 2;
+        break;
+      default:
+        periodIndex = 0;
+        break;
+    }
+    return periodIndex;
   }
 
   String dateToString(DateTime date, BuildContext context) {

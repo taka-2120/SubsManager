@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:subsmanager/pages/settings/notifications.dart';
 import '../../globals.dart' as globals;
-import 'models.dart' as models;
+import 'notifier.dart' as models;
 
 Widget sheetHeader(String title, BuildContext context) {
   return Padding(

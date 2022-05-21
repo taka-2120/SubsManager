@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:subsmanager/common.dart';
+import 'package:subsmanager/model.dart';
 import '../../globals.dart' as globals;
-import '../../models.dart' as models;
+import '../../notifier.dart' as models;
 
 class Notifications extends StatelessWidget {
   const Notifications({Key? key}) : super(key: key);

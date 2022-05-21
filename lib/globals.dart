@@ -2,16 +2,18 @@ library subsmanager.globals;
 
 import 'package:flutter/material.dart';
 import 'package:subsmanager/pages/settings/settings.dart';
-import 'package:subsmanager/pages/stream/stream.dart';
+// import 'package:subsmanager/pages/stream/stream.dart';
 import 'package:subsmanager/pages/subs/subs.dart';
+import 'dart:io';
 
-const List<Widget> pageLists = [Subs(), Settings()];
+const List<Widget> pageLists = [SubsMain(), Settings()]; //ADD STREAM
 const String stream = "Stream";
 const String subs = "Subscriptions";
 const String settings = "Settings";
 const String title = "SubsManager";
 const Color themeColor = Color.fromARGB(255, 50, 201, 189);
 const Color borderColor = Color.fromARGB(255, 160, 160, 160);
+final localeStr = Platform.localeName;
 
 const MaterialColor customSwatch = MaterialColor(0xFF36DCCF, <int, Color>{
   50: Color(0xFFE7FBF9),
