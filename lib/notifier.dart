@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SubDate extends StateNotifier<DateTime> {
@@ -17,15 +16,12 @@ class SubPeriod extends StateNotifier<String> {
   }
 }
 
-class NotificationsModel with ChangeNotifier {
-  bool _enabled = false;
+class NotifEnabled extends StateNotifier<bool> {
+  NotifEnabled(initial) : super(initial ?? false);
 
-  set enabled(newValue) {
-    _enabled = newValue;
-    notifyListeners();
+  void update(bool value) {
+    state = value;
   }
-
-  bool get enabled => _enabled;
 }
 
 class TabIndex extends StateNotifier<int> {

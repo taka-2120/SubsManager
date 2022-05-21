@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'globals.dart' as globals;
-import 'notifier.dart';
-
-final tabIndexProvider =
-    StateNotifierProvider<TabIndex, int>((ref) => TabIndex(0));
+import 'globals.dart';
 
 void main() {
   runApp(

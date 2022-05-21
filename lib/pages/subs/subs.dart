@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:subsmanager/pages/subs/subs_add.dart';
-import 'package:subsmanager/pages/subs/subs_list.dart';
+import '/pages/subs/subs_add.dart';
+import '/pages/subs/subs_list.dart';
+import '../../globals.dart';
 import '../../model.dart';
 import '../../globals.dart' as globals;
 import '../../functions.dart';
-import '../settings/notifications.dart';
-
-final subsListProvider = StateNotifierProvider<SubsList, List<Subs>>((ref) {
-  return SubsList();
-});
 
 class SubsMain extends StatelessWidget {
   const SubsMain({Key? key}) : super(key: key);

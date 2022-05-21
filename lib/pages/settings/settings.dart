@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:subsmanager/model.dart';
+import '../../model.dart';
 import '../../globals.dart' as globals;
+import 'credits.dart';
 import 'notifications.dart';
 
 class Settings extends StatelessWidget {
@@ -29,7 +30,7 @@ class Settings extends StatelessWidget {
                               destination: const Notifications()),
                           settingsItem(context, const Icon(Icons.note),
                               "Credits", "", true,
-                              destination: const Notifications()),
+                              destination: const Credits()),
                           settingsItem(context, const Icon(Icons.info),
                               "Version", "1.0.0", false),
                         ],

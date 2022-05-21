@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'globals.dart';
 import 'package:intl/intl.dart';
+import 'globals.dart';
 
 class Functions {
   String feeAndPeriod(BuildContext context, double fee, int period) {

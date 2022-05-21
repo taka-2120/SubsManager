@@ -1,10 +1,13 @@
 library subsmanager.globals;
 
+// import '/pages/stream/stream.dart';
 import 'package:flutter/material.dart';
-import 'package:subsmanager/pages/settings/settings.dart';
-// import 'package:subsmanager/pages/stream/stream.dart';
-import 'package:subsmanager/pages/subs/subs.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'dart:io';
+import '/notifier.dart';
+import '/pages/settings/settings.dart';
+import '/pages/subs/subs.dart';
+import '/pages/subs/subs_list.dart';
 
 const List<Widget> pageLists = [SubsMain(), Settings()]; //ADD STREAM
 const String stream = "Stream";
@@ -27,3 +30,15 @@ const MaterialColor customSwatch = MaterialColor(0xFF36DCCF, <int, Color>{
   800: Color(0xFF22CEBD),
   900: Color(0xFF16C5B2),
 });
+
+//Providers
+final notifEnabledProvider =
+    StateNotifierProvider<NotifEnabled, bool>((ref) => NotifEnabled(false));
+final tabIndexProvider =
+    StateNotifierProvider<TabIndex, int>((ref) => TabIndex(0));
+final subsListProvider =
+    StateNotifierProvider<SubsList, List<Subs>>((ref) => SubsList());
+final subDateProvider =
+    StateNotifierProvider<SubDate, DateTime>((ref) => SubDate());
+final subPeriodProvider =
+    StateNotifierProvider<SubPeriod, String>((ref) => SubPeriod());

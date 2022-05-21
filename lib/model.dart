@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:subsmanager/pages/settings/notifications.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../globals.dart' as globals;
-import 'notifier.dart' as models;
+import 'globals.dart';
 
 Widget sheetHeader(String title, BuildContext context) {
   return Padding(
@@ -133,7 +133,9 @@ Widget settingsItem(BuildContext context, Icon icon, String left, String right,
   );
 }
 
-Widget notifToggleItem(String title, models.NotificationsModel model) {
+Widget notifToggleItem(String title, WidgetRef ref) {
+  final notifEnabled = ref.watch(notifEnabledProvider);
+
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
     padding: const EdgeInsets.all(15),
@@ -146,10 +148,8 @@ Widget notifToggleItem(String title, models.NotificationsModel model) {
       children: [
         Text(title),
         Switch(
-          value: model.enabled,
-          onChanged: (value) {
-            model.enabled = value;
-          },
+          value: notifEnabled,
+          onChanged: ref.read(notifEnabledProvider.notifier).update,
           activeTrackColor: Colors.lightGreenAccent,
           activeColor: Colors.green,
         )

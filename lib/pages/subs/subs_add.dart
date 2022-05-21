@@ -2,15 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:dropdown_button2/custom_dropdown_button2.dart';
+import '../../globals.dart';
 import '../../model.dart' as common;
-import '../../globals.dart' as globals;
-import '../../functions.dart' as func;
-import '../../notifier.dart';
-
-final subDateProvider =
-    StateNotifierProvider<SubDate, DateTime>((ref) => SubDate());
-final subPeriodProvider =
-    StateNotifierProvider<SubPeriod, String>((ref) => SubPeriod());
+import '../../functions.dart';
 
 class SubAdd extends StatelessWidget {
   const SubAdd({Key? key}) : super(key: key);
@@ -21,14 +15,13 @@ class SubAdd extends StatelessWidget {
   }
 }
 
-@immutable
 class SubAddSheet extends ConsumerWidget {
   SubAddSheet({Key? key}) : super(key: key);
 
   TextEditingController nameCtl = TextEditingController();
   TextEditingController feeCtl = TextEditingController();
   TextEditingController urlCtl = TextEditingController();
-  final func.Functions _func = func.Functions();
+  final Functions _func = Functions();
   //Period List
   final List<String> periodItems = ["Monthly", "Semi-Annually", "Annually"];
   String? selectedPeriod;
@@ -36,7 +29,7 @@ class SubAddSheet extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final subDate = ref.watch(subDateProvider);
-    final SubPeriod = ref.watch(subPeriodProvider);
+    final subPeriod = ref.watch(subPeriodProvider);
 
     return Scaffold(
       body: Padding(
@@ -66,8 +59,7 @@ class SubAddSheet extends ConsumerWidget {
                                 context: context,
                                 initialDate: subDate,
                                 borderRadius: 20,
-                                theme: ThemeData(
-                                    primarySwatch: globals.customSwatch),
+                                theme: ThemeData(primarySwatch: customSwatch),
                               ) ??
                               DateTime.now(),
                         );
@@ -82,7 +74,7 @@ class SubAddSheet extends ConsumerWidget {
                 const Text("Billing Period: ", style: TextStyle(fontSize: 18)),
                 CustomDropdownButton2(
                   hint: "Select...",
-                  value: SubPeriod,
+                  value: subPeriod,
                   dropdownItems: periodItems,
                   onChanged: (value) =>
                       ref.read(subPeriodProvider.notifier).update(value!),
