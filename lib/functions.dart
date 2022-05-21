@@ -3,10 +3,17 @@ import 'package:intl/intl.dart';
 import 'dart:io';
 
 class Functions {
+  String feeAndPeriod(BuildContext context, double fee, int period) {
+    String feeStr = roundedFeeToString(fee, context);
+    String periodStr = periodToString(period);
+
+    return "$feeStr / $periodStr";
+  }
+
   String roundedFeeToString(double fee, BuildContext context) {
     final localeStr = Platform.localeName;
 
-    if (localeStr.contains("JP") == true) {
+    if (localeStr.contains("JP") == true || localeStr.contains("ja") == true) {
       final value = NumberFormat("#,##0", localeStr);
       return "¥${value.format(fee)}";
     } else {

@@ -125,7 +125,7 @@ Widget settingsItem(BuildContext context, Icon icon, String left, String right,
         if (navigatable) {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const Notifications()),
+            MaterialPageRoute(builder: (context) => destination!),
           );
         }
       },

@@ -40,56 +40,62 @@ class _SubsAddState extends State<SubsAddSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<models.SubsAddModel>(builder: ((context, model, child) {
-      return Padding(
-        padding: const EdgeInsets.all(15),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            common.sheetHeader("Add", context),
-            common.textFieldSet(context, "Name", false, nameCtl),
-            common.textFieldSet(context, "Fee", true, feeCtl),
-            common.textFieldSet(context, "URL", false, urlCtl),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text("Next Billing Date: ",
-                    style: TextStyle(fontSize: 18)),
-                MaterialButton(
-                  child: Text(_func.dateToString(model.date, context),
-                      style: const TextStyle(fontSize: 16)),
-                  onPressed: () async {
-                    model.date = await showRoundedDatePicker(
+    return Consumer<models.SubsAddModel>(
+      builder: ((context, model, child) {
+        return Padding(
+          padding: const EdgeInsets.all(15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              common.sheetHeader("Add", context),
+              common.textFieldSet(context, "Name", false, nameCtl),
+              common.textFieldSet(context, "Fee", true, feeCtl),
+              common.textFieldSet(context, "URL", false, urlCtl),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text("Next Billing Date: ",
+                      style: TextStyle(fontSize: 18)),
+                  MaterialButton(
+                    child: Text(_func.dateToString(model.date, context),
+                        style: const TextStyle(fontSize: 16)),
+                    onPressed: () async {
+                      model.date = await showRoundedDatePicker(
                             context: context,
                             initialDate: model.date,
                             borderRadius: 20,
-                            theme: ThemeData(
-                                primarySwatch: globals.customSwatch)) ??
-                        DateTime.now();
-                  },
-                ),
-              ],
-            ),
-            common.defaultDivider(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text("Billing Period: ", style: TextStyle(fontSize: 18)),
-                CustomDropdownButton2(
-                  hint: "Select...",
-                  value: selectedPeriod,
-                  dropdownItems: periodItems,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedPeriod = value;
-                    });
-                  },
-                )
-              ],
-            )
-          ],
-        ),
-      );
-    }));
+                            theme:
+                                ThemeData(primarySwatch: globals.customSwatch),
+                          ) ??
+                          DateTime.now();
+                    },
+                  ),
+                ],
+              ),
+              common.defaultDivider(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text("Billing Period: ",
+                      style: TextStyle(fontSize: 18)),
+                  CustomDropdownButton2(
+                    hint: "Select...",
+                    value: selectedPeriod,
+                    dropdownItems: periodItems,
+                    onChanged: (value) {
+                      setState(
+                        () {
+                          selectedPeriod = value;
+                        },
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      }),
+    );
   }
 }

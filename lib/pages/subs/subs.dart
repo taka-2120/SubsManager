@@ -5,7 +5,7 @@ import 'package:subsmanager/pages/subs/subs_add.dart';
 import 'package:subsmanager/pages/subs/subs_list.dart';
 import '../../common.dart';
 import '../../globals.dart' as globals;
-import '../../functions.dart' as func;
+import '../../functions.dart';
 import '../settings/notifications.dart';
 
 class Subs extends StatelessWidget {
@@ -61,11 +61,14 @@ class _SubsState extends State<SubsPage> {
               bounce: true,
               expand: true,
             );
-            subsList.add(SubsList(
+            subsList.add(
+              SubsList(
                 name: "Apple One",
                 fee: 1100.toDouble(),
                 period: 0,
-                date: DateTime.now()));
+                date: DateTime.now(),
+              ),
+            );
           },
           foregroundColor: globals.customSwatch,
           backgroundColor: Colors.white,
@@ -82,7 +85,7 @@ class _SubsState extends State<SubsPage> {
 
 Widget _subsItem(
     String name, double fee, int period, DateTime date, BuildContext context) {
-  func.Functions _func = func.Functions();
+  Functions func = Functions();
 
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
@@ -107,11 +110,11 @@ Widget _subsItem(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "${_func.roundedFeeToString(fee, context)} / ${_func.periodToString(period)}",
+              func.feeAndPeriod(context, fee, period),
               style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
             ),
             Text(
-              "Next: ${_func.dateToString(date, context)}",
+              "Next: ${func.dateToString(date, context)}",
               style: const TextStyle(
                   color: globals.borderColor,
                   fontWeight: FontWeight.w700,
