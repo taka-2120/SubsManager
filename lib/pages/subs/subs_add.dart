@@ -17,6 +17,7 @@ class SubAdd extends StatelessWidget {
 
 class SubAddSheet extends ConsumerWidget {
   SubAddSheet({Key? key}) : super(key: key);
+  Functions func = Functions();
 
   TextEditingController nameCtl = TextEditingController();
   TextEditingController feeCtl = TextEditingController();
@@ -37,7 +38,18 @@ class SubAddSheet extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            common.sheetHeader("Add", context),
+            common.sheetHeader(
+                "Add",
+                context,
+                () => Navigator.pop(context),
+                () => func.addSub(
+                    context,
+                    ref,
+                    nameCtl.text,
+                    func.feeToDouble(feeCtl.text),
+                    func.periodToInt(selectedPeriod ?? "Monthly"),
+                    subDate,
+                    Uri.parse(urlCtl.text))),
             common.textFieldSet(context, "Name", false, nameCtl),
             common.textFieldSet(context, "Fee", true, feeCtl),
             common.textFieldSet(context, "URL", false, urlCtl),
@@ -77,7 +89,7 @@ class SubAddSheet extends ConsumerWidget {
                   value: subPeriod,
                   dropdownItems: periodItems,
                   onChanged: (value) =>
-                      ref.read(subPeriodProvider.notifier).update(value!),
+                      ref.read(subPeriodProvider.notifier).update(value),
                 ),
               ],
             ),

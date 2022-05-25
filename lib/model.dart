@@ -3,16 +3,17 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../globals.dart' as globals;
 import 'globals.dart';
 
-Widget sheetHeader(String title, BuildContext context) {
+Widget sheetHeader(String title, BuildContext context, VoidCallback funcLeft,
+    VoidCallback funcRight) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 20),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        circleButton(context, const Icon(Icons.close)),
+        circleButton(context, const Icon(Icons.close), funcLeft),
         Text(title,
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
-        circleButton(context, const Icon(Icons.check)),
+        circleButton(context, const Icon(Icons.check), funcRight),
       ],
     ),
   );
@@ -45,11 +46,9 @@ Widget pageTitle(BuildContext context, String title, bool back, bool backIcon) {
   );
 }
 
-Widget circleButton(BuildContext context, Icon icon) {
+Widget circleButton(BuildContext context, Icon icon, VoidCallback func) {
   return GestureDetector(
-    onTap: () {
-      Navigator.pop(context);
-    },
+    onTap: () => func(),
     child: CircleAvatar(
       radius: 20,
       backgroundColor: const Color.fromARGB(255, 238, 238, 238),

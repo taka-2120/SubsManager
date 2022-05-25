@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:subsmanager/pages/subs/subs_list.dart';
 import 'globals.dart';
 
 class Functions {
@@ -64,5 +66,17 @@ class Functions {
     String locale = Localizations.localeOf(context).languageCode;
     String ymd = DateFormat.yMMMd(locale).format(date);
     return ymd;
+  }
+
+  void addSub(BuildContext context, WidgetRef ref, String name, double fee,
+      int period, DateTime date, Uri url) {
+    final item =
+        Subs(name: name, fee: fee, period: period, date: date, url: url);
+    ref.read(subsListProvider.notifier).add(item);
+    Navigator.pop(context);
+  }
+
+  double feeToDouble(String fee) {
+    return double.parse(fee);
   }
 }

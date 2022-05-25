@@ -51,14 +51,6 @@ class SubsPage extends ConsumerWidget {
             bounce: true,
             expand: true,
           );
-          ref.read(subsListProvider.notifier).add(
-                Subs(
-                  name: "Apple One",
-                  fee: 1100.toDouble(),
-                  period: 0,
-                  date: DateTime.now(),
-                ),
-              );
         },
         foregroundColor: globals.customSwatch,
         backgroundColor: Colors.white,

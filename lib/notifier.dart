@@ -8,11 +8,11 @@ class SubDate extends StateNotifier<DateTime> {
   }
 }
 
-class SubPeriod extends StateNotifier<String> {
-  SubPeriod() : super("");
+class SubPeriod extends StateNotifier<String?> {
+  SubPeriod() : super(null);
 
-  void update(String value) {
-    state = value;
+  void update(String? value) {
+    state = value!;
   }
 }
 

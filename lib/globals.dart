@@ -41,4 +41,4 @@ final subsListProvider =
 final subDateProvider =
     StateNotifierProvider<SubDate, DateTime>((ref) => SubDate());
 final subPeriodProvider =
-    StateNotifierProvider<SubPeriod, String>((ref) => SubPeriod());
+    StateNotifierProvider<SubPeriod, String?>((ref) => SubPeriod());

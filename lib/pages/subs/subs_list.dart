@@ -8,14 +8,14 @@ class Subs {
     required this.fee,
     required this.period,
     required this.date,
-    // required this.url,
+    required this.url,
   });
 
   final String name;
   final double fee;
   final int period; //0: Monthly, 1: semi-annually, 2: annually
   final DateTime date;
-  // final String url;
+  final Uri url;
 }
 
 class SubsList extends StateNotifier<List<Subs>> {
