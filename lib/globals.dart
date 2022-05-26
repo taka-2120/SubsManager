@@ -1,6 +1,3 @@
-library subsmanager.globals;
-
-// import '/pages/stream/stream.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'dart:io';
