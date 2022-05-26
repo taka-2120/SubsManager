@@ -36,62 +36,77 @@ class SubAddSheet extends ConsumerWidget {
       body: Padding(
         padding: const EdgeInsets.all(15),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             common.sheetHeader(
-                "Add",
+              "Add",
+              context,
+              () => Navigator.pop(context),
+              () => func.addSub(
                 context,
-                () => Navigator.pop(context),
-                () => func.addSub(
-                    context,
-                    ref,
-                    nameCtl.text,
-                    func.feeToDouble(feeCtl.text),
-                    func.periodToInt(selectedPeriod ?? "Monthly"),
-                    subDate,
-                    Uri.parse(urlCtl.text))),
-            common.textFieldSet(context, "Name", false, nameCtl),
-            common.textFieldSet(context, "Fee", true, feeCtl),
-            common.textFieldSet(context, "URL", false, urlCtl),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  "Next Billing Date: ",
-                  style: TextStyle(fontSize: 18),
-                ),
-                MaterialButton(
-                  child: Text(
-                    _func.dateToString(subDate, context),
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                  onPressed: () async {
-                    ref.read(subDateProvider.notifier).update(
-                          await showRoundedDatePicker(
-                                context: context,
-                                initialDate: subDate,
-                                borderRadius: 20,
-                                theme: ThemeData(primarySwatch: customSwatch),
-                              ) ??
-                              DateTime.now(),
-                        );
-                  },
-                ),
-              ],
+                ref,
+                nameCtl.text,
+                func.feeToDouble(feeCtl.text),
+                func.periodToInt(selectedPeriod ?? "Monthly"),
+                subDate,
+                Uri.parse(urlCtl.text),
+              ),
             ),
-            common.defaultDivider(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text("Billing Period: ", style: TextStyle(fontSize: 18)),
-                CustomDropdownButton2(
-                  hint: "Select...",
-                  value: subPeriod,
-                  dropdownItems: periodItems,
-                  onChanged: (value) =>
-                      ref.read(subPeriodProvider.notifier).update(value),
+            Expanded(
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: Column(
+                  children: [
+                    common.textFieldSet(context, "Name", false, nameCtl, true),
+                    common.textFieldSet(context, "Fee", true, feeCtl, false),
+                    common.textFieldSet(context, "URL", false, urlCtl, false),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Next Billing Date: ",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        MaterialButton(
+                          child: Text(
+                            _func.dateToString(subDate, context),
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                          onPressed: () async {
+                            ref.read(subDateProvider.notifier).update(
+                                  await showRoundedDatePicker(
+                                        context: context,
+                                        initialDate: subDate,
+                                        borderRadius: 20,
+                                        theme: ThemeData(
+                                            primarySwatch: customSwatch),
+                                      ) ??
+                                      DateTime.now(),
+                                );
+                          },
+                        ),
+                      ],
+                    ),
+                    common.defaultDivider(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text("Billing Period: ",
+                            style: TextStyle(fontSize: 18)),
+                        CustomDropdownButton2(
+                          hint: "Select...",
+                          value: subPeriod,
+                          dropdownItems: periodItems,
+                          onChanged: (value) => ref
+                              .read(subPeriodProvider.notifier)
+                              .update(value),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ],
         ),

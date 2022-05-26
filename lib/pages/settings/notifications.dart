@@ -20,7 +20,7 @@ class NotificationsPage extends ConsumerWidget {
       body: SafeArea(
         child: Column(
           children: [
-            pageTitle(context, "Notifications", true, true),
+            pageTitle(context, "Notifications", true),
             Expanded(
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),

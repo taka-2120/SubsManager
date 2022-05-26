@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '/pages/subs/subs_add.dart';
-import '/pages/subs/subs_list.dart';
 import '../../globals.dart';
 import '../../model.dart';
 import '../../globals.dart' as globals;
@@ -30,7 +29,7 @@ class SubsPage extends ConsumerWidget {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            pageTitle(context, globals.subs, false, true),
+            pageTitle(context, globals.subs, false),
             Expanded(
               child: ListView.builder(
                 itemBuilder: (BuildContext context, int index) {
@@ -77,6 +76,7 @@ Widget _subsItem(
         borderRadius: BorderRadius.circular(15)),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -87,12 +87,15 @@ Widget _subsItem(
             ),
           ],
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
               func.feeAndPeriod(context, fee, period),
               style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
+            ),
+            const SizedBox(
+              height: 8,
             ),
             Text(
               "Next: ${func.dateToString(date, context)}",

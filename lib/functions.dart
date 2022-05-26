@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:subsmanager/pages/subs/subs_list.dart';
+import 'package:favicon/favicon.dart' as fav;
+import 'pages/subs/subs_list.dart';
 import 'globals.dart';
 
 class Functions {
@@ -9,7 +10,7 @@ class Functions {
     String feeStr = roundedFeeToString(fee, context);
     String periodStr = periodToString(period);
 
-    return "$feeStr / $periodStr";
+    return "$feeStr/$periodStr";
   }
 
   String roundedFeeToString(double fee, BuildContext context) {
@@ -64,7 +65,7 @@ class Functions {
 
   String dateToString(DateTime date, BuildContext context) {
     String locale = Localizations.localeOf(context).languageCode;
-    String ymd = DateFormat.yMMMd(locale).format(date);
+    String ymd = DateFormat.yMd(locale).format(date);
     return ymd;
   }
 
@@ -78,5 +79,10 @@ class Functions {
 
   double feeToDouble(String fee) {
     return double.parse(fee);
+  }
+
+  Future<fav.Icon?> getFavicon(String url) {
+    var icon = fav.Favicon.getBest(url);
+    return icon;
   }
 }

@@ -13,7 +13,7 @@ class Settings extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            pageTitle(context, globals.settings, false, false),
+            pageTitle(context, globals.settings, false),
             Expanded(
               child: LayoutBuilder(
                 builder: (context, constraints) {

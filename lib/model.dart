@@ -19,9 +19,9 @@ Widget sheetHeader(String title, BuildContext context, VoidCallback funcLeft,
   );
 }
 
-Widget pageTitle(BuildContext context, String title, bool back, bool backIcon) {
+Widget pageTitle(BuildContext context, String title, bool back) {
   return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 15),
+    padding: const EdgeInsets.only(top: 8, bottom: 15, left: 15, right: 15),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -34,7 +34,7 @@ Widget pageTitle(BuildContext context, String title, bool back, bool backIcon) {
                   radius: 20,
                   backgroundColor: Colors.transparent,
                   foregroundColor: globals.customSwatch,
-                  child: Icon(Icons.arrow_back_ios),
+                  child: Icon(Icons.arrow_back_ios_new_rounded),
                 ),
               )
             : const SizedBox(width: 20, height: 20),
@@ -58,7 +58,7 @@ Widget circleButton(BuildContext context, Icon icon, VoidCallback func) {
 }
 
 Widget textFieldSet(BuildContext context, String title, bool num,
-    TextEditingController controller) {
+    TextEditingController controller, bool url) {
   return Column(children: [
     Padding(
       padding: const EdgeInsets.only(bottom: 15),
@@ -76,7 +76,9 @@ Widget textFieldSet(BuildContext context, String title, bool num,
       ),
       child: TextField(
         controller: controller,
-        keyboardType: num ? TextInputType.number : TextInputType.text,
+        keyboardType: num
+            ? TextInputType.number
+            : (url ? TextInputType.text : TextInputType.url),
         decoration: InputDecoration(
           border: InputBorder.none,
           hintText: title,
@@ -137,7 +139,7 @@ Widget notifToggleItem(String title, WidgetRef ref) {
 
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
-    padding: const EdgeInsets.all(15),
+    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
     decoration: BoxDecoration(
       border: Border.all(color: globals.borderColor),
       borderRadius: BorderRadius.circular(15),
@@ -146,7 +148,7 @@ Widget notifToggleItem(String title, WidgetRef ref) {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(title),
-        Switch(
+        Switch.adaptive(
           value: notifEnabled,
           onChanged: ref.read(notifEnabledProvider.notifier).update,
           activeTrackColor: Colors.lightGreenAccent,
