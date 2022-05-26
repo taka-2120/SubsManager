@@ -48,7 +48,7 @@ class SubAddSheet extends ConsumerWidget {
                 ref,
                 nameCtl.text,
                 func.feeToDouble(feeCtl.text),
-                func.periodToInt(selectedPeriod ?? "Monthly"),
+                func.periodToInt(selectedPeriod),
                 subDate,
                 Uri.parse(urlCtl.text),
               ),

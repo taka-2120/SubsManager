@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:favicon/favicon.dart' as fav;
+import 'dialog.dart';
 import 'pages/subs/subs_list.dart';
 import 'globals.dart';
 
@@ -43,22 +44,23 @@ class Functions {
     return periodStr;
   }
 
-  int periodToInt(String period) {
+  int periodToInt(String? period) {
     int periodIndex = 0;
 
-    switch (period) {
-      case "Monthly":
-        periodIndex = 1;
-        break;
-      case "Semi-Annually":
-        periodIndex = 1;
-        break;
-      case "Annually":
-        periodIndex = 2;
-        break;
-      default:
-        periodIndex = 0;
-        break;
+    if (period == null) {
+      periodIndex = 99;
+    } else {
+      switch (period) {
+        case "Monthly":
+          periodIndex = 0;
+          break;
+        case "Semi-Annually":
+          periodIndex = 1;
+          break;
+        case "Annually":
+          periodIndex = 2;
+          break;
+      }
     }
     return periodIndex;
   }
@@ -71,13 +73,30 @@ class Functions {
 
   void addSub(BuildContext context, WidgetRef ref, String name, double fee,
       int period, DateTime date, Uri url) {
-    final item =
-        Subs(name: name, fee: fee, period: period, date: date, url: url);
-    ref.read(subsListProvider.notifier).add(item);
-    Navigator.pop(context);
+    if (name == "" || fee == -99.9 || period == 99) {
+      showDialog(
+        barrierColor: Colors.black26,
+        context: context,
+        builder: (context) {
+          return const CustomAlertDialog(
+            title: "Error",
+            description: "Please fill name, fee, and period correctly.",
+            ok: true,
+          );
+        },
+      );
+    } else {
+      final item =
+          Subs(name: name, fee: fee, period: period, date: date, url: url);
+      ref.read(subsListProvider.notifier).add(item);
+      Navigator.pop(context);
+    }
   }
 
   double feeToDouble(String fee) {
+    if (fee == "") {
+      fee = "-99.9";
+    }
     return double.parse(fee);
   }
 

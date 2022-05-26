@@ -13,7 +13,7 @@ class Subs {
 
   final String name;
   final double fee;
-  final int period; //0: Monthly, 1: semi-annually, 2: annually
+  final int period; //0: Monthly, 1: Semi-Annually, 2: Annually
   final DateTime date;
   final Uri url;
 }
