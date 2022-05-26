@@ -25,7 +25,6 @@ class SubAddSheet extends ConsumerWidget {
   final Functions _func = Functions();
   //Period List
   final List<String> periodItems = ["Monthly", "Semi-Annually", "Annually"];
-  String? selectedPeriod;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -48,7 +47,7 @@ class SubAddSheet extends ConsumerWidget {
                 ref,
                 nameCtl.text,
                 func.feeToDouble(feeCtl.text),
-                func.periodToInt(selectedPeriod),
+                func.periodToInt(subPeriod),
                 subDate,
                 Uri.parse(urlCtl.text),
               ),
