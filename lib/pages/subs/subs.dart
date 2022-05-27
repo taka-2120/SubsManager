@@ -23,6 +23,7 @@ class SubsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final subsList = ref.watch(subsListProvider);
+    Functions func = Functions();
 
     return Scaffold(
       body: SafeArea(
@@ -31,11 +32,77 @@ class SubsPage extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             pageTitle(context, globals.subs, false),
+            Padding(
+              padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
+              child: Container(
+                height: 95,
+                padding: const EdgeInsets.all(18),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color.fromARGB(255, 22, 174, 169)
+                          .withOpacity(0.3),
+                      spreadRadius: 3,
+                      blurRadius: 10,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                  gradient: LinearGradient(
+                    begin: FractionalOffset.topLeft,
+                    end: FractionalOffset.bottomRight,
+                    colors: [
+                      const Color(0xff1cd8d2).withOpacity(0.6),
+                      const Color(0xff93edc7).withOpacity(0.6),
+                    ],
+                    stops: const [0.0, 1.0],
+                  ),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Monthly",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        Text(
+                          func.roundedFeeToString(
+                              func.subSum(true, subsList), context),
+                          style: const TextStyle(fontSize: 18),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Annually",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        Text(
+                          func.roundedFeeToString(
+                              func.subSum(false, subsList), context),
+                          style: const TextStyle(fontSize: 18),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
             Expanded(
               child: ListView.builder(
                 itemBuilder: (BuildContext context, int index) {
-                  return _subsItem(subsList[index].name, subsList[index].fee,
-                      subsList[index].period, subsList[index].date, context);
+                  return _subsItem(
+                    subsList[index].name,
+                    subsList[index].fee,
+                    subsList[index].period,
+                    subsList[index].date,
+                    context,
+                  );
                 },
                 itemCount: subsList.length,
               ),
@@ -72,8 +139,9 @@ Widget _subsItem(
     padding: const EdgeInsets.all(18),
     height: 130,
     decoration: BoxDecoration(
-        border: Border.all(color: globals.borderColor, width: 1),
-        borderRadius: BorderRadius.circular(15)),
+      border: Border.all(color: globals.borderColor, width: 1),
+      borderRadius: BorderRadius.circular(15),
+    ),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -85,6 +153,13 @@ Widget _subsItem(
               name,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
             ),
+            GestureDetector(
+              onTap: () => print("Show Edit Dialog"),
+              child: const CircleAvatar(
+                backgroundColor: Colors.transparent,
+                child: Icon(Icons.more_horiz_rounded),
+              ),
+            )
           ],
         ),
         Column(

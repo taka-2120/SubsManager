@@ -4,12 +4,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'globals.dart';
 import 'theme.dart';
 
-//Subscription Summary      2
-//Favicon                   8
+//Subscription Summary      1
+//Sort                      2
+//Notification              3
+//Remove Sub                4
 //Tap Animation             5
-//Notification              6
-//Remove Sub                7
-//Sort                      3
+//Favicon                   6
 
 void main() {
   runApp(
@@ -55,10 +55,6 @@ class BasePage extends ConsumerWidget {
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.fork_right),
-          //   label: 'Stream',
-          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_balance_wallet),
             label: 'Subscriptions',

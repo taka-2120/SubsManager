@@ -104,4 +104,32 @@ class Functions {
     var icon = fav.Favicon.getBest(url);
     return icon;
   }
+
+  double subSum(bool monthly, List<Subs> list) {
+    double sum = 0.0;
+    if (monthly) {
+      for (var i = 0; i < list.length; i++) {
+        int period = list[i].period;
+        if (period == 0) {
+          sum += list[i].fee;
+        } else {
+          //EXCEPTION
+        }
+      }
+    } else {
+      for (var i = 0; i < list.length; i++) {
+        int period = list[i].period;
+        if (period == 0) {
+          sum += list[i].fee * 12;
+        } else if (period == 1) {
+          sum += list[i].fee * 2;
+        } else if (period == 2) {
+          sum += list[i].fee;
+        } else {
+          //EXCEPTION
+        }
+      }
+    }
+    return sum;
+  }
 }
