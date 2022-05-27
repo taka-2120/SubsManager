@@ -6,6 +6,7 @@ import '../../globals.dart';
 import '../../model.dart';
 import '../../globals.dart' as globals;
 import '../../functions.dart';
+import '../../theme.dart';
 
 class SubsMain extends StatelessWidget {
   const SubsMain({Key? key}) : super(key: key);
@@ -51,8 +52,7 @@ class SubsPage extends ConsumerWidget {
             expand: true,
           );
         },
-        foregroundColor: globals.customSwatch,
-        backgroundColor: Colors.white,
+        foregroundColor: customSwatch,
         tooltip: 'Add a Subscription',
         child: const Icon(
           Icons.add,

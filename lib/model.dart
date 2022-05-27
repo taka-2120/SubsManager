@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../globals.dart' as globals;
 import 'globals.dart';
+import 'theme.dart';
 
 Widget sheetHeader(String title, BuildContext context, VoidCallback funcLeft,
     VoidCallback funcRight) {
@@ -33,7 +34,7 @@ Widget pageTitle(BuildContext context, String title, bool back) {
                 child: const CircleAvatar(
                   radius: 20,
                   backgroundColor: Colors.transparent,
-                  foregroundColor: globals.customSwatch,
+                  foregroundColor: customSwatch,
                   child: Icon(Icons.arrow_back_ios_new_rounded),
                 ),
               )
@@ -51,7 +52,7 @@ Widget circleButton(BuildContext context, Icon icon, VoidCallback func) {
     onTap: () => func(),
     child: CircleAvatar(
       radius: 20,
-      backgroundColor: const Color.fromARGB(255, 238, 238, 238),
+      backgroundColor: entryBackground,
       child: icon,
     ),
   );
@@ -71,7 +72,7 @@ Widget textFieldSet(BuildContext context, String title, bool num,
     ),
     Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).dividerColor.withOpacity(0.1),
+        color: entryBackground,
         borderRadius: BorderRadius.circular(10),
       ),
       child: TextField(
@@ -91,7 +92,10 @@ Widget textFieldSet(BuildContext context, String title, bool num,
 }
 
 Widget defaultDivider() {
-  return const Divider(height: 40, thickness: 1);
+  return const Padding(
+    padding: EdgeInsets.symmetric(horizontal: 8),
+    child: Divider(height: 40, thickness: 1),
+  );
 }
 
 Widget settingsItem(BuildContext context, Icon icon, String left, String right,

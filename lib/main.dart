@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'globals.dart' as globals;
 import 'globals.dart';
+import 'theme.dart';
+
+//Subscription Summary      2
+//Favicon                   8
+//Tap Animation             5
+//Notification              6
+//Remove Sub                7
+//Sort                      3
 
 void main() {
   runApp(
@@ -13,16 +20,13 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: globals.title,
-      theme: ThemeData(
-        primarySwatch: globals.customSwatch,
-      ),
-      darkTheme: ThemeData.dark(),
+      title: title,
+      theme: lightTheme,
+      darkTheme: darkTheme,
       themeMode: ThemeMode.system,
       home: const BasePage(),
       localizationsDelegates: const [
@@ -47,7 +51,7 @@ class BasePage extends ConsumerWidget {
     return Scaffold(
       body: IndexedStack(
         index: tabIndex,
-        children: globals.pageLists,
+        children: pageLists,
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -65,7 +69,7 @@ class BasePage extends ConsumerWidget {
           ),
         ],
         currentIndex: tabIndex,
-        selectedItemColor: globals.themeColor,
+        selectedItemColor: primaryColor,
         onTap: ref.read(tabIndexProvider.notifier).update,
       ),
     );
