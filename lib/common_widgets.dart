@@ -20,7 +20,8 @@ Widget sheetHeader(String title, BuildContext context, VoidCallback funcLeft,
   );
 }
 
-Widget pageTitle(BuildContext context, String title, bool back) {
+Widget pageTitle(BuildContext context, String title, bool back, bool leftButton,
+    VoidCallback? leftFunc, Icon? leftIcon) {
   return Padding(
     padding: const EdgeInsets.only(top: 8, bottom: 15, left: 15, right: 15),
     child: Row(
@@ -38,7 +39,17 @@ Widget pageTitle(BuildContext context, String title, bool back) {
                   child: Icon(Icons.arrow_back_ios_new_rounded),
                 ),
               )
-            : const SizedBox(width: 20, height: 20),
+            : (leftButton
+                ? GestureDetector(
+                    onTap: leftFunc,
+                    child: CircleAvatar(
+                      radius: 20,
+                      backgroundColor: Colors.transparent,
+                      foregroundColor: customSwatch,
+                      child: leftIcon,
+                    ),
+                  )
+                : const SizedBox(width: 20, height: 20)),
         Text(title,
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22)),
         const SizedBox(width: 20, height: 20),
@@ -96,70 +107,5 @@ Widget defaultDivider() {
   return const Padding(
     padding: EdgeInsets.symmetric(horizontal: 8),
     child: Divider(height: 40, thickness: 1),
-  );
-}
-
-Widget settingsItem(BuildContext context, Icon icon, String left, String right,
-    bool navigatable,
-    {StatelessWidget? destination}) {
-  return Container(
-    margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
-    decoration: BoxDecoration(
-      border: Border.all(color: globals.borderColor),
-      borderRadius: BorderRadius.circular(15),
-    ),
-    child: InkWell(
-      child: Padding(
-        padding: const EdgeInsets.all(15),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                icon,
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Text(left),
-                ),
-              ],
-            ),
-            navigatable ? const Icon(Icons.arrow_right) : Text(right)
-          ],
-        ),
-      ),
-      onTap: () {
-        if (navigatable) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => destination!),
-          );
-        }
-      },
-    ),
-  );
-}
-
-Widget notifToggleItem(String title, WidgetRef ref) {
-  final notifEnabled = ref.watch(notifEnabledProvider);
-
-  return Container(
-    margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
-    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-    decoration: BoxDecoration(
-      border: Border.all(color: globals.borderColor),
-      borderRadius: BorderRadius.circular(15),
-    ),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(title),
-        Switch.adaptive(
-          value: notifEnabled,
-          onChanged: ref.read(notifEnabledProvider.notifier).update,
-          activeTrackColor: Colors.lightGreenAccent,
-          activeColor: Colors.green,
-        )
-      ],
-    ),
   );
 }

@@ -3,10 +3,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '/pages/subs/subs_add.dart';
 import '../../globals.dart';
-import '../../model.dart';
+import '../../common_widgets.dart';
 import '../../globals.dart' as globals;
-import '../../functions.dart';
+import '../../models.dart';
 import '../../theme.dart';
+import 'subs_widgets.dart';
 
 class SubsMain extends StatelessWidget {
   const SubsMain({Key? key}) : super(key: key);
@@ -31,7 +32,8 @@ class SubsPage extends ConsumerWidget {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            pageTitle(context, globals.subs, false),
+            pageTitle(context, globals.subs, false, true, () => sort(),
+                const Icon(Icons.double_arrow_rounded)),
             Padding(
               padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
               child: Container(
@@ -41,21 +43,21 @@ class SubsPage extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(15),
                   boxShadow: [
                     BoxShadow(
-                      color: const Color.fromARGB(255, 22, 174, 169)
-                          .withOpacity(0.3),
+                      color: const Color.fromARGB(255, 20, 179, 173)
+                          .withOpacity(0.4),
                       spreadRadius: 3,
                       blurRadius: 10,
                       offset: const Offset(0, 3),
                     ),
                   ],
-                  gradient: LinearGradient(
+                  gradient: const LinearGradient(
                     begin: FractionalOffset.topLeft,
                     end: FractionalOffset.bottomRight,
                     colors: [
-                      const Color(0xff1cd8d2).withOpacity(0.6),
-                      const Color(0xff93edc7).withOpacity(0.6),
+                      Color.fromARGB(255, 28, 216, 209),
+                      Color(0xff93edc7),
                     ],
-                    stops: const [0.0, 1.0],
+                    stops: [0.0, 1.0],
                   ),
                 ),
                 child: Column(
@@ -66,12 +68,13 @@ class SubsPage extends ConsumerWidget {
                       children: [
                         const Text(
                           "Monthly",
-                          style: TextStyle(fontSize: 18),
+                          style: TextStyle(fontSize: 18, color: Colors.black),
                         ),
                         Text(
                           func.roundedFeeToString(
                               func.subSum(true, subsList), context),
-                          style: const TextStyle(fontSize: 18),
+                          style: const TextStyle(
+                              fontSize: 18, color: Colors.black),
                         ),
                       ],
                     ),
@@ -80,12 +83,13 @@ class SubsPage extends ConsumerWidget {
                       children: [
                         const Text(
                           "Annually",
-                          style: TextStyle(fontSize: 18),
+                          style: TextStyle(fontSize: 18, color: Colors.black),
                         ),
                         Text(
                           func.roundedFeeToString(
                               func.subSum(false, subsList), context),
-                          style: const TextStyle(fontSize: 18),
+                          style: const TextStyle(
+                              fontSize: 18, color: Colors.black),
                         ),
                       ],
                     )
@@ -96,7 +100,7 @@ class SubsPage extends ConsumerWidget {
             Expanded(
               child: ListView.builder(
                 itemBuilder: (BuildContext context, int index) {
-                  return _subsItem(
+                  return subsItem(
                     subsList[index].name,
                     subsList[index].fee,
                     subsList[index].period,
@@ -123,65 +127,9 @@ class SubsPage extends ConsumerWidget {
         tooltip: 'Add a Subscription',
         child: const Icon(
           Icons.add,
-          size: 30,
+          size: 25,
         ),
       ),
     );
   }
-}
-
-Widget _subsItem(
-    String name, double fee, int period, DateTime date, BuildContext context) {
-  Functions func = Functions();
-
-  return Container(
-    margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
-    padding: const EdgeInsets.all(18),
-    height: 130,
-    decoration: BoxDecoration(
-      border: Border.all(color: globals.borderColor, width: 1),
-      borderRadius: BorderRadius.circular(15),
-    ),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              name,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-            ),
-            GestureDetector(
-              onTap: () => print("Show Edit Dialog"),
-              child: const CircleAvatar(
-                backgroundColor: Colors.transparent,
-                child: Icon(Icons.more_horiz_rounded),
-              ),
-            )
-          ],
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Text(
-              func.feeAndPeriod(context, fee, period),
-              style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            Text(
-              "Next: ${func.dateToString(date, context)}",
-              style: const TextStyle(
-                  color: globals.borderColor,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 18),
-            ),
-          ],
-        ),
-      ],
-    ),
-  );
 }

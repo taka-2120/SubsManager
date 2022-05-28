@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../model.dart';
+import '../../common_widgets.dart';
 import '../../globals.dart' as globals;
 import 'credits.dart';
 import 'notifications.dart';
+import 'settings_widgets.dart';
 
 class Settings extends StatelessWidget {
   const Settings({Key? key}) : super(key: key);
@@ -13,7 +14,7 @@ class Settings extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            pageTitle(context, globals.settings, false),
+            pageTitle(context, globals.settings, false, false, null, null),
             Expanded(
               child: LayoutBuilder(
                 builder: (context, constraints) {

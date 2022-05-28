@@ -3,8 +3,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:dropdown_button2/custom_dropdown_button2.dart';
 import '../../globals.dart';
-import '../../model.dart' as common;
-import '../../functions.dart';
+import '../../common_widgets.dart' as common;
+import '../../models.dart';
 import '../../theme.dart';
 
 class SubAdd extends StatelessWidget {

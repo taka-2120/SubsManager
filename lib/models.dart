@@ -133,3 +133,5 @@ class Functions {
     return sum;
   }
 }
+
+void sort() {}

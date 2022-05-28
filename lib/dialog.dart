@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:subsmanager/model.dart';
+import 'package:subsmanager/common_widgets.dart';
 
 class CustomAlertDialog extends StatefulWidget {
   const CustomAlertDialog(
@@ -43,7 +43,9 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 15, left: 15, right: 15),
-              child: Text(widget.description),
+              child: Center(
+                child: Text(widget.description),
+              ),
             ),
             const Divider(
               height: 1,

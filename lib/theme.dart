@@ -5,7 +5,7 @@ final darkTheme = ThemeData(
   primarySwatch: customSwatch,
   primaryColor: primaryColor,
   brightness: Brightness.dark,
-  backgroundColor: const Color.fromARGB(255, 20, 20, 20),
+  backgroundColor: const Color.fromARGB(255, 31, 31, 31),
   dividerColor: const Color.fromARGB(255, 99, 99, 99),
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
     backgroundColor: Color.fromARGB(255, 42, 42, 42),
@@ -18,7 +18,7 @@ final lightTheme = ThemeData(
   primarySwatch: customSwatch,
   primaryColor: primaryColor,
   brightness: Brightness.light,
-  backgroundColor: const Color(0xFFE5E5E5),
+  backgroundColor: const Color.fromARGB(255, 245, 245, 245),
   dividerColor: const Color.fromARGB(255, 185, 185, 185),
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
     backgroundColor: Color.fromARGB(255, 250, 250, 250),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../model.dart';
+import '../../common_widgets.dart';
 import '../../globals.dart';
 
 class Credits extends StatelessWidget {
@@ -11,7 +11,7 @@ class Credits extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            pageTitle(context, credits, true),
+            pageTitle(context, credits, true, false, null, null),
             Expanded(
               child: LayoutBuilder(
                 builder: (context, constraints) {

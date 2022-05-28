@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../model.dart';
+import '../../common_widgets.dart';
+import 'settings_widgets.dart';
 
 class Notifications extends StatelessWidget {
   const Notifications({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class NotificationsPage extends ConsumerWidget {
       body: SafeArea(
         child: Column(
           children: [
-            pageTitle(context, "Notifications", true),
+            pageTitle(context, "Notifications", true, false, null, null),
             Expanded(
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),

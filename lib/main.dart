@@ -4,12 +4,11 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'globals.dart';
 import 'theme.dart';
 
-//Subscription Summary      1
-//Sort                      2
-//Notification              3
-//Remove Sub                4
-//Tap Animation             5
-//Favicon                   6
+//Sort                      1
+//Notification              2
+//Remove Sub                3
+//Tap Animation             4
+//Favicon                   5
 
 void main() {
   runApp(
