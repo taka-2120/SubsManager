@@ -8,20 +8,23 @@ import 'globals.dart';
 
 class Functions {
   String feeAndPeriod(BuildContext context, double fee, int period) {
-    String feeStr = roundedFeeToString(fee, context);
+    String feeStr = feeToString(context, fee, true);
     String periodStr = periodToString(period);
 
     return "$feeStr/$periodStr";
   }
 
-  String roundedFeeToString(double fee, BuildContext context) {
+  String feeToString(BuildContext context, double fee, bool format) {
+    String currencyStr;
+    NumberFormat value;
     if (localeStr.contains("JP") == true || localeStr.contains("ja") == true) {
-      final value = NumberFormat("#,##0", localeStr);
-      return "¥${value.format(fee)}";
+      value = NumberFormat(format ? "#,##0" : "###0", localeStr);
+      currencyStr = format ? "¥" : "";
     } else {
-      final value = NumberFormat("#,##0.00", localeStr);
-      return "\$${value.format(fee)}";
+      value = NumberFormat(format ? "#,##0.00" : "###0.00", localeStr);
+      currencyStr = format ? "\$" : "";
     }
+    return currencyStr + value.format(fee);
   }
 
   String periodToString(int period) {
@@ -92,6 +95,8 @@ class Functions {
       Navigator.pop(context);
     }
   }
+
+  void updateSub() {}
 
   double feeToDouble(String fee) {
     if (fee == "") {

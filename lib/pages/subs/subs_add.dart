@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
-import 'package:dropdown_button2/custom_dropdown_button2.dart';
 import '../../globals.dart';
 import '../../common_widgets.dart' as common;
 import '../../models.dart';
-import '../../theme.dart';
+import 'subs_widgets.dart';
 
 class SubAdd extends StatelessWidget {
   const SubAdd({Key? key}) : super(key: key);
@@ -23,9 +21,6 @@ class SubAddSheet extends ConsumerWidget {
   TextEditingController nameCtl = TextEditingController();
   TextEditingController feeCtl = TextEditingController();
   TextEditingController urlCtl = TextEditingController();
-  final Functions _func = Functions();
-  //Period List
-  final List<String> periodItems = ["Monthly", "Semi-Annually", "Annually"];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -58,52 +53,8 @@ class SubAddSheet extends ConsumerWidget {
                 physics: const AlwaysScrollableScrollPhysics(),
                 child: Column(
                   children: [
-                    common.textFieldSet(context, "Name", false, nameCtl, true),
-                    common.textFieldSet(context, "Fee", true, feeCtl, false),
-                    common.textFieldSet(context, "URL", false, urlCtl, false),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          "Next Billing Date: ",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        MaterialButton(
-                          child: Text(
-                            _func.dateToString(subDate, context),
-                            style: const TextStyle(fontSize: 16),
-                          ),
-                          onPressed: () async {
-                            ref.read(subDateProvider.notifier).update(
-                                  await showRoundedDatePicker(
-                                        context: context,
-                                        initialDate: subDate,
-                                        borderRadius: 20,
-                                        theme: ThemeData(
-                                            primarySwatch: customSwatch),
-                                      ) ??
-                                      DateTime.now(),
-                                );
-                          },
-                        ),
-                      ],
-                    ),
-                    common.defaultDivider(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text("Billing Period: ",
-                            style: TextStyle(fontSize: 18)),
-                        CustomDropdownButton2(
-                          hint: "Select...",
-                          value: subPeriod,
-                          dropdownItems: periodItems,
-                          onChanged: (value) => ref
-                              .read(subPeriodProvider.notifier)
-                              .update(value),
-                        ),
-                      ],
-                    ),
+                    subsInfo(context, ref, nameCtl, feeCtl, urlCtl, subDate,
+                        subPeriod),
                   ],
                 ),
               ),

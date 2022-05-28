@@ -1,5 +1,21 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+class TabIndex extends StateNotifier<int> {
+  TabIndex(initial) : super(initial ?? 0);
+
+  void update(int index) {
+    state = index;
+  }
+}
+
+class NotifEnabled extends StateNotifier<bool> {
+  NotifEnabled(initial) : super(initial ?? false);
+
+  void update(bool value) {
+    state = value;
+  }
+}
+
 class SubDate extends StateNotifier<DateTime> {
   SubDate() : super(DateTime.now());
 
@@ -13,21 +29,5 @@ class SubPeriod extends StateNotifier<String?> {
 
   void update(String? value) {
     state = value!;
-  }
-}
-
-class NotifEnabled extends StateNotifier<bool> {
-  NotifEnabled(initial) : super(initial ?? false);
-
-  void update(bool value) {
-    state = value;
-  }
-}
-
-class TabIndex extends StateNotifier<int> {
-  TabIndex(initial) : super(initial ?? 0);
-
-  void update(int index) {
-    state = index;
   }
 }

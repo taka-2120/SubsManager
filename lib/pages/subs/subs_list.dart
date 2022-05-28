@@ -24,4 +24,13 @@ class SubsList extends StateNotifier<List<Subs>> {
   void add(Subs item) {
     state = [...state, item];
   }
+
+  void removeAt(int index) {
+    state = [
+      for (var i = 0; i < state.length; i++)
+        if (i != index) state[i],
+    ];
+  }
+
+  void update(int index, Subs item) {}
 }

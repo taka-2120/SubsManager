@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../globals.dart' as globals;
-import 'globals.dart';
 import 'theme.dart';
 
 Widget sheetHeader(String title, BuildContext context, VoidCallback funcLeft,
@@ -12,16 +10,18 @@ Widget sheetHeader(String title, BuildContext context, VoidCallback funcLeft,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         circleButton(context, const Icon(Icons.close), funcLeft),
-        Text(title,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+        Text(
+          title,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+        ),
         circleButton(context, const Icon(Icons.check), funcRight),
       ],
     ),
   );
 }
 
-Widget pageTitle(BuildContext context, String title, bool back, bool leftButton,
-    VoidCallback? leftFunc, Icon? leftIcon) {
+Widget pageTitle(BuildContext context, String title, bool back,
+    bool rightButton, VoidCallback? rightFunc, Icon? rightIcon) {
   return Padding(
     padding: const EdgeInsets.only(top: 8, bottom: 15, left: 15, right: 15),
     child: Row(
@@ -39,20 +39,14 @@ Widget pageTitle(BuildContext context, String title, bool back, bool leftButton,
                   child: Icon(Icons.arrow_back_ios_new_rounded),
                 ),
               )
-            : (leftButton
-                ? GestureDetector(
-                    onTap: leftFunc,
-                    child: CircleAvatar(
-                      radius: 20,
-                      backgroundColor: Colors.transparent,
-                      foregroundColor: customSwatch,
-                      child: leftIcon,
-                    ),
-                  )
-                : const SizedBox(width: 20, height: 20)),
-        Text(title,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22)),
-        const SizedBox(width: 20, height: 20),
+            : const SizedBox(width: 20, height: 20),
+        Text(
+          title,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+        ),
+        rightButton
+            ? circleButton(context, rightIcon!, rightFunc!)
+            : const SizedBox(width: 20, height: 20),
       ],
     ),
   );
@@ -78,7 +72,10 @@ Widget textFieldSet(BuildContext context, String title, bool num,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(fontSize: 18)),
+          Text(
+            title,
+            style: const TextStyle(fontSize: 18),
+          ),
         ],
       ),
     ),

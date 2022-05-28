@@ -4,9 +4,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'globals.dart';
 import 'theme.dart';
 
-//Sort                      1
-//Notification              2
-//Remove Sub                3
+//Edit                      1
+//Sort                      2
+//Notification              3
 //Tap Animation             4
 //Favicon                   5
 

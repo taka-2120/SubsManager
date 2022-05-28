@@ -12,6 +12,7 @@ const String subs = "Subscriptions";
 const String settings = "Settings";
 const String credits = "Credits";
 const String title = "SubsManager";
+const List<String> periodItems = ["Monthly", "Semi-Annually", "Annually"];
 const Color primaryColor = Color.fromARGB(255, 50, 201, 189);
 const Color borderColor = Color.fromARGB(255, 160, 160, 160);
 final localeStr = Platform.localeName;

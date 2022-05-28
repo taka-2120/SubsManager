@@ -33,7 +33,7 @@ class SubsPage extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             pageTitle(context, globals.subs, false, true, () => sort(),
-                const Icon(Icons.double_arrow_rounded)),
+                const Icon(Icons.swap_vert_rounded)),
             Padding(
               padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
               child: Container(
@@ -71,8 +71,8 @@ class SubsPage extends ConsumerWidget {
                           style: TextStyle(fontSize: 18, color: Colors.black),
                         ),
                         Text(
-                          func.roundedFeeToString(
-                              func.subSum(true, subsList), context),
+                          func.feeToString(
+                              context, func.subSum(true, subsList), true),
                           style: const TextStyle(
                               fontSize: 18, color: Colors.black),
                         ),
@@ -86,8 +86,8 @@ class SubsPage extends ConsumerWidget {
                           style: TextStyle(fontSize: 18, color: Colors.black),
                         ),
                         Text(
-                          func.roundedFeeToString(
-                              func.subSum(false, subsList), context),
+                          func.feeToString(
+                              context, func.subSum(false, subsList), true),
                           style: const TextStyle(
                               fontSize: 18, color: Colors.black),
                         ),
@@ -101,11 +101,9 @@ class SubsPage extends ConsumerWidget {
               child: ListView.builder(
                 itemBuilder: (BuildContext context, int index) {
                   return subsItem(
-                    subsList[index].name,
-                    subsList[index].fee,
-                    subsList[index].period,
-                    subsList[index].date,
                     context,
+                    index,
+                    subsList[index],
                   );
                 },
                 itemCount: subsList.length,
