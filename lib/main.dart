@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'globals.dart';
+import 'presentation/hooks/pages.dart';
 import 'presentation/notifiers/teb_index.dart';
 import 'theme.dart';
 

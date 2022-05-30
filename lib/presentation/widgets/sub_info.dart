@@ -4,9 +4,9 @@ import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/presentation/notifiers/sub_value.dart';
 
-import '../../globals.dart';
 import '../../models.dart';
 import '../../theme.dart';
+import '../hooks/period.dart';
 import '../widgets/default_divider.dart';
 import 'textfield_set.dart';
 

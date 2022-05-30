@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
+import '../../hooks/pages.dart';
 import '../../widgets/page_title.dart';
 import '../../widgets/subs_item.dart';
 import 'subs_add.dart';
-import '../../../globals.dart';
 import '../../../models.dart';
 import '../../../theme.dart';
 import 'subs_list.dart';

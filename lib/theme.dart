@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'globals.dart';
+
+final Color entryBackground = Colors.grey.withOpacity(0.2);
+const Color primaryColor = Color.fromARGB(255, 50, 201, 189);
+const Color borderColor = Color.fromARGB(255, 160, 160, 160);
 
 final darkTheme = ThemeData(
   primarySwatch: customSwatch,
@@ -39,5 +42,3 @@ const MaterialColor customSwatch = MaterialColor(0xFF36DCCF, <int, Color>{
   800: Color(0xFF22CEBD),
   900: Color(0xFF16C5B2),
 });
-
-final Color entryBackground = Colors.grey.withOpacity(0.2);

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-import '../../globals.dart';
 import '../../models.dart';
+import '../../theme.dart';
 import '../pages/subs/subs_edit.dart';
 import '../pages/subs/subs_list.dart';
 

@@ -6,7 +6,7 @@ import 'circle_button.dart';
 Widget pageTitle(BuildContext context, String title, bool back,
     bool rightButton, VoidCallback? rightFunc, Icon? rightIcon) {
   return Padding(
-    padding: const EdgeInsets.only(top: 8, bottom: 15, left: 15, right: 15),
+    padding: const EdgeInsets.only(top: 8, bottom: 8, left: 15, right: 15),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -22,14 +22,14 @@ Widget pageTitle(BuildContext context, String title, bool back,
                   child: Icon(Icons.arrow_back_ios_new_rounded),
                 ),
               )
-            : const SizedBox(width: 20, height: 20),
+            : const SizedBox(width: 40, height: 40),
         Text(
           title,
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
         ),
         rightButton
             ? circleButton(context, rightIcon!, rightFunc!)
-            : const SizedBox(width: 20, height: 20),
+            : const SizedBox(width: 40, height: 40),
       ],
     ),
   );

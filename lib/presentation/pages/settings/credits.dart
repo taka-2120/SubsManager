@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../globals.dart';
+import '../../hooks/pages.dart';
 import '../../widgets/page_title.dart';
 
 class Credits extends StatelessWidget {

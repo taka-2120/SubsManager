@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../../globals.dart';
+import '../../hooks/pages.dart';
 import '../../widgets/page_title.dart';
+import '../../widgets/settings_item.dart';
 import 'credits.dart';
 import 'notifications.dart';
-import 'settings_widgets.dart';
 
 class Settings extends StatelessWidget {
   const Settings({Key? key}) : super(key: key);

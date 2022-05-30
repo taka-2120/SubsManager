@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../globals.dart';
 import '../../theme.dart';
 
 Widget circleButton(BuildContext context, Icon icon, VoidCallback func) {

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+// ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
 import 'package:favicon/favicon.dart' as fav;
-import 'dialog.dart';
+import 'presentation/dialogs/alert.dart';
+import 'presentation/hooks/locale.dart';
 import 'presentation/pages/subs/subs_list.dart';
-import 'globals.dart';
 
 class Functions {
   String feeAndPeriod(BuildContext context, double fee, int period) {

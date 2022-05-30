@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../widgets/page_title.dart';
-import 'settings_widgets.dart';
+import '../../widgets/toggle_item.dart';
 
 class Notifications extends StatelessWidget {
   const Notifications({Key? key}) : super(key: key);

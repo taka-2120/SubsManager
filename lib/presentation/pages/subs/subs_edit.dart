@@ -4,7 +4,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/presentation/notifiers/sub_value.dart';
 
 import '../../widgets/sheet_header.dart';
-import '../../../globals.dart';
 import '../../../models.dart';
 import '../../../theme.dart';
 import '../../widgets/sub_info.dart';
