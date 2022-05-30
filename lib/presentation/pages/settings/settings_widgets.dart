@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../globals.dart';
+import '../../../globals.dart';
+import '../../notifiers/notif_enabled.dart';
 
 Widget settingsItem(BuildContext context, Icon icon, String left, String right,
     bool navigatable,
@@ -44,6 +45,7 @@ Widget settingsItem(BuildContext context, Icon icon, String left, String right,
 
 Widget notifToggleItem(String title, WidgetRef ref) {
   final notifEnabled = ref.watch(notifEnabledProvider);
+  final readNotifEnabled = ref.read(notifEnabledProvider.notifier);
 
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
@@ -58,7 +60,7 @@ Widget notifToggleItem(String title, WidgetRef ref) {
         Text(title),
         Switch.adaptive(
           value: notifEnabled,
-          onChanged: ref.read(notifEnabledProvider.notifier).update,
+          onChanged: readNotifEnabled.update,
           activeTrackColor: Colors.lightGreenAccent,
           activeColor: Colors.green,
         )

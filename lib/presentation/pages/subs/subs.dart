@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import '/pages/subs/subs_add.dart';
-import '../../globals.dart';
-import '../../common_widgets.dart';
-import '../../globals.dart' as globals;
-import '../../models.dart';
-import '../../theme.dart';
-import 'subs_widgets.dart';
+
+import '../../widgets/page_title.dart';
+import '../../widgets/subs_item.dart';
+import 'subs_add.dart';
+import '../../../globals.dart';
+import '../../../models.dart';
+import '../../../theme.dart';
+import 'subs_list.dart';
 
 class SubsMain extends StatelessWidget {
   const SubsMain({Key? key}) : super(key: key);
@@ -32,7 +33,7 @@ class SubsPage extends ConsumerWidget {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            pageTitle(context, globals.subs, false, true, () => sort(),
+            pageTitle(context, subs, false, true, () => sort(),
                 const Icon(Icons.swap_vert_rounded)),
             Padding(
               padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),

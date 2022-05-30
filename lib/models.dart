@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:favicon/favicon.dart' as fav;
 import 'dialog.dart';
-import 'pages/subs/subs_list.dart';
+import 'presentation/pages/subs/subs_list.dart';
 import 'globals.dart';
 
 class Functions {
@@ -39,9 +39,6 @@ class Functions {
         break;
       case 2:
         periodStr = "Annually";
-        break;
-      default:
-        periodStr = "Monthly";
         break;
     }
     return periodStr;

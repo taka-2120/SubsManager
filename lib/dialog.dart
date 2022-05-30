@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:subsmanager/common_widgets.dart';
 
 class CustomAlertDialog extends StatefulWidget {
   const CustomAlertDialog(

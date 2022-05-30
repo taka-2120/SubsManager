@@ -1,15 +1,10 @@
-import 'package:dropdown_button2/custom_dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:subsmanager/pages/subs/subs_edit.dart';
 
-import '../../common_widgets.dart';
 import '../../globals.dart';
 import '../../models.dart';
-import '../../theme.dart';
-import 'subs_list.dart';
+import '../pages/subs/subs_edit.dart';
+import '../pages/subs/subs_list.dart';
 
 Widget subsItem(BuildContext context, int index, Subs item) {
   Functions func = Functions();
@@ -79,64 +74,5 @@ Widget subsItem(BuildContext context, int index, Subs item) {
         ),
       ],
     ),
-  );
-}
-
-Widget subsInfo(
-  BuildContext context,
-  WidgetRef ref,
-  TextEditingController nameCtl,
-  TextEditingController feeCtl,
-  TextEditingController urlCtl,
-  DateTime subDate,
-  String? subPeriod,
-) {
-  final Functions func = Functions();
-  return Column(
-    children: [
-      textFieldSet(context, "Name", false, nameCtl, true),
-      textFieldSet(context, "Fee", true, feeCtl, false),
-      textFieldSet(context, "URL", false, urlCtl, false),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text(
-            "Next Billing Date: ",
-            style: TextStyle(fontSize: 18),
-          ),
-          MaterialButton(
-            child: Text(
-              func.dateToString(subDate, context),
-              style: const TextStyle(fontSize: 16),
-            ),
-            onPressed: () async {
-              ref.read(subDateProvider.notifier).update(
-                    await showRoundedDatePicker(
-                          context: context,
-                          initialDate: subDate,
-                          borderRadius: 20,
-                          theme: ThemeData(primarySwatch: customSwatch),
-                        ) ??
-                        DateTime.now(),
-                  );
-            },
-          ),
-        ],
-      ),
-      defaultDivider(),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text("Billing Period: ", style: TextStyle(fontSize: 18)),
-          CustomDropdownButton2(
-            hint: "Select...",
-            value: subPeriod,
-            dropdownItems: periodItems, //ADD -> null
-            onChanged: (value) =>
-                ref.read(subPeriodProvider.notifier).update(value),
-          ),
-        ],
-      ),
-    ],
   );
 }

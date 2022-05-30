@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../common_widgets.dart';
-import '../../globals.dart';
+import '../../../globals.dart';
+import '../../widgets/page_title.dart';
 
 class Credits extends StatelessWidget {
   const Credits({Key? key}) : super(key: key);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../common_widgets.dart';
+import '../../widgets/page_title.dart';
 import 'settings_widgets.dart';
 
 class Notifications extends StatelessWidget {

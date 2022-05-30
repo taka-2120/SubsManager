@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:subsmanager/pages/subs/subs_widgets.dart';
+import 'package:subsmanager/presentation/notifiers/sub_value.dart';
 
-import '../../common_widgets.dart';
-import '../../globals.dart';
-import '../../models.dart';
-import '../../theme.dart';
+import '../../widgets/sheet_header.dart';
+import '../../../globals.dart';
+import '../../../models.dart';
+import '../../../theme.dart';
+import '../../widgets/sub_info.dart';
 import 'subs_list.dart';
 
 class SubEdit extends StatelessWidget {
@@ -27,19 +28,17 @@ class SubEditSheet extends HookConsumerWidget {
   final Subs selectedItem;
 
   final Functions func = Functions();
-  final TextEditingController nameCtl = TextEditingController();
-  final TextEditingController feeCtl = TextEditingController();
-  final TextEditingController urlCtl = TextEditingController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final subDate = ref.watch(subDateProvider);
-    final subPeriod = ref.watch(subPeriodProvider);
+    final subValue = ref.watch(subValueProvider);
+    final readSubValue = ref.read(subValueProvider.notifier);
 
     useEffect(() {
-      nameCtl.text = selectedItem.name;
-      feeCtl.text = func.feeToString(context, selectedItem.fee, false);
-      urlCtl.text = selectedItem.url.toString();
+      readSubValue.updateName(selectedItem.name);
+      readSubValue
+          .updateFee(func.feeToString(context, selectedItem.fee, false));
+      readSubValue.updateUrl(selectedItem.url.toString());
       return;
     }, const []);
 
@@ -61,8 +60,8 @@ class SubEditSheet extends HookConsumerWidget {
                 physics: const AlwaysScrollableScrollPhysics(),
                 child: Column(
                   children: [
-                    subsInfo(context, ref, nameCtl, feeCtl, urlCtl, subDate,
-                        subPeriod),
+                    subsInfo(context, ref, subValue.name, subValue.fee,
+                        subValue.url, subValue.date, subValue.period),
                     Container(
                       margin: const EdgeInsets.only(top: 30),
                       decoration: BoxDecoration(
