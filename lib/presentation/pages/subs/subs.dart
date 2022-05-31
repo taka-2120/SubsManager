@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:subsmanager/presentation/notifiers/sub_value.dart';
 
+import '../../../models/value_convert.dart';
 import '../../hooks/pages.dart';
 import '../../widgets/page_title.dart';
 import '../../widgets/subs_item.dart';
 import 'subs_add.dart';
-import '../../../models.dart';
 import '../../../theme.dart';
 import 'subs_list.dart';
 
@@ -25,15 +26,17 @@ class SubsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final subsList = ref.watch(subsListProvider);
-    Functions func = Functions();
+    final readSubsList = ref.read(subsListProvider.notifier);
+    Convert func = Convert();
 
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            pageTitle(context, subs, false, true, () => sort(),
+            pageTitle(context, subs, false, true, () => readSubsList.sort(),
                 const Icon(Icons.swap_vert_rounded)),
             Padding(
               padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
@@ -72,8 +75,8 @@ class SubsPage extends ConsumerWidget {
                           style: TextStyle(fontSize: 18, color: Colors.black),
                         ),
                         Text(
-                          func.feeToString(
-                              context, func.subSum(true, subsList), true),
+                          func.feeToString(context,
+                              readSubsList.subSum(true, subsList), true),
                           style: const TextStyle(
                               fontSize: 18, color: Colors.black),
                         ),
@@ -87,8 +90,8 @@ class SubsPage extends ConsumerWidget {
                           style: TextStyle(fontSize: 18, color: Colors.black),
                         ),
                         Text(
-                          func.feeToString(
-                              context, func.subSum(false, subsList), true),
+                          func.feeToString(context,
+                              readSubsList.subSum(false, subsList), true),
                           style: const TextStyle(
                               fontSize: 18, color: Colors.black),
                         ),
@@ -115,6 +118,7 @@ class SubsPage extends ConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          ref.read(subValueProvider.notifier).initialize();
           showBarModalBottomSheet(
             context: context,
             builder: (context) => const SubAdd(),

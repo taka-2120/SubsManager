@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'presentation/hooks/pages.dart';
 import 'presentation/notifiers/teb_index.dart';
 import 'theme.dart';
 
-//Edit                      1
-//Sort                      2
-//Notification              3
-//Tap Animation             4
-//Favicon                   5
+//Sort                      1
+//Notification              2
+//Tap Animation             3
+//Favicon                   4
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+    ),
+  );
   runApp(
     const ProviderScope(child: MyApp()),
   );
@@ -49,6 +54,7 @@ class BasePage extends ConsumerWidget {
     final tabIndex = ref.watch(tabIndexProvider);
 
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       body: IndexedStack(
         index: tabIndex,
         children: pageLists,

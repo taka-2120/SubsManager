@@ -36,13 +36,13 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_hooks: ^0.18.4
   hooks_riverpod: ^1.0.4
-  provider: ^6.0.2
   modal_bottom_sheet: ^2.0.1
   flutter_rounded_date_picker: ^2.0.2
   flutter_localizations:
     sdk: flutter
   dropdown_button2: ^1.5.1
-  favicon: ^1.0.15
+  freezed: ^2.0.3
+  freezed_annotation: ^2.0.3
 
 dev_dependencies:
   flutter_test:
@@ -55,6 +55,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
   flutter_launcher_icons: ^0.9.2
+  build_runner: ^2.1.11
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

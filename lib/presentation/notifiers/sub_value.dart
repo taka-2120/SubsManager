@@ -1,53 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final subValueProvider = StateNotifierProvider<SubValueNotifier, SubValue>(
-  (ref) => SubValueNotifier(
-    SubValue(
-      period: null,
-      date: DateTime.now(),
-      name: TextEditingController(),
-      fee: TextEditingController(),
-      url: TextEditingController(),
-    ),
-  ),
+import '../../models/sub_value/sub_value.state.dart';
+
+final subValueProvider = StateNotifierProvider<SubValueNotifier, SubValueState>(
+  (ref) => SubValueNotifier(),
 );
 
-class SubValue {
-  SubValue({
-    required this.period,
-    required this.date,
-    required this.name,
-    required this.fee,
-    required this.url,
-  });
-
-  String? period;
-  DateTime date;
-  TextEditingController name;
-  TextEditingController fee;
-  TextEditingController url;
-}
-
-class SubValueNotifier extends StateNotifier<SubValue> {
-  SubValueNotifier(initial)
+class SubValueNotifier extends StateNotifier<SubValueState> {
+  SubValueNotifier()
       : super(
-          initial ??
-              SubValue(
-                period: null,
-                date: DateTime.now(),
-                name: TextEditingController(),
-                fee: TextEditingController(),
-                url: TextEditingController(),
-              ),
+          SubValueState(
+            date: DateTime.now(),
+            name: TextEditingController(),
+            fee: TextEditingController(),
+            url: TextEditingController(),
+          ),
         );
 
   void updatePeriod(String? value) {
-    state.period = value!;
+    state = state.copyWith(period: value);
   }
 
   void updateDate(DateTime value) {
-    state.date = value;
+    state = state.copyWith(date: value);
   }
 
   void updateName(String value) {
@@ -60,5 +36,15 @@ class SubValueNotifier extends StateNotifier<SubValue> {
 
   void updateUrl(String value) {
     state.url.text = value;
+  }
+
+  void initialize() {
+    state = state.copyWith(
+      period: null,
+      date: DateTime.now(),
+      name: TextEditingController(),
+      fee: TextEditingController(),
+      url: TextEditingController(),
+    );
   }
 }

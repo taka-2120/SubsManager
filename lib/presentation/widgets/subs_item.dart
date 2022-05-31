@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:subsmanager/models/value_convert.dart';
 
-import '../../models.dart';
 import '../../theme.dart';
 import '../pages/subs/subs_edit.dart';
 import '../pages/subs/subs_list.dart';
 
 Widget subsItem(BuildContext context, int index, Subs item) {
-  Functions func = Functions();
+  Convert conv = Convert();
 
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
@@ -57,14 +57,14 @@ Widget subsItem(BuildContext context, int index, Subs item) {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              func.feeAndPeriod(context, item.fee, item.period),
+              conv.feeAndPeriod(context, item.fee, item.period),
               style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
             ),
             const SizedBox(
               height: 8,
             ),
             Text(
-              "Next: ${func.dateToString(item.date, context)}",
+              "Next: ${conv.dateToString(item.date, context)}",
               style: const TextStyle(
                   color: borderColor,
                   fontWeight: FontWeight.w700,

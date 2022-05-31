@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:subsmanager/models/value_convert.dart';
 import 'package:subsmanager/presentation/notifiers/sub_value.dart';
 
 import '../../widgets/sheet_header.dart';
-import '../../../models.dart';
 import '../../../theme.dart';
 import '../../widgets/sub_info.dart';
 import 'subs_list.dart';
@@ -26,22 +26,40 @@ class SubEditSheet extends HookConsumerWidget {
   final int index;
   final Subs selectedItem;
 
-  final Functions func = Functions();
+  final Convert conv = Convert();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final subValue = ref.watch(subValueProvider);
     final readSubValue = ref.read(subValueProvider.notifier);
+    final readSubList = ref.read(subsListProvider.notifier);
 
-    useEffect(() {
-      readSubValue.updateName(selectedItem.name);
-      readSubValue
-          .updateFee(func.feeToString(context, selectedItem.fee, false));
-      readSubValue.updateUrl(selectedItem.url.toString());
-      return;
-    }, const []);
+    useEffect(
+      () {
+        Future.microtask(() {
+          readSubValue.updateName(
+            selectedItem.name,
+          );
+          readSubValue.updateFee(
+            conv.feeToString(context, selectedItem.fee, false),
+          );
+          readSubValue.updateUrl(
+            selectedItem.url.toString(),
+          );
+          readSubValue.updatePeriod(
+            conv.periodToString(
+              selectedItem.period,
+            ),
+          );
+          readSubValue.updateDate(selectedItem.date);
+        });
+        return;
+      },
+      [],
+    );
 
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       body: Padding(
         padding: const EdgeInsets.all(15),
         child: Column(
@@ -52,15 +70,17 @@ class SubEditSheet extends HookConsumerWidget {
               "Edit",
               context,
               () => Navigator.pop(context),
-              () => func.updateSub(),
+              () => readSubList.update(),
             ),
             Expanded(
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
                 child: Column(
                   children: [
-                    subsInfo(context, ref, subValue.name, subValue.fee,
-                        subValue.url, subValue.date, subValue.period),
+                    subsInfo(
+                      context,
+                      ref,
+                    ),
                     Container(
                       margin: const EdgeInsets.only(top: 30),
                       decoration: BoxDecoration(
@@ -69,15 +89,17 @@ class SubEditSheet extends HookConsumerWidget {
                       ),
                       child: InkWell(
                         child: const Padding(
-                            padding: EdgeInsets.all(15),
-                            child: Text(
-                              "Delete Subscription",
-                              style: TextStyle(
-                                  color: Colors.redAccent,
-                                  fontWeight: FontWeight.bold),
-                            )),
+                          padding: EdgeInsets.all(15),
+                          child: Text(
+                            "Delete Subscription",
+                            style: TextStyle(
+                              color: Colors.redAccent,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
                         onTap: () {
-                          ref.read(subsListProvider.notifier).removeAt(index);
+                          readSubList.removeAt(index);
                           Navigator.pop(context);
                         },
                       ),

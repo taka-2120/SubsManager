@@ -2,31 +2,43 @@ import 'package:dropdown_button2/custom_dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:subsmanager/models/value_convert.dart';
 import 'package:subsmanager/presentation/notifiers/sub_value.dart';
 
-import '../../models.dart';
 import '../../theme.dart';
 import '../hooks/period.dart';
+import '../pages/subs/subs_list.dart';
 import '../widgets/default_divider.dart';
 import 'textfield_set.dart';
 
 Widget subsInfo(
   BuildContext context,
   WidgetRef ref,
-  TextEditingController nameCtl,
-  TextEditingController feeCtl,
-  TextEditingController urlCtl,
-  DateTime subDate,
-  String? subPeriod,
 ) {
-  final Functions func = Functions();
+  final Convert conv = Convert();
+  final subValue = ref.watch(subValueProvider.select((value) => value));
   final readSubValue = ref.read(subValueProvider.notifier);
 
   return Column(
     children: [
-      textFieldSet(context, "Name", false, nameCtl, true),
-      textFieldSet(context, "Fee", true, feeCtl, false),
-      textFieldSet(context, "URL", false, urlCtl, false),
+      textFieldSet(
+          context: context,
+          title: "Name",
+          num: false,
+          controller: subValue.name,
+          url: true),
+      textFieldSet(
+          context: context,
+          title: "Fee",
+          num: true,
+          controller: subValue.fee,
+          url: true),
+      textFieldSet(
+          context: context,
+          title: "URL",
+          num: false,
+          controller: subValue.url,
+          url: true),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -36,16 +48,18 @@ Widget subsInfo(
           ),
           MaterialButton(
             child: Text(
-              func.dateToString(subDate, context),
+              conv.dateToString(subValue.date, context),
               style: const TextStyle(fontSize: 16),
             ),
             onPressed: () async {
               readSubValue.updateDate(
                 await showRoundedDatePicker(
                       context: context,
-                      initialDate: subDate,
+                      initialDate: subValue.date,
                       borderRadius: 20,
-                      theme: ThemeData(primarySwatch: customSwatch),
+                      theme: ThemeData(
+                        primarySwatch: customSwatch,
+                      ),
                     ) ??
                     DateTime.now(),
               );
@@ -57,10 +71,13 @@ Widget subsInfo(
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text("Billing Period: ", style: TextStyle(fontSize: 18)),
+          const Text(
+            "Billing Period: ",
+            style: TextStyle(fontSize: 18),
+          ),
           CustomDropdownButton2(
             hint: "Select...",
-            value: subPeriod,
+            value: subValue.period,
             dropdownItems: periodItems,
             onChanged: (value) => readSubValue.updatePeriod(value),
           ),

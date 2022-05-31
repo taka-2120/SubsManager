@@ -1,5 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../../dialogs/alert.dart';
 
 final subsListProvider =
     StateNotifierProvider<SubsList, List<Subs>>((ref) => SubsList());
@@ -24,8 +27,26 @@ class Subs {
 class SubsList extends StateNotifier<List<Subs>> {
   SubsList([List<Subs>? initial]) : super(initial ?? []);
 
-  void add(Subs item) {
-    state = [...state, item];
+  void add(BuildContext context, WidgetRef ref, String name, double fee,
+      int period, DateTime date, Uri url) {
+    if (name == "" || fee == -99.9 || period == 99) {
+      showDialog(
+        barrierColor: Colors.black26,
+        context: context,
+        builder: (context) {
+          return const CustomAlertDialog(
+            title: "Error",
+            description: "Please fill name, fee, and period correctly.",
+            ok: true,
+          );
+        },
+      );
+    } else {
+      final item =
+          Subs(name: name, fee: fee, period: period, date: date, url: url);
+      state = [...state, item];
+      Navigator.pop(context);
+    }
   }
 
   void removeAt(int index) {
@@ -35,5 +56,35 @@ class SubsList extends StateNotifier<List<Subs>> {
     ];
   }
 
-  void update(int index, Subs item) {}
+  void update() {}
+
+  void sort() {}
+
+  double subSum(bool monthly, List<Subs> list) {
+    double sum = 0.0;
+    if (monthly) {
+      for (var i = 0; i < list.length; i++) {
+        int period = list[i].period;
+        if (period == 0) {
+          sum += list[i].fee;
+        } else {
+          //EXCEPTION
+        }
+      }
+    } else {
+      for (var i = 0; i < list.length; i++) {
+        int period = list[i].period;
+        if (period == 0) {
+          sum += list[i].fee * 12;
+        } else if (period == 1) {
+          sum += list[i].fee * 2;
+        } else if (period == 2) {
+          sum += list[i].fee;
+        } else {
+          //EXCEPTION
+        }
+      }
+    }
+    return sum;
+  }
 }
