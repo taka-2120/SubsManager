@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 
-import '../../hooks/pages.dart';
 import '../../widgets/page_title.dart';
 
 class Credits extends StatelessWidget {

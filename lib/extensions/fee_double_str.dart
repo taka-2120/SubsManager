@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 
-import '../presentation/hooks/locale.dart';
+import '../globals.dart';
 
 extension FeeDoubleToString on double {
   String feeToString({required bool format}) {

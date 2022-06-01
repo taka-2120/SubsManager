@@ -5,14 +5,18 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/notifiers/periods.dart';
 
-import 'presentation/hooks/pages.dart';
 import 'presentation/notifiers/tab_index.dart';
+import 'presentation/pages/settings/settings.dart';
+import 'presentation/pages/subs/subs.dart';
 import 'theme.dart';
 
 //Sort                      1
 //Notification              2
 //Tap Animation             3
 //Favicon                   4
+
+const List<Widget> pageLists = [SubsMain(), Settings()];
+const String title = "SubsManager";
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
