@@ -2,53 +2,60 @@ import 'package:dropdown_button2/custom_dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:subsmanager/models/value_convert.dart';
+import 'package:subsmanager/extensions/date_ext.dart';
+import 'package:subsmanager/l10n/l10n.dart';
+import 'package:subsmanager/presentation/notifiers/periods.dart';
 import 'package:subsmanager/presentation/notifiers/sub_value.dart';
 
 import '../../theme.dart';
-import '../hooks/period.dart';
-import '../pages/subs/subs_list.dart';
 import '../widgets/default_divider.dart';
 import 'textfield_set.dart';
 
 Widget subsInfo(
   BuildContext context,
+  L10n l10n,
   WidgetRef ref,
 ) {
-  final Convert conv = Convert();
-  final subValue = ref.watch(subValueProvider.select((value) => value));
+  final periods = ref
+      .watch(
+        periodsProvider.select((value) => value),
+      )
+      .periods;
+  final subValue = ref.watch(
+    subValueProvider.select((value) => value),
+  );
   final readSubValue = ref.read(subValueProvider.notifier);
 
   return Column(
     children: [
       textFieldSet(
           context: context,
-          title: "Name",
+          title: l10n.name,
           num: false,
           controller: subValue.name,
           url: true),
       textFieldSet(
           context: context,
-          title: "Fee",
+          title: l10n.fee,
           num: true,
           controller: subValue.fee,
           url: true),
       textFieldSet(
           context: context,
-          title: "URL",
+          title: l10n.url,
           num: false,
           controller: subValue.url,
           url: true),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text(
-            "Next Billing Date: ",
-            style: TextStyle(fontSize: 18),
+          Text(
+            "${l10n.next_billing_date}: ",
+            style: const TextStyle(fontSize: 18),
           ),
           MaterialButton(
             child: Text(
-              conv.dateToString(subValue.date, context),
+              subValue.date.dateToString(context),
               style: const TextStyle(fontSize: 16),
             ),
             onPressed: () async {
@@ -71,14 +78,14 @@ Widget subsInfo(
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text(
-            "Billing Period: ",
-            style: TextStyle(fontSize: 18),
+          Text(
+            "${l10n.billing_period}: ",
+            style: const TextStyle(fontSize: 18),
           ),
           CustomDropdownButton2(
-            hint: "Select...",
+            hint: "${l10n.select}...",
             value: subValue.period,
-            dropdownItems: periodItems,
+            dropdownItems: periods,
             onChanged: (value) => readSubValue.updatePeriod(value),
           ),
         ],

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:subsmanager/models/value_convert.dart';
+import 'package:subsmanager/extensions/date_ext.dart';
+import 'package:subsmanager/l10n/l10n.dart';
 
+import '../../models/function.dart';
 import '../../theme.dart';
 import '../pages/subs/subs_edit.dart';
-import '../pages/subs/subs_list.dart';
+import '../notifiers/subs_list.dart';
 
-Widget subsItem(BuildContext context, int index, Subs item) {
-  Convert conv = Convert();
-
+Widget subsItem(
+    BuildContext context, WidgetRef ref, L10n l10n, int index, Subs item) {
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
     padding: const EdgeInsets.all(15),
@@ -57,14 +59,14 @@ Widget subsItem(BuildContext context, int index, Subs item) {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              conv.feeAndPeriod(context, item.fee, item.period),
+              feeAndPeriod(ref, item.fee, item.period),
               style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
             ),
             const SizedBox(
               height: 8,
             ),
             Text(
-              "Next: ${conv.dateToString(item.date, context)}",
+              "${l10n.next}: ${item.date.dateToString(context)}",
               style: const TextStyle(
                   color: borderColor,
                   fontWeight: FontWeight.w700,

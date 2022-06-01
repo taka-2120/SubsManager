@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:subsmanager/models/value_convert.dart';
+import 'package:subsmanager/extensions/fee_double_str.dart';
+import 'package:subsmanager/extensions/period_int_str.dart';
 import 'package:subsmanager/presentation/notifiers/sub_value.dart';
+import 'package:subsmanager/l10n/l10n.dart';
 
 import '../../widgets/sheet_header.dart';
 import '../../../theme.dart';
 import '../../widgets/sub_info.dart';
-import 'subs_list.dart';
+import '../../notifiers/subs_list.dart';
 
 class SubEdit extends StatelessWidget {
   const SubEdit(this.index, this.selectedItem, {Key? key}) : super(key: key);
@@ -21,18 +23,17 @@ class SubEdit extends StatelessWidget {
 }
 
 class SubEditSheet extends HookConsumerWidget {
-  SubEditSheet(this.index, this.selectedItem, {Key? key}) : super(key: key);
+  const SubEditSheet(this.index, this.selectedItem, {Key? key})
+      : super(key: key);
 
   final int index;
   final Subs selectedItem;
 
-  final Convert conv = Convert();
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final subValue = ref.watch(subValueProvider);
     final readSubValue = ref.read(subValueProvider.notifier);
     final readSubList = ref.read(subsListProvider.notifier);
+    final l10n = L10n.of(context)!;
 
     useEffect(
       () {
@@ -41,15 +42,13 @@ class SubEditSheet extends HookConsumerWidget {
             selectedItem.name,
           );
           readSubValue.updateFee(
-            conv.feeToString(context, selectedItem.fee, false),
+            selectedItem.fee.feeToString(format: false),
           );
           readSubValue.updateUrl(
             selectedItem.url.toString(),
           );
           readSubValue.updatePeriod(
-            conv.periodToString(
-              selectedItem.period,
-            ),
+            selectedItem.period.periodToString(ref),
           );
           readSubValue.updateDate(selectedItem.date);
         });
@@ -67,7 +66,7 @@ class SubEditSheet extends HookConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             sheetHeader(
-              "Edit",
+              l10n.edit,
               context,
               () => Navigator.pop(context),
               () => readSubList.update(),
@@ -79,6 +78,7 @@ class SubEditSheet extends HookConsumerWidget {
                   children: [
                     subsInfo(
                       context,
+                      l10n,
                       ref,
                     ),
                     Container(
@@ -88,11 +88,11 @@ class SubEditSheet extends HookConsumerWidget {
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: InkWell(
-                        child: const Padding(
-                          padding: EdgeInsets.all(15),
+                        child: Padding(
+                          padding: const EdgeInsets.all(15),
                           child: Text(
-                            "Delete Subscription",
-                            style: TextStyle(
+                            l10n.delete_sub,
+                            style: const TextStyle(
                               color: Colors.redAccent,
                               fontWeight: FontWeight.bold,
                             ),

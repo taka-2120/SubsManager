@@ -40,6 +40,7 @@ dependencies:
   flutter_rounded_date_picker: ^2.0.2
   flutter_localizations:
     sdk: flutter
+  intl: ^0.17.0
   dropdown_button2: ^1.5.1
   freezed: ^2.0.3
   freezed_annotation: ^2.0.3
@@ -62,6 +63,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  generate: true
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

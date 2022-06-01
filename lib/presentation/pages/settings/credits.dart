@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:subsmanager/l10n/l10n.dart';
+
 import '../../hooks/pages.dart';
 import '../../widgets/page_title.dart';
 
@@ -7,12 +9,14 @@ class Credits extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = L10n.of(context)!;
+
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: SafeArea(
         child: Column(
           children: [
-            pageTitle(context, credits, true, false, null, null),
+            pageTitle(context, l10n.credits, true, false, null, null),
             Expanded(
               child: LayoutBuilder(
                 builder: (context, constraints) {

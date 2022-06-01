@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:subsmanager/extensions/fee_double_str.dart';
 import 'package:subsmanager/presentation/notifiers/sub_value.dart';
+import 'package:subsmanager/l10n/l10n.dart';
 
-import '../../../models/value_convert.dart';
-import '../../hooks/pages.dart';
 import '../../widgets/page_title.dart';
 import '../../widgets/subs_item.dart';
 import 'subs_add.dart';
 import '../../../theme.dart';
-import 'subs_list.dart';
+import '../../notifiers/subs_list.dart';
 
 class SubsMain extends StatelessWidget {
   const SubsMain({Key? key}) : super(key: key);
@@ -27,7 +27,7 @@ class SubsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final subsList = ref.watch(subsListProvider);
     final readSubsList = ref.read(subsListProvider.notifier);
-    Convert func = Convert();
+    final l10n = L10n.of(context)!;
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
@@ -36,10 +36,20 @@ class SubsPage extends ConsumerWidget {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            pageTitle(context, subs, false, true, () => readSubsList.sort(),
-                const Icon(Icons.swap_vert_rounded)),
+            pageTitle(
+              context,
+              l10n.subscriptions,
+              false,
+              true,
+              () => readSubsList.sort(),
+              const Icon(Icons.swap_vert_rounded),
+            ),
             Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
+              padding: const EdgeInsets.only(
+                left: 15,
+                right: 15,
+                bottom: 10,
+              ),
               child: Container(
                 height: 95,
                 padding: const EdgeInsets.all(18),
@@ -70,30 +80,42 @@ class SubsPage extends ConsumerWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          "Monthly",
-                          style: TextStyle(fontSize: 18, color: Colors.black),
+                        Text(
+                          l10n.monthly_total,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                          ),
                         ),
                         Text(
-                          func.feeToString(context,
-                              readSubsList.subSum(true, subsList), true),
+                          readSubsList
+                              .subSum(monthly: true, list: subsList)
+                              .feeToString(format: true),
                           style: const TextStyle(
-                              fontSize: 18, color: Colors.black),
+                            fontSize: 18,
+                            color: Colors.black,
+                          ),
                         ),
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          "Annually",
-                          style: TextStyle(fontSize: 18, color: Colors.black),
+                        Text(
+                          l10n.annually_total,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                          ),
                         ),
                         Text(
-                          func.feeToString(context,
-                              readSubsList.subSum(false, subsList), true),
+                          readSubsList
+                              .subSum(monthly: false, list: subsList)
+                              .feeToString(format: true),
                           style: const TextStyle(
-                              fontSize: 18, color: Colors.black),
+                            fontSize: 18,
+                            color: Colors.black,
+                          ),
                         ),
                       ],
                     )
@@ -106,6 +128,8 @@ class SubsPage extends ConsumerWidget {
                 itemBuilder: (BuildContext context, int index) {
                   return subsItem(
                     context,
+                    ref,
+                    l10n,
                     index,
                     subsList[index],
                   );
@@ -127,7 +151,7 @@ class SubsPage extends ConsumerWidget {
           );
         },
         foregroundColor: customSwatch,
-        tooltip: 'Add a Subscription',
+        tooltip: l10n.add,
         child: const Icon(
           Icons.add,
           size: 25,

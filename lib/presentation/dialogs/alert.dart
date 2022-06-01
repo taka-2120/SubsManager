@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:subsmanager/l10n/l10n.dart';
 
 class CustomAlertDialog extends StatefulWidget {
   const CustomAlertDialog(
@@ -20,6 +21,8 @@ class CustomAlertDialog extends StatefulWidget {
 class _CustomAlertDialogState extends State<CustomAlertDialog> {
   @override
   Widget build(BuildContext context) {
+    final l10n = L10n.of(context)!;
+
     return BackdropFilter(
       filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
       child: Dialog(
@@ -59,7 +62,7 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
                       },
                       child: Center(
                         child: Text(
-                          "OK",
+                          l10n.d_ok,
                           style: TextStyle(
                             fontSize: 18.0,
                             color: Theme.of(context).primaryColor,
@@ -80,7 +83,7 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
                           },
                           child: Center(
                             child: Text(
-                              "Continue",
+                              l10n.d_continue,
                               style: TextStyle(
                                 fontSize: 18.0,
                                 color: Theme.of(context).primaryColor,
@@ -105,10 +108,10 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
                           onTap: () {
                             Navigator.of(context).pop();
                           },
-                          child: const Center(
+                          child: Center(
                             child: Text(
-                              "Cancel",
-                              style: TextStyle(
+                              l10n.d_cancel,
+                              style: const TextStyle(
                                 fontSize: 16.0,
                                 fontWeight: FontWeight.normal,
                               ),

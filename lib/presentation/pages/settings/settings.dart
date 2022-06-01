@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../hooks/pages.dart';
+import 'package:subsmanager/l10n/l10n.dart';
+
 import '../../widgets/page_title.dart';
 import '../../widgets/settings_item.dart';
 import 'credits.dart';
@@ -10,12 +11,14 @@ class Settings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = L10n.of(context)!;
+
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: SafeArea(
         child: Column(
           children: [
-            pageTitle(context, settings, false, false, null, null),
+            pageTitle(context, l10n.settings, false, false, null, null),
             Expanded(
               child: LayoutBuilder(
                 builder: (context, constraints) {
@@ -28,13 +31,13 @@ class Settings extends StatelessWidget {
                       child: Column(
                         children: [
                           settingsItem(context, const Icon(Icons.notifications),
-                              "Notifications", "", true,
+                              l10n.notif, "", true,
                               destination: const Notifications()),
                           settingsItem(context, const Icon(Icons.note),
-                              "Credits", "", true,
+                              l10n.credits, "", true,
                               destination: const Credits()),
                           settingsItem(context, const Icon(Icons.info),
-                              "Version", "1.0.0", false),
+                              l10n.version, "1.0.0", false),
                         ],
                       ),
                     ),

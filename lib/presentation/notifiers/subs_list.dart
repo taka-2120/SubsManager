@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:subsmanager/l10n/l10n.dart';
 
-import '../../dialogs/alert.dart';
+import '../dialogs/alert.dart';
 
 final subsListProvider =
     StateNotifierProvider<SubsList, List<Subs>>((ref) => SubsList());
@@ -27,16 +27,24 @@ class Subs {
 class SubsList extends StateNotifier<List<Subs>> {
   SubsList([List<Subs>? initial]) : super(initial ?? []);
 
-  void add(BuildContext context, WidgetRef ref, String name, double fee,
-      int period, DateTime date, Uri url) {
+  void add(
+    BuildContext context,
+    L10n l10n,
+    WidgetRef ref, {
+    required String name,
+    required double fee,
+    required int period,
+    required DateTime date,
+    required Uri url,
+  }) {
     if (name == "" || fee == -99.9 || period == 99) {
       showDialog(
         barrierColor: Colors.black26,
         context: context,
         builder: (context) {
-          return const CustomAlertDialog(
-            title: "Error",
-            description: "Please fill name, fee, and period correctly.",
+          return CustomAlertDialog(
+            title: l10n.error,
+            description: l10n.e_fill,
             ok: true,
           );
         },
@@ -60,7 +68,10 @@ class SubsList extends StateNotifier<List<Subs>> {
 
   void sort() {}
 
-  double subSum(bool monthly, List<Subs> list) {
+  double subSum({
+    required bool monthly,
+    required List<Subs> list,
+  }) {
     double sum = 0.0;
     if (monthly) {
       for (var i = 0; i < list.length; i++) {

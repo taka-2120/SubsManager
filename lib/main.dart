@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:subsmanager/l10n/l10n.dart';
+import 'package:subsmanager/presentation/notifiers/periods.dart';
+
 import 'presentation/hooks/pages.dart';
-import 'presentation/notifiers/teb_index.dart';
+import 'presentation/notifiers/tab_index.dart';
 import 'theme.dart';
 
 //Sort                      1
@@ -34,45 +37,51 @@ class MyApp extends StatelessWidget {
       darkTheme: darkTheme,
       themeMode: ThemeMode.system,
       home: const BasePage(),
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale("en", "US"),
-        Locale("ja", "JP"),
-      ],
+      localizationsDelegates: L10n.localizationsDelegates,
+      supportedLocales: L10n.supportedLocales,
     );
   }
 }
 
-class BasePage extends ConsumerWidget {
+class BasePage extends HookConsumerWidget {
   const BasePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final tabIndex = ref.watch(tabIndexProvider);
+    final readTabIndex = ref.read(tabIndexProvider.notifier);
+    final readPeriods = ref.read(periodsProvider.notifier);
+    final theme = Theme.of(context);
+    final l10n = L10n.of(context)!;
+
+    useEffect(
+      () {
+        readPeriods.updateLocale(l10n);
+        return;
+      },
+      [],
+    );
 
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: theme.backgroundColor,
       body: IndexedStack(
         index: tabIndex,
         children: pageLists,
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance_wallet),
-            label: 'Subscriptions',
+            icon: const Icon(Icons.account_balance_wallet),
+            label: l10n.subscriptions,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
+            icon: const Icon(Icons.settings),
+            label: l10n.settings,
           ),
         ],
         currentIndex: tabIndex,
         selectedItemColor: primaryColor,
-        onTap: ref.read(tabIndexProvider.notifier).update,
+        onTap: readTabIndex.update,
       ),
     );
   }
