@@ -46,7 +46,10 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
             Padding(
               padding: const EdgeInsets.only(bottom: 15, left: 15, right: 15),
               child: Center(
-                child: Text(widget.description),
+                child: Text(
+                  widget.description,
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
             const Divider(

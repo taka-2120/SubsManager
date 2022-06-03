@@ -19,6 +19,9 @@ mixin _$SubItemState {
   String get name => throw _privateConstructorUsedError;
   double get fee => throw _privateConstructorUsedError;
   String get url => throw _privateConstructorUsedError;
+  bool get isIcon => throw _privateConstructorUsedError;
+  Image? get favicon => throw _privateConstructorUsedError;
+  Color get altColor => throw _privateConstructorUsedError;
   DateTime get date => throw _privateConstructorUsedError;
   int get period => throw _privateConstructorUsedError;
 
@@ -32,7 +35,15 @@ abstract class $SubItemStateCopyWith<$Res> {
   factory $SubItemStateCopyWith(
           SubItemState value, $Res Function(SubItemState) then) =
       _$SubItemStateCopyWithImpl<$Res>;
-  $Res call({String name, double fee, String url, DateTime date, int period});
+  $Res call(
+      {String name,
+      double fee,
+      String url,
+      bool isIcon,
+      Image? favicon,
+      Color altColor,
+      DateTime date,
+      int period});
 }
 
 /// @nodoc
@@ -48,6 +59,9 @@ class _$SubItemStateCopyWithImpl<$Res> implements $SubItemStateCopyWith<$Res> {
     Object? name = freezed,
     Object? fee = freezed,
     Object? url = freezed,
+    Object? isIcon = freezed,
+    Object? favicon = freezed,
+    Object? altColor = freezed,
     Object? date = freezed,
     Object? period = freezed,
   }) {
@@ -64,6 +78,18 @@ class _$SubItemStateCopyWithImpl<$Res> implements $SubItemStateCopyWith<$Res> {
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String,
+      isIcon: isIcon == freezed
+          ? _value.isIcon
+          : isIcon // ignore: cast_nullable_to_non_nullable
+              as bool,
+      favicon: favicon == freezed
+          ? _value.favicon
+          : favicon // ignore: cast_nullable_to_non_nullable
+              as Image?,
+      altColor: altColor == freezed
+          ? _value.altColor
+          : altColor // ignore: cast_nullable_to_non_nullable
+              as Color,
       date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -83,7 +109,15 @@ abstract class _$$_SubItemStateCopyWith<$Res>
           _$_SubItemState value, $Res Function(_$_SubItemState) then) =
       __$$_SubItemStateCopyWithImpl<$Res>;
   @override
-  $Res call({String name, double fee, String url, DateTime date, int period});
+  $Res call(
+      {String name,
+      double fee,
+      String url,
+      bool isIcon,
+      Image? favicon,
+      Color altColor,
+      DateTime date,
+      int period});
 }
 
 /// @nodoc
@@ -102,6 +136,9 @@ class __$$_SubItemStateCopyWithImpl<$Res>
     Object? name = freezed,
     Object? fee = freezed,
     Object? url = freezed,
+    Object? isIcon = freezed,
+    Object? favicon = freezed,
+    Object? altColor = freezed,
     Object? date = freezed,
     Object? period = freezed,
   }) {
@@ -118,6 +155,18 @@ class __$$_SubItemStateCopyWithImpl<$Res>
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String,
+      isIcon: isIcon == freezed
+          ? _value.isIcon
+          : isIcon // ignore: cast_nullable_to_non_nullable
+              as bool,
+      favicon: favicon == freezed
+          ? _value.favicon
+          : favicon // ignore: cast_nullable_to_non_nullable
+              as Image?,
+      altColor: altColor == freezed
+          ? _value.altColor
+          : altColor // ignore: cast_nullable_to_non_nullable
+              as Color,
       date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -137,6 +186,9 @@ class _$_SubItemState with DiagnosticableTreeMixin implements _SubItemState {
       {required this.name,
       required this.fee,
       required this.url,
+      required this.isIcon,
+      required this.favicon,
+      required this.altColor,
       required this.date,
       required this.period});
 
@@ -147,13 +199,19 @@ class _$_SubItemState with DiagnosticableTreeMixin implements _SubItemState {
   @override
   final String url;
   @override
+  final bool isIcon;
+  @override
+  final Image? favicon;
+  @override
+  final Color altColor;
+  @override
   final DateTime date;
   @override
   final int period;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SubItemState(name: $name, fee: $fee, url: $url, date: $date, period: $period)';
+    return 'SubItemState(name: $name, fee: $fee, url: $url, isIcon: $isIcon, favicon: $favicon, altColor: $altColor, date: $date, period: $period)';
   }
 
   @override
@@ -164,6 +222,9 @@ class _$_SubItemState with DiagnosticableTreeMixin implements _SubItemState {
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('fee', fee))
       ..add(DiagnosticsProperty('url', url))
+      ..add(DiagnosticsProperty('isIcon', isIcon))
+      ..add(DiagnosticsProperty('favicon', favicon))
+      ..add(DiagnosticsProperty('altColor', altColor))
       ..add(DiagnosticsProperty('date', date))
       ..add(DiagnosticsProperty('period', period));
   }
@@ -176,6 +237,9 @@ class _$_SubItemState with DiagnosticableTreeMixin implements _SubItemState {
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.fee, fee) &&
             const DeepCollectionEquality().equals(other.url, url) &&
+            const DeepCollectionEquality().equals(other.isIcon, isIcon) &&
+            const DeepCollectionEquality().equals(other.favicon, favicon) &&
+            const DeepCollectionEquality().equals(other.altColor, altColor) &&
             const DeepCollectionEquality().equals(other.date, date) &&
             const DeepCollectionEquality().equals(other.period, period));
   }
@@ -186,6 +250,9 @@ class _$_SubItemState with DiagnosticableTreeMixin implements _SubItemState {
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(fee),
       const DeepCollectionEquality().hash(url),
+      const DeepCollectionEquality().hash(isIcon),
+      const DeepCollectionEquality().hash(favicon),
+      const DeepCollectionEquality().hash(altColor),
       const DeepCollectionEquality().hash(date),
       const DeepCollectionEquality().hash(period));
 
@@ -200,6 +267,9 @@ abstract class _SubItemState implements SubItemState {
       {required final String name,
       required final double fee,
       required final String url,
+      required final bool isIcon,
+      required final Image? favicon,
+      required final Color altColor,
       required final DateTime date,
       required final int period}) = _$_SubItemState;
 
@@ -209,6 +279,12 @@ abstract class _SubItemState implements SubItemState {
   double get fee => throw _privateConstructorUsedError;
   @override
   String get url => throw _privateConstructorUsedError;
+  @override
+  bool get isIcon => throw _privateConstructorUsedError;
+  @override
+  Image? get favicon => throw _privateConstructorUsedError;
+  @override
+  Color get altColor => throw _privateConstructorUsedError;
   @override
   DateTime get date => throw _privateConstructorUsedError;
   @override

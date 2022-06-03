@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/models/sub_item/sub_item.state.dart';
+import 'package:subsmanager/presentation/notifiers/sort_option.dart';
 
 import '../dialogs/alert.dart';
 
@@ -18,9 +19,12 @@ class SubsList extends StateNotifier<List<SubItemState>> {
     WidgetRef ref, {
     required String name,
     required double fee,
-    required int period,
-    required DateTime date,
     required String url,
+    required bool isIcon,
+    required Image? favicon,
+    required Color altColor,
+    required DateTime date,
+    required int period,
   }) {
     if (name == "" || fee == -99.9 || period == 99) {
       showDialog(
@@ -39,10 +43,15 @@ class SubsList extends StateNotifier<List<SubItemState>> {
         name: name,
         fee: fee,
         url: url,
+        isIcon: isIcon,
+        favicon: favicon,
+        altColor: altColor,
         date: date,
         period: period,
       );
       state = [...state, item];
+      final sortIndex = ref.watch(sortOptionProvider);
+      sort(sortIndex);
       Navigator.pop(context);
     }
   }

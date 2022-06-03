@@ -12,6 +12,7 @@ class SubValueState with _$SubValueState {
     @TextFieldDefault() required TextEditingController name,
     @TextFieldDefault() required TextEditingController fee,
     @TextFieldDefault() required TextEditingController url,
+    @Default(null) Image? favicon,
   }) = _SubValueState;
 }
 

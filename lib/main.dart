@@ -10,11 +10,8 @@ import 'presentation/pages/settings/settings.dart';
 import 'presentation/pages/subs/subs.dart';
 import 'theme.dart';
 
-//Font size and thickness     1
-//Favicon                     2
-//Sort context menu position  3
-//Notification                4
-//Tap Animation               5
+//Notification                1
+//Tap Animation               2
 
 const List<Widget> pageLists = [SubsMain(), Settings()];
 const String title = "SubsManager";

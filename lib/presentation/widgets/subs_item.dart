@@ -4,9 +4,12 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:subsmanager/extensions/date_ext.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/models/sub_item/sub_item.state.dart';
+import 'package:subsmanager/presentation/widgets/favicon.dart';
 
 import '../../models/function.dart';
 import '../../theme.dart';
+import '../notifiers/favicon_value.dart';
+import '../notifiers/sub_value.dart';
 import '../pages/subs/subs_edit.dart';
 
 Widget subsItem(
@@ -19,7 +22,7 @@ Widget subsItem(
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
     padding: const EdgeInsets.all(15),
-    height: 130,
+    height: 140,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(15),
       color: Theme.of(context).backgroundColor,
@@ -40,12 +43,26 @@ Widget subsItem(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              item.name,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                favicon(
+                  favicon: item.favicon,
+                  isIcon: item.isIcon,
+                  altColor: item.altColor,
+                ),
+                const SizedBox(width: 4),
+                Text(
+                  item.name,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 24),
+                ),
+              ],
             ),
             GestureDetector(
               onTap: () {
+                ref.read(subValueProvider.notifier).initialize();
+                ref.read(faviconValueProvider.notifier).initialize();
                 showBarModalBottomSheet(
                   context: context,
                   builder: (context) => SubEdit(index, item),
@@ -68,7 +85,7 @@ Widget subsItem(
               style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
             ),
             const SizedBox(
-              height: 8,
+              height: 5,
             ),
             Text(
               "${l10n.next}: ${item.date.dateToString(context)}",

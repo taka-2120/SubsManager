@@ -38,6 +38,10 @@ class SubValueNotifier extends StateNotifier<SubValueState> {
     state.url.text = value;
   }
 
+  void updateFavicon(Image? icon) {
+    state = state.copyWith(favicon: icon);
+  }
+
   void initialize() {
     state = state.copyWith(
       period: null,

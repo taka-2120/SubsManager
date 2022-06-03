@@ -7,6 +7,7 @@ import 'package:subsmanager/presentation/notifiers/sub_value.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 
 import '../../../globals.dart';
+import '../../notifiers/favicon_value.dart';
 import '../../widgets/page_title.dart';
 import '../../widgets/subs_item.dart';
 import 'subs_add.dart';
@@ -144,6 +145,7 @@ class SubsPage extends ConsumerWidget {
         elevation: 4,
         onPressed: () {
           ref.read(subValueProvider.notifier).initialize();
+          ref.read(faviconValueProvider.notifier).initialize();
           showBarModalBottomSheet(
             context: context,
             builder: (context) => const SubAdd(),
@@ -165,7 +167,7 @@ class SubsPage extends ConsumerWidget {
     final screenSize = MediaQuery.of(context).size;
     final l10n = L10n.of(context)!;
     final sortOption = ref.read(sortOptionProvider.notifier);
-    const Offset offset = Offset(-5, 50);
+    final Offset offset = Offset(screenSize.width - 10, 95);
     double left = offset.dx;
     double top = offset.dy;
     double right = screenSize.width - offset.dx;
@@ -174,6 +176,11 @@ class SubsPage extends ConsumerWidget {
     await showMenu<SortOptions>(
       context: context,
       position: RelativeRect.fromLTRB(left, top, right, bottom),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(15.0),
+        ),
+      ),
       items: SortOptions.values
           .map(
             (SortOptions menuItemType) => PopupMenuItem<SortOptions>(

@@ -9,6 +9,7 @@ import 'package:subsmanager/presentation/notifiers/sub_value.dart';
 import 'package:subsmanager/presentation/widgets/favicon.dart';
 
 import '../../theme.dart';
+import '../notifiers/favicon_value.dart';
 import '../widgets/default_divider.dart';
 import 'textfield_set.dart';
 
@@ -26,6 +27,7 @@ Widget subsInfo(
     subValueProvider.select((value) => value),
   );
   final readSubValue = ref.read(subValueProvider.notifier);
+  final faviconValue = ref.watch(faviconValueProvider);
 
   return Column(
     children: [
@@ -50,7 +52,11 @@ Widget subsInfo(
         num: false,
         controller: subValue.url,
         format: true,
-        rightContent: favicon(ref),
+        rightContent: favicon(
+          favicon: faviconValue.favicon,
+          isIcon: faviconValue.isIcon,
+          altColor: faviconValue.altColor!,
+        ),
         bottomNotes:
             "If you type the domain of provider's URL, the icon will be shown up at the right next of the name.",
       ),

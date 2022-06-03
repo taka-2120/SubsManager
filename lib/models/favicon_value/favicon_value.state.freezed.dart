@@ -16,8 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$FaviconValueState {
-  String get url => throw _privateConstructorUsedError;
-  bool get isVaild => throw _privateConstructorUsedError;
+  Image? get favicon => throw _privateConstructorUsedError;
+  bool get isIcon => throw _privateConstructorUsedError;
+  @AltColorDefault()
+  Color? get altColor => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FaviconValueStateCopyWith<FaviconValueState> get copyWith =>
@@ -29,7 +31,7 @@ abstract class $FaviconValueStateCopyWith<$Res> {
   factory $FaviconValueStateCopyWith(
           FaviconValueState value, $Res Function(FaviconValueState) then) =
       _$FaviconValueStateCopyWithImpl<$Res>;
-  $Res call({String url, bool isVaild});
+  $Res call({Image? favicon, bool isIcon, @AltColorDefault() Color? altColor});
 }
 
 /// @nodoc
@@ -43,18 +45,23 @@ class _$FaviconValueStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? url = freezed,
-    Object? isVaild = freezed,
+    Object? favicon = freezed,
+    Object? isIcon = freezed,
+    Object? altColor = freezed,
   }) {
     return _then(_value.copyWith(
-      url: url == freezed
-          ? _value.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as String,
-      isVaild: isVaild == freezed
-          ? _value.isVaild
-          : isVaild // ignore: cast_nullable_to_non_nullable
+      favicon: favicon == freezed
+          ? _value.favicon
+          : favicon // ignore: cast_nullable_to_non_nullable
+              as Image?,
+      isIcon: isIcon == freezed
+          ? _value.isIcon
+          : isIcon // ignore: cast_nullable_to_non_nullable
               as bool,
+      altColor: altColor == freezed
+          ? _value.altColor
+          : altColor // ignore: cast_nullable_to_non_nullable
+              as Color?,
     ));
   }
 }
@@ -66,7 +73,7 @@ abstract class _$$_FaviconValueStateCopyWith<$Res>
           $Res Function(_$_FaviconValueState) then) =
       __$$_FaviconValueStateCopyWithImpl<$Res>;
   @override
-  $Res call({String url, bool isVaild});
+  $Res call({Image? favicon, bool isIcon, @AltColorDefault() Color? altColor});
 }
 
 /// @nodoc
@@ -82,18 +89,23 @@ class __$$_FaviconValueStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? url = freezed,
-    Object? isVaild = freezed,
+    Object? favicon = freezed,
+    Object? isIcon = freezed,
+    Object? altColor = freezed,
   }) {
     return _then(_$_FaviconValueState(
-      url: url == freezed
-          ? _value.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as String,
-      isVaild: isVaild == freezed
-          ? _value.isVaild
-          : isVaild // ignore: cast_nullable_to_non_nullable
+      favicon: favicon == freezed
+          ? _value.favicon
+          : favicon // ignore: cast_nullable_to_non_nullable
+              as Image?,
+      isIcon: isIcon == freezed
+          ? _value.isIcon
+          : isIcon // ignore: cast_nullable_to_non_nullable
               as bool,
+      altColor: altColor == freezed
+          ? _value.altColor
+          : altColor // ignore: cast_nullable_to_non_nullable
+              as Color?,
     ));
   }
 }
@@ -101,18 +113,24 @@ class __$$_FaviconValueStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_FaviconValueState implements _FaviconValueState {
-  _$_FaviconValueState({this.url = "", this.isVaild = false});
+  _$_FaviconValueState(
+      {this.favicon = null,
+      this.isIcon = false,
+      @AltColorDefault() this.altColor});
 
   @override
   @JsonKey()
-  final String url;
+  final Image? favicon;
   @override
   @JsonKey()
-  final bool isVaild;
+  final bool isIcon;
+  @override
+  @AltColorDefault()
+  final Color? altColor;
 
   @override
   String toString() {
-    return 'FaviconValueState(url: $url, isVaild: $isVaild)';
+    return 'FaviconValueState(favicon: $favicon, isIcon: $isIcon, altColor: $altColor)';
   }
 
   @override
@@ -120,15 +138,17 @@ class _$_FaviconValueState implements _FaviconValueState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_FaviconValueState &&
-            const DeepCollectionEquality().equals(other.url, url) &&
-            const DeepCollectionEquality().equals(other.isVaild, isVaild));
+            const DeepCollectionEquality().equals(other.favicon, favicon) &&
+            const DeepCollectionEquality().equals(other.isIcon, isIcon) &&
+            const DeepCollectionEquality().equals(other.altColor, altColor));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(url),
-      const DeepCollectionEquality().hash(isVaild));
+      const DeepCollectionEquality().hash(favicon),
+      const DeepCollectionEquality().hash(isIcon),
+      const DeepCollectionEquality().hash(altColor));
 
   @JsonKey(ignore: true)
   @override
@@ -138,13 +158,18 @@ class _$_FaviconValueState implements _FaviconValueState {
 }
 
 abstract class _FaviconValueState implements FaviconValueState {
-  factory _FaviconValueState({final String url, final bool isVaild}) =
-      _$_FaviconValueState;
+  factory _FaviconValueState(
+      {final Image? favicon,
+      final bool isIcon,
+      @AltColorDefault() final Color? altColor}) = _$_FaviconValueState;
 
   @override
-  String get url => throw _privateConstructorUsedError;
+  Image? get favicon => throw _privateConstructorUsedError;
   @override
-  bool get isVaild => throw _privateConstructorUsedError;
+  bool get isIcon => throw _privateConstructorUsedError;
+  @override
+  @AltColorDefault()
+  Color? get altColor => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_FaviconValueStateCopyWith<_$_FaviconValueState> get copyWith =>

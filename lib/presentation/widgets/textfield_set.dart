@@ -46,7 +46,7 @@ class TextFieldSet extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               (rightContent != null)
-                  ? rightContent!
+                  ? Row(children: [rightContent!, const SizedBox(width: 4)])
                   : const SizedBox(
                       height: 0,
                       width: 0,

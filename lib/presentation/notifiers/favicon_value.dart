@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
@@ -9,18 +11,21 @@ final faviconValueProvider =
         (ref) => FaviconValue());
 
 class FaviconValue extends StateNotifier<FaviconValueState> {
-  FaviconValue() : super(FaviconValueState());
+  FaviconValue()
+      : super(
+          FaviconValueState(
+            altColor: Colors.primaries[Random().nextInt(
+              Colors.primaries.length,
+            )],
+          ),
+        );
 
-  Future<void> update(String value) async {
-    String formattedUrl = value;
+  Future<void> update(String url) async {
+    String formattedUrl = url;
     bool isVaild = false;
-    Color color = Colors.grey;
-
-    switch (formattedUrl.contains("http://")) {
-      case false:
-        formattedUrl = "http://$formattedUrl";
-        break;
-    }
+    formattedUrl.contains("http://")
+        ? null
+        : formattedUrl = "http://$formattedUrl";
 
     try {
       isVaild = Uri.parse(formattedUrl).host.isNotEmpty;
@@ -38,15 +43,21 @@ class FaviconValue extends StateNotifier<FaviconValueState> {
       isVaild = false;
     }
 
-    switch (isVaild) {
-      case true:
-        formattedUrl += "/favicon.ico";
-        break;
-      case false:
-        formattedUrl = "";
-        break;
-    }
+    isVaild ? formattedUrl += "/favicon.ico" : formattedUrl = "";
 
-    state = state.copyWith(isVaild: isVaild, url: formattedUrl);
+    state = state.copyWith(
+      favicon: Image.network(formattedUrl),
+      isIcon: isVaild,
+    );
+  }
+
+  void initialize() {
+    state = state.copyWith(
+      favicon: null,
+      isIcon: false,
+      altColor: Colors.primaries[Random().nextInt(
+        Colors.primaries.length,
+      )],
+    );
   }
 }

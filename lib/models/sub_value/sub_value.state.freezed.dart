@@ -25,6 +25,7 @@ mixin _$SubValueState {
   TextEditingController get fee => throw _privateConstructorUsedError;
   @TextFieldDefault()
   TextEditingController get url => throw _privateConstructorUsedError;
+  Image? get favicon => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SubValueStateCopyWith<SubValueState> get copyWith =>
@@ -41,7 +42,8 @@ abstract class $SubValueStateCopyWith<$Res> {
       @DateTimeDefault() DateTime date,
       @TextFieldDefault() TextEditingController name,
       @TextFieldDefault() TextEditingController fee,
-      @TextFieldDefault() TextEditingController url});
+      @TextFieldDefault() TextEditingController url,
+      Image? favicon});
 }
 
 /// @nodoc
@@ -60,6 +62,7 @@ class _$SubValueStateCopyWithImpl<$Res>
     Object? name = freezed,
     Object? fee = freezed,
     Object? url = freezed,
+    Object? favicon = freezed,
   }) {
     return _then(_value.copyWith(
       period: period == freezed
@@ -82,6 +85,10 @@ class _$SubValueStateCopyWithImpl<$Res>
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as TextEditingController,
+      favicon: favicon == freezed
+          ? _value.favicon
+          : favicon // ignore: cast_nullable_to_non_nullable
+              as Image?,
     ));
   }
 }
@@ -98,7 +105,8 @@ abstract class _$$_SubValueStateCopyWith<$Res>
       @DateTimeDefault() DateTime date,
       @TextFieldDefault() TextEditingController name,
       @TextFieldDefault() TextEditingController fee,
-      @TextFieldDefault() TextEditingController url});
+      @TextFieldDefault() TextEditingController url,
+      Image? favicon});
 }
 
 /// @nodoc
@@ -119,6 +127,7 @@ class __$$_SubValueStateCopyWithImpl<$Res>
     Object? name = freezed,
     Object? fee = freezed,
     Object? url = freezed,
+    Object? favicon = freezed,
   }) {
     return _then(_$_SubValueState(
       period: period == freezed
@@ -141,6 +150,10 @@ class __$$_SubValueStateCopyWithImpl<$Res>
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as TextEditingController,
+      favicon: favicon == freezed
+          ? _value.favicon
+          : favicon // ignore: cast_nullable_to_non_nullable
+              as Image?,
     ));
   }
 }
@@ -153,7 +166,8 @@ class _$_SubValueState with DiagnosticableTreeMixin implements _SubValueState {
       @DateTimeDefault() required this.date,
       @TextFieldDefault() required this.name,
       @TextFieldDefault() required this.fee,
-      @TextFieldDefault() required this.url});
+      @TextFieldDefault() required this.url,
+      this.favicon = null});
 
   @override
   @JsonKey()
@@ -170,10 +184,13 @@ class _$_SubValueState with DiagnosticableTreeMixin implements _SubValueState {
   @override
   @TextFieldDefault()
   final TextEditingController url;
+  @override
+  @JsonKey()
+  final Image? favicon;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SubValueState(period: $period, date: $date, name: $name, fee: $fee, url: $url)';
+    return 'SubValueState(period: $period, date: $date, name: $name, fee: $fee, url: $url, favicon: $favicon)';
   }
 
   @override
@@ -185,7 +202,8 @@ class _$_SubValueState with DiagnosticableTreeMixin implements _SubValueState {
       ..add(DiagnosticsProperty('date', date))
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('fee', fee))
-      ..add(DiagnosticsProperty('url', url));
+      ..add(DiagnosticsProperty('url', url))
+      ..add(DiagnosticsProperty('favicon', favicon));
   }
 
   @override
@@ -197,7 +215,8 @@ class _$_SubValueState with DiagnosticableTreeMixin implements _SubValueState {
             const DeepCollectionEquality().equals(other.date, date) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.fee, fee) &&
-            const DeepCollectionEquality().equals(other.url, url));
+            const DeepCollectionEquality().equals(other.url, url) &&
+            const DeepCollectionEquality().equals(other.favicon, favicon));
   }
 
   @override
@@ -207,7 +226,8 @@ class _$_SubValueState with DiagnosticableTreeMixin implements _SubValueState {
       const DeepCollectionEquality().hash(date),
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(fee),
-      const DeepCollectionEquality().hash(url));
+      const DeepCollectionEquality().hash(url),
+      const DeepCollectionEquality().hash(favicon));
 
   @JsonKey(ignore: true)
   @override
@@ -217,12 +237,12 @@ class _$_SubValueState with DiagnosticableTreeMixin implements _SubValueState {
 
 abstract class _SubValueState implements SubValueState {
   factory _SubValueState(
-          {final String? period,
-          @DateTimeDefault() required final DateTime date,
-          @TextFieldDefault() required final TextEditingController name,
-          @TextFieldDefault() required final TextEditingController fee,
-          @TextFieldDefault() required final TextEditingController url}) =
-      _$_SubValueState;
+      {final String? period,
+      @DateTimeDefault() required final DateTime date,
+      @TextFieldDefault() required final TextEditingController name,
+      @TextFieldDefault() required final TextEditingController fee,
+      @TextFieldDefault() required final TextEditingController url,
+      final Image? favicon}) = _$_SubValueState;
 
   @override
   String? get period => throw _privateConstructorUsedError;
@@ -238,6 +258,8 @@ abstract class _SubValueState implements SubValueState {
   @override
   @TextFieldDefault()
   TextEditingController get url => throw _privateConstructorUsedError;
+  @override
+  Image? get favicon => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_SubValueStateCopyWith<_$_SubValueState> get copyWith =>
