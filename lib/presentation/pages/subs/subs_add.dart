@@ -47,9 +47,9 @@ class SubAddSheet extends ConsumerWidget {
                 ref,
                 name: subValue.name.text,
                 fee: subValue.fee.text.feeToDouble(),
-                period: subValue.period.periodToInt(ref),
+                url: subValue.url.text,
                 date: subValue.date,
-                url: Uri.parse(subValue.url.text),
+                period: subValue.period.periodToInt(ref),
               ),
             ),
             Expanded(

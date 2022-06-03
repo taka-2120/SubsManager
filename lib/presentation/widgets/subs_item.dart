@@ -3,14 +3,19 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:subsmanager/extensions/date_ext.dart';
 import 'package:subsmanager/l10n/l10n.dart';
+import 'package:subsmanager/models/sub_item/sub_item.state.dart';
 
 import '../../models/function.dart';
 import '../../theme.dart';
 import '../pages/subs/subs_edit.dart';
-import '../notifiers/subs_list.dart';
 
 Widget subsItem(
-    BuildContext context, WidgetRef ref, L10n l10n, int index, Subs item) {
+  BuildContext context,
+  WidgetRef ref,
+  L10n l10n,
+  int index,
+  SubItemState item,
+) {
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
     padding: const EdgeInsets.all(15),

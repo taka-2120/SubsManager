@@ -1,31 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/l10n/l10n.dart';
+import 'package:subsmanager/models/sub_item/sub_item.state.dart';
 
 import '../dialogs/alert.dart';
 
-final subsListProvider =
-    StateNotifierProvider<SubsList, List<Subs>>((ref) => SubsList());
+final subsListProvider = StateNotifierProvider<SubsList, List<SubItemState>>(
+  (ref) => SubsList(),
+);
 
-@immutable
-class Subs {
-  const Subs({
-    required this.name,
-    required this.fee,
-    required this.period,
-    required this.date,
-    required this.url,
-  });
-
-  final String name;
-  final double fee;
-  final int period; //0: Monthly, 1: Semi-Annually, 2: Annually
-  final DateTime date;
-  final Uri url;
-}
-
-class SubsList extends StateNotifier<List<Subs>> {
-  SubsList([List<Subs>? initial]) : super(initial ?? []);
+class SubsList extends StateNotifier<List<SubItemState>> {
+  SubsList([List<SubItemState>? initial]) : super(initial ?? []);
 
   void add(
     BuildContext context,
@@ -35,7 +20,7 @@ class SubsList extends StateNotifier<List<Subs>> {
     required double fee,
     required int period,
     required DateTime date,
-    required Uri url,
+    required String url,
   }) {
     if (name == "" || fee == -99.9 || period == 99) {
       showDialog(
@@ -50,8 +35,13 @@ class SubsList extends StateNotifier<List<Subs>> {
         },
       );
     } else {
-      final item =
-          Subs(name: name, fee: fee, period: period, date: date, url: url);
+      final item = SubItemState(
+        name: name,
+        fee: fee,
+        url: url,
+        date: date,
+        period: period,
+      );
       state = [...state, item];
       Navigator.pop(context);
     }
@@ -64,13 +54,47 @@ class SubsList extends StateNotifier<List<Subs>> {
     ];
   }
 
-  void update() {}
+  void update(
+    BuildContext context, {
+    required int index,
+    required SubItemState subItem,
+  }) {
+    state[index] = subItem;
 
-  void sort() {}
+    state = [
+      for (var i = 0; i < state.length; i++) i == index ? subItem : state[i],
+    ];
+    Navigator.pop(context);
+  }
+
+  void sort(int index) {
+    List<SubItemState> sortedList = [...state];
+    switch (index) {
+      case 0:
+        sortedList.sort((a, b) => a.name.compareTo(b.name));
+        break;
+      case 1:
+        sortedList.sort((a, b) => b.name.compareTo(a.name));
+        break;
+      case 2:
+        sortedList.sort((a, b) => a.date.compareTo(b.date));
+        break;
+      case 3:
+        sortedList.sort((a, b) => b.date.compareTo(a.date));
+        break;
+      case 4:
+        sortedList.sort((a, b) => a.fee.compareTo(b.fee));
+        break;
+      case 5:
+        sortedList.sort((a, b) => b.fee.compareTo(a.fee));
+        break;
+    }
+    state = sortedList;
+  }
 
   double subSum({
     required bool monthly,
-    required List<Subs> list,
+    required List<SubItemState> list,
   }) {
     double sum = 0.0;
     if (monthly) {

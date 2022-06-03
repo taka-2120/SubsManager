@@ -25,5 +25,21 @@
     "select": "Select",
     "d_ok": "OK",
     "d_continue": "Continue",
-    "d_cancel": "Cancel"
+    "d_cancel": "Cancel",
+    "the_day": "On The Day",
+    "one_day": "1 Day Before",
+    "two_days": "2 Days Before",
+    "three_days": "3 Days Before",
+    "four_days": "4 Days Before",
+    "five_days": "5 Days Before",
+    "six_days": "6 Days Before",
+    "one_week": "1 Week Before",
+    "two_weeks": "2 Weeks Before",
+    "three_weeks": "3 Weeks Before",
+    "alph_acc": "A to Z",
+    "alph_dec": "Z to A",
+    "date_acc": "Earier to Later",
+    "date_dec": "Later to Earier",
+    "price_acc": "High to Low",
+    "price_dec": "Low to High"
 }

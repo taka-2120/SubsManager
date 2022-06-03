@@ -10,10 +10,11 @@ import 'presentation/pages/settings/settings.dart';
 import 'presentation/pages/subs/subs.dart';
 import 'theme.dart';
 
-//Sort                      1
-//Notification              2
-//Tap Animation             3
-//Favicon                   4
+//Font size and thickness     1
+//Favicon                     2
+//Sort context menu position  3
+//Notification                4
+//Tap Animation               5
 
 const List<Widget> pageLists = [SubsMain(), Settings()];
 const String title = "SubsManager";
@@ -57,6 +58,7 @@ class BasePage extends HookConsumerWidget {
     final readPeriods = ref.read(periodsProvider.notifier);
     final theme = Theme.of(context);
     final l10n = L10n.of(context)!;
+    const radius = Radius.circular(25);
 
     useEffect(
       () {
@@ -68,24 +70,48 @@ class BasePage extends HookConsumerWidget {
 
     return Scaffold(
       backgroundColor: theme.backgroundColor,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(0),
+        child: AppBar(
+          elevation: 0,
+          backgroundColor: theme.backgroundColor,
+        ),
+      ),
       body: IndexedStack(
         index: tabIndex,
         children: pageLists,
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.account_balance_wallet),
-            label: l10n.subscriptions,
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          borderRadius:
+              const BorderRadius.only(topLeft: radius, topRight: radius),
+          boxShadow: [
+            BoxShadow(
+              color: theme.hoverColor,
+              spreadRadius: 0,
+              blurRadius: 15,
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius:
+              const BorderRadius.only(topLeft: radius, topRight: radius),
+          child: BottomNavigationBar(
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.account_balance_wallet),
+                label: l10n.subscriptions,
+              ),
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.settings),
+                label: l10n.settings,
+              ),
+            ],
+            currentIndex: tabIndex,
+            selectedItemColor: primaryColor,
+            onTap: readTabIndex.update,
           ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.settings),
-            label: l10n.settings,
-          ),
-        ],
-        currentIndex: tabIndex,
-        selectedItemColor: primaryColor,
-        onTap: readTabIndex.update,
+        ),
       ),
     );
   }

@@ -6,6 +6,7 @@ import 'package:subsmanager/extensions/date_ext.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/notifiers/periods.dart';
 import 'package:subsmanager/presentation/notifiers/sub_value.dart';
+import 'package:subsmanager/presentation/widgets/favicon.dart';
 
 import '../../theme.dart';
 import '../widgets/default_divider.dart';
@@ -28,24 +29,31 @@ Widget subsInfo(
 
   return Column(
     children: [
-      textFieldSet(
-          context: context,
-          title: l10n.name,
-          num: false,
-          controller: subValue.name,
-          url: true),
-      textFieldSet(
-          context: context,
-          title: l10n.fee,
-          num: true,
-          controller: subValue.fee,
-          url: true),
-      textFieldSet(
-          context: context,
-          title: l10n.url,
-          num: false,
-          controller: subValue.url,
-          url: true),
+      TextFieldSet(
+        title: l10n.name,
+        num: false,
+        controller: subValue.name,
+        format: true,
+        rightContent: null,
+        bottomNotes: null,
+      ),
+      TextFieldSet(
+        title: l10n.fee,
+        num: true,
+        controller: subValue.fee,
+        format: true,
+        rightContent: null,
+        bottomNotes: null,
+      ),
+      TextFieldSet(
+        title: l10n.url,
+        num: false,
+        controller: subValue.url,
+        format: true,
+        rightContent: favicon(ref),
+        bottomNotes:
+            "If you type the domain of provider's URL, the icon will be shown up at the right next of the name.",
+      ),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

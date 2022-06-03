@@ -25,5 +25,21 @@
     "select": "選択",
     "d_ok": "OK",
     "d_continue": "続ける",
-    "d_cancel": "キャンセル"
+    "d_cancel": "キャンセル",
+    "the_day": "当日",
+    "one_day": "1日前",
+    "two_days": "2日前",
+    "three_days": "3日前",
+    "four_days": "4日前",
+    "five_days": "5日前",
+    "six_days": "6日前",
+    "one_week": "1週間前",
+    "two_weeks": "2週間前",
+    "three_weeks": "3週間前",
+    "alph_acc": "アルファベット 昇順",
+    "alph_dec": "アルファベット 降順",
+    "date_acc": "日付 昇順",
+    "date_dec": "日付 降順",
+    "price_acc": "金額 昇順",
+    "price_dec": "金額 降順"
 }

@@ -6,6 +6,7 @@ const Color borderColor = Color.fromARGB(255, 160, 160, 160);
 
 final darkTheme = ThemeData(
   primarySwatch: customSwatch,
+  fontFamily: "Noto Sans JP",
   primaryColor: primaryColor,
   brightness: Brightness.dark,
   backgroundColor: const Color.fromARGB(255, 31, 31, 31),
@@ -19,6 +20,7 @@ final darkTheme = ThemeData(
 
 final lightTheme = ThemeData(
   primarySwatch: customSwatch,
+  fontFamily: "Noto Sans JP",
   primaryColor: primaryColor,
   brightness: Brightness.light,
   backgroundColor: const Color.fromARGB(255, 245, 245, 245),

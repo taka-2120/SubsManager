@@ -3,8 +3,14 @@ import 'package:flutter/material.dart';
 import '../../theme.dart';
 import 'circle_button.dart';
 
-Widget pageTitle(BuildContext context, String title, bool back,
-    bool rightButton, VoidCallback? rightFunc, Icon? rightIcon) {
+Widget pageTitle(
+  BuildContext context, {
+  required String title,
+  required bool back,
+  required bool rightButton,
+  required VoidCallback? rightFunc,
+  required Icon? rightIcon,
+}) {
   return Padding(
     padding: const EdgeInsets.only(top: 8, bottom: 8, left: 15, right: 15),
     child: Row(
@@ -28,7 +34,11 @@ Widget pageTitle(BuildContext context, String title, bool back,
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
         ),
         rightButton
-            ? circleButton(context, rightIcon!, rightFunc!)
+            ? circleButton(
+                context,
+                icon: rightIcon!,
+                func: rightFunc!,
+              )
             : const SizedBox(width: 40, height: 40),
       ],
     ),
