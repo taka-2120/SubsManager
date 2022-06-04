@@ -87,7 +87,7 @@ class SubInfo extends ConsumerWidget {
             ),
           ],
         ),
-        DefaultDivider(),
+        const DefaultDivider(height: 40),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

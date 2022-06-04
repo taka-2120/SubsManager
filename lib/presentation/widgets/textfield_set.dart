@@ -98,7 +98,7 @@ class TextFieldSet extends ConsumerWidget {
                 ),
         ],
       ),
-      DefaultDivider()
+      const DefaultDivider(height: 40)
     ]);
   }
 }
