@@ -9,101 +9,101 @@ import 'package:subsmanager/presentation/notifiers/sub_value.dart';
 import 'package:subsmanager/presentation/widgets/favicon.dart';
 
 import '../../theme.dart';
-import '../notifiers/favicon_value.dart';
 import '../widgets/default_divider.dart';
 import 'textfield_set.dart';
 
-Widget subsInfo(
-  BuildContext context,
-  L10n l10n,
-  WidgetRef ref,
-) {
-  final periods = ref
-      .watch(
-        periodsProvider.select((value) => value),
-      )
-      .periods;
-  final subValue = ref.watch(
-    subValueProvider.select((value) => value),
-  );
-  final readSubValue = ref.read(subValueProvider.notifier);
-  final faviconValue = ref.watch(faviconValueProvider);
+class SubInfo extends ConsumerWidget {
+  const SubInfo({Key? key}) : super(key: key);
 
-  return Column(
-    children: [
-      TextFieldSet(
-        title: l10n.name,
-        num: false,
-        controller: subValue.name,
-        format: true,
-        rightContent: null,
-        bottomNotes: null,
-      ),
-      TextFieldSet(
-        title: l10n.fee,
-        num: true,
-        controller: subValue.fee,
-        format: true,
-        rightContent: null,
-        bottomNotes: null,
-      ),
-      TextFieldSet(
-        title: l10n.url,
-        num: false,
-        controller: subValue.url,
-        format: true,
-        rightContent: favicon(
-          favicon: faviconValue.favicon,
-          isIcon: faviconValue.isIcon,
-          altColor: faviconValue.altColor!,
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final periods = ref
+        .watch(
+          periodsProvider.select((value) => value),
+        )
+        .periods;
+    final subValue = ref.watch(
+      subValueProvider.select((value) => value),
+    );
+    final readSubValue = ref.read(subValueProvider.notifier);
+    final l10n = L10n.of(context)!;
+
+    return Column(
+      children: [
+        TextFieldSet(
+          title: l10n.name,
+          num: false,
+          controller: subValue.name,
+          url: false,
+          rightContent: null,
+          bottomNotes: null,
         ),
-        bottomNotes:
-            "If you type the domain of provider's URL, the icon will be shown up at the right next of the name.",
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            "${l10n.next_billing_date}: ",
-            style: const TextStyle(fontSize: 18),
+        TextFieldSet(
+          title: l10n.fee,
+          num: true,
+          controller: subValue.fee,
+          url: false,
+          rightContent: null,
+          bottomNotes: null,
+        ),
+        TextFieldSet(
+          title: l10n.url,
+          num: false,
+          controller: subValue.url,
+          url: true,
+          rightContent: Favicon(
+            favicon: subValue.favicon,
+            isIcon: subValue.isIcon,
+            altColor: subValue.altColor,
           ),
-          MaterialButton(
-            child: Text(
-              subValue.date.dateToString(context),
-              style: const TextStyle(fontSize: 16),
+          bottomNotes:
+              "If you type the domain of provider's URL, the icon will be shown up at the right next of the name.",
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "${l10n.next_billing_date}: ",
+              style: const TextStyle(fontSize: 18),
             ),
-            onPressed: () async {
-              readSubValue.updateDate(
-                await showRoundedDatePicker(
-                      context: context,
-                      initialDate: subValue.date,
-                      borderRadius: 20,
-                      theme: ThemeData(
-                        primarySwatch: customSwatch,
-                      ),
-                    ) ??
-                    DateTime.now(),
-              );
-            },
-          ),
-        ],
-      ),
-      defaultDivider(),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            "${l10n.billing_period}: ",
-            style: const TextStyle(fontSize: 18),
-          ),
-          CustomDropdownButton2(
-            hint: "${l10n.select}...",
-            value: subValue.period,
-            dropdownItems: periods,
-            onChanged: (value) => readSubValue.updatePeriod(value),
-          ),
-        ],
-      ),
-    ],
-  );
+            MaterialButton(
+              child: Text(
+                subValue.date.dateToString(context),
+                style: const TextStyle(fontSize: 16),
+              ),
+              onPressed: () async {
+                readSubValue.updateDate(
+                  await showRoundedDatePicker(
+                        context: context,
+                        initialDate: subValue.date,
+                        borderRadius: 20,
+                        theme: ThemeData(
+                          primarySwatch: customSwatch,
+                        ),
+                      ) ??
+                      DateTime.now(),
+                );
+              },
+            ),
+          ],
+        ),
+        DefaultDivider(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "${l10n.billing_period}: ",
+              style: const TextStyle(fontSize: 18),
+            ),
+            CustomDropdownButton2(
+              hint: "${l10n.select}...",
+              value: subValue.period,
+              dropdownItems: periods,
+              onChanged: (value) => readSubValue.updatePeriod(value),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
 }

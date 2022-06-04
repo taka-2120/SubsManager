@@ -26,6 +26,9 @@ mixin _$SubValueState {
   @TextFieldDefault()
   TextEditingController get url => throw _privateConstructorUsedError;
   Image? get favicon => throw _privateConstructorUsedError;
+  bool get isIcon => throw _privateConstructorUsedError;
+  @AltColorDefault()
+  Color get altColor => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SubValueStateCopyWith<SubValueState> get copyWith =>
@@ -43,7 +46,9 @@ abstract class $SubValueStateCopyWith<$Res> {
       @TextFieldDefault() TextEditingController name,
       @TextFieldDefault() TextEditingController fee,
       @TextFieldDefault() TextEditingController url,
-      Image? favicon});
+      Image? favicon,
+      bool isIcon,
+      @AltColorDefault() Color altColor});
 }
 
 /// @nodoc
@@ -63,6 +68,8 @@ class _$SubValueStateCopyWithImpl<$Res>
     Object? fee = freezed,
     Object? url = freezed,
     Object? favicon = freezed,
+    Object? isIcon = freezed,
+    Object? altColor = freezed,
   }) {
     return _then(_value.copyWith(
       period: period == freezed
@@ -89,6 +96,14 @@ class _$SubValueStateCopyWithImpl<$Res>
           ? _value.favicon
           : favicon // ignore: cast_nullable_to_non_nullable
               as Image?,
+      isIcon: isIcon == freezed
+          ? _value.isIcon
+          : isIcon // ignore: cast_nullable_to_non_nullable
+              as bool,
+      altColor: altColor == freezed
+          ? _value.altColor
+          : altColor // ignore: cast_nullable_to_non_nullable
+              as Color,
     ));
   }
 }
@@ -106,7 +121,9 @@ abstract class _$$_SubValueStateCopyWith<$Res>
       @TextFieldDefault() TextEditingController name,
       @TextFieldDefault() TextEditingController fee,
       @TextFieldDefault() TextEditingController url,
-      Image? favicon});
+      Image? favicon,
+      bool isIcon,
+      @AltColorDefault() Color altColor});
 }
 
 /// @nodoc
@@ -128,6 +145,8 @@ class __$$_SubValueStateCopyWithImpl<$Res>
     Object? fee = freezed,
     Object? url = freezed,
     Object? favicon = freezed,
+    Object? isIcon = freezed,
+    Object? altColor = freezed,
   }) {
     return _then(_$_SubValueState(
       period: period == freezed
@@ -154,6 +173,14 @@ class __$$_SubValueStateCopyWithImpl<$Res>
           ? _value.favicon
           : favicon // ignore: cast_nullable_to_non_nullable
               as Image?,
+      isIcon: isIcon == freezed
+          ? _value.isIcon
+          : isIcon // ignore: cast_nullable_to_non_nullable
+              as bool,
+      altColor: altColor == freezed
+          ? _value.altColor
+          : altColor // ignore: cast_nullable_to_non_nullable
+              as Color,
     ));
   }
 }
@@ -167,7 +194,9 @@ class _$_SubValueState with DiagnosticableTreeMixin implements _SubValueState {
       @TextFieldDefault() required this.name,
       @TextFieldDefault() required this.fee,
       @TextFieldDefault() required this.url,
-      this.favicon = null});
+      this.favicon = null,
+      this.isIcon = false,
+      @AltColorDefault() required this.altColor});
 
   @override
   @JsonKey()
@@ -187,10 +216,16 @@ class _$_SubValueState with DiagnosticableTreeMixin implements _SubValueState {
   @override
   @JsonKey()
   final Image? favicon;
+  @override
+  @JsonKey()
+  final bool isIcon;
+  @override
+  @AltColorDefault()
+  final Color altColor;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SubValueState(period: $period, date: $date, name: $name, fee: $fee, url: $url, favicon: $favicon)';
+    return 'SubValueState(period: $period, date: $date, name: $name, fee: $fee, url: $url, favicon: $favicon, isIcon: $isIcon, altColor: $altColor)';
   }
 
   @override
@@ -203,7 +238,9 @@ class _$_SubValueState with DiagnosticableTreeMixin implements _SubValueState {
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('fee', fee))
       ..add(DiagnosticsProperty('url', url))
-      ..add(DiagnosticsProperty('favicon', favicon));
+      ..add(DiagnosticsProperty('favicon', favicon))
+      ..add(DiagnosticsProperty('isIcon', isIcon))
+      ..add(DiagnosticsProperty('altColor', altColor));
   }
 
   @override
@@ -216,7 +253,9 @@ class _$_SubValueState with DiagnosticableTreeMixin implements _SubValueState {
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.fee, fee) &&
             const DeepCollectionEquality().equals(other.url, url) &&
-            const DeepCollectionEquality().equals(other.favicon, favicon));
+            const DeepCollectionEquality().equals(other.favicon, favicon) &&
+            const DeepCollectionEquality().equals(other.isIcon, isIcon) &&
+            const DeepCollectionEquality().equals(other.altColor, altColor));
   }
 
   @override
@@ -227,7 +266,9 @@ class _$_SubValueState with DiagnosticableTreeMixin implements _SubValueState {
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(fee),
       const DeepCollectionEquality().hash(url),
-      const DeepCollectionEquality().hash(favicon));
+      const DeepCollectionEquality().hash(favicon),
+      const DeepCollectionEquality().hash(isIcon),
+      const DeepCollectionEquality().hash(altColor));
 
   @JsonKey(ignore: true)
   @override
@@ -242,7 +283,9 @@ abstract class _SubValueState implements SubValueState {
       @TextFieldDefault() required final TextEditingController name,
       @TextFieldDefault() required final TextEditingController fee,
       @TextFieldDefault() required final TextEditingController url,
-      final Image? favicon}) = _$_SubValueState;
+      final Image? favicon,
+      final bool isIcon,
+      @AltColorDefault() required final Color altColor}) = _$_SubValueState;
 
   @override
   String? get period => throw _privateConstructorUsedError;
@@ -260,6 +303,11 @@ abstract class _SubValueState implements SubValueState {
   TextEditingController get url => throw _privateConstructorUsedError;
   @override
   Image? get favicon => throw _privateConstructorUsedError;
+  @override
+  bool get isIcon => throw _privateConstructorUsedError;
+  @override
+  @AltColorDefault()
+  Color get altColor => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_SubValueStateCopyWith<_$_SubValueState> get copyWith =>

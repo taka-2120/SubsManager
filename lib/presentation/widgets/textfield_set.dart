@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:subsmanager/presentation/notifiers/favicon_value.dart';
+import 'package:subsmanager/presentation/notifiers/sub_value.dart';
 
 import '../../theme.dart';
 import 'default_divider.dart';
@@ -10,7 +10,7 @@ class TextFieldSet extends ConsumerWidget {
       {required this.title,
       required this.num,
       required this.controller,
-      required this.format,
+      required this.url,
       required this.rightContent,
       required this.bottomNotes,
       Key? key})
@@ -19,7 +19,7 @@ class TextFieldSet extends ConsumerWidget {
   final String title;
   final bool num;
   final TextEditingController controller;
-  final bool format;
+  final bool url;
   final Widget? rightContent;
   final String? bottomNotes;
 
@@ -60,9 +60,10 @@ class TextFieldSet extends ConsumerWidget {
                   ),
                   child: TextField(
                     controller: controller,
+                    autocorrect: url ? false : true,
                     keyboardType: num
                         ? TextInputType.number
-                        : (format ? TextInputType.url : TextInputType.text),
+                        : (url ? TextInputType.url : TextInputType.text),
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: title,
@@ -70,7 +71,9 @@ class TextFieldSet extends ConsumerWidget {
                     ),
                     onChanged: (text) {
                       (rightContent != null)
-                          ? ref.read(faviconValueProvider.notifier).update(text)
+                          ? ref
+                              .read(subValueProvider.notifier)
+                              .generateFavicon(text)
                           : null;
                     },
                   ),
@@ -95,7 +98,7 @@ class TextFieldSet extends ConsumerWidget {
                 ),
         ],
       ),
-      defaultDivider()
+      DefaultDivider()
     ]);
   }
 }

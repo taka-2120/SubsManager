@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/extensions/fee_str_double.dart';
 import 'package:subsmanager/extensions/period_nstr_int.dart';
-import 'package:subsmanager/presentation/notifiers/favicon_value.dart';
 import 'package:subsmanager/presentation/notifiers/subs_list.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 
@@ -27,8 +25,6 @@ class SubAddSheet extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final subValue = ref.watch(subValueProvider.select((value) => value));
-    final faviconValue =
-        ref.watch(faviconValueProvider.select((value) => value));
     final readSubList = ref.read(subsListProvider.notifier);
     final l10n = L10n.of(context)!;
     final theme = Theme.of(context);
@@ -41,36 +37,27 @@ class SubAddSheet extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            sheetHeader(
-              l10n.add,
-              context,
-              () => Navigator.pop(context),
-              () => readSubList.add(
+            SheetHeader(
+              title: l10n.add,
+              funcLeft: () => Navigator.pop(context),
+              funcRight: () => readSubList.add(
                 context,
                 l10n,
                 ref,
                 name: subValue.name.text,
                 fee: subValue.fee.text.feeToDouble(),
                 url: subValue.url.text,
-                isIcon: faviconValue.isIcon,
-                favicon: faviconValue.favicon!,
-                altColor: faviconValue.altColor!,
+                isIcon: subValue.isIcon,
+                favicon: subValue.favicon!,
+                altColor: subValue.altColor,
                 date: subValue.date,
                 period: subValue.period.periodToInt(ref),
               ),
             ),
-            Expanded(
+            const Expanded(
               child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                child: Column(
-                  children: [
-                    subsInfo(
-                      context,
-                      l10n,
-                      ref,
-                    ),
-                  ],
-                ),
+                physics: AlwaysScrollableScrollPhysics(),
+                child: SubInfo(),
               ),
             ),
           ],

@@ -8,95 +8,102 @@ import 'package:subsmanager/presentation/widgets/favicon.dart';
 
 import '../../models/function.dart';
 import '../../theme.dart';
-import '../notifiers/favicon_value.dart';
 import '../notifiers/sub_value.dart';
 import '../pages/subs/subs_edit.dart';
 
-Widget subsItem(
-  BuildContext context,
-  WidgetRef ref,
-  L10n l10n,
-  int index,
-  SubItemState item,
-) {
-  return Container(
-    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-    padding: const EdgeInsets.all(15),
-    height: 140,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(15),
-      color: Theme.of(context).backgroundColor,
-      boxShadow: [
-        BoxShadow(
-          color: Theme.of(context).shadowColor.withOpacity(0.2),
-          spreadRadius: 3,
-          blurRadius: 10,
-          offset: const Offset(0, 3),
-        ),
-      ],
-    ),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                favicon(
-                  favicon: item.favicon,
-                  isIcon: item.isIcon,
-                  altColor: item.altColor,
-                ),
-                const SizedBox(width: 4),
-                Text(
-                  item.name,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 24),
-                ),
-              ],
-            ),
-            GestureDetector(
-              onTap: () {
-                ref.read(subValueProvider.notifier).initialize();
-                ref.read(faviconValueProvider.notifier).initialize();
-                showBarModalBottomSheet(
-                  context: context,
-                  builder: (context) => SubEdit(index, item),
-                  bounce: true,
-                  expand: true,
-                );
-              },
-              child: const Icon(
-                Icons.more_horiz_rounded,
-                color: Colors.grey,
+class SubsItem extends ConsumerWidget {
+  const SubsItem({
+    required this.index,
+    required this.item,
+    Key? key,
+  }) : super(key: key);
+
+  final int index;
+  final SubItemState item;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = L10n.of(context)!;
+
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+      padding: const EdgeInsets.all(15),
+      height: 140,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        color: Theme.of(context).backgroundColor,
+        boxShadow: [
+          BoxShadow(
+            color: Theme.of(context).shadowColor.withOpacity(0.2),
+            spreadRadius: 3,
+            blurRadius: 10,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Favicon(
+                    favicon: item.favicon,
+                    isIcon: item.isIcon,
+                    altColor: item.altColor,
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    item.name,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 24),
+                  ),
+                ],
               ),
-            )
-          ],
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Text(
-              feeAndPeriod(ref, item.fee, item.period),
-              style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Text(
-              "${l10n.next}: ${item.date.dateToString(context)}",
-              style: const TextStyle(
-                  color: borderColor,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 18),
-            ),
-          ],
-        ),
-      ],
-    ),
-  );
+              GestureDetector(
+                onTap: () {
+                  ref.read(subValueProvider.notifier).initialize();
+                  showBarModalBottomSheet(
+                    context: context,
+                    builder: (context) => SubEdit(index, item),
+                    bounce: true,
+                    expand: true,
+                  );
+                },
+                child: const Icon(
+                  Icons.more_horiz_rounded,
+                  color: Colors.grey,
+                ),
+              )
+            ],
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                feeAndPeriod(ref, item.fee, item.period),
+                style:
+                    const TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Text(
+                "${l10n.next}: ${item.date.dateToString(context)}",
+                style: const TextStyle(
+                    color: borderColor,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
 }

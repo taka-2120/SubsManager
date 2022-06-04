@@ -15,8 +15,7 @@ class Credits extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            pageTitle(
-              context,
+            PageTitle(
               title: l10n.credits,
               back: true,
               rightButton: false,

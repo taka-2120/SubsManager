@@ -26,8 +26,7 @@ class NotificationsPage extends ConsumerWidget {
       body: SafeArea(
         child: Column(
           children: [
-            pageTitle(
-              context,
+            PageTitle(
               title: l10n.notif,
               back: true,
               rightButton: false,

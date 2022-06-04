@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -13,6 +15,8 @@ class SubValueState with _$SubValueState {
     @TextFieldDefault() required TextEditingController fee,
     @TextFieldDefault() required TextEditingController url,
     @Default(null) Image? favicon,
+    @Default(false) bool isIcon,
+    @AltColorDefault() required Color altColor,
   }) = _SubValueState;
 }
 
@@ -28,4 +32,13 @@ class TextFieldDefault implements Default {
 
   @override
   TextEditingController get defaultValue => TextEditingController();
+}
+
+class AltColorDefault implements Default {
+  const AltColorDefault();
+
+  @override
+  Color get defaultValue => Colors.primaries[Random().nextInt(
+        Colors.primaries.length,
+      )];
 }

@@ -12,6 +12,7 @@ import 'theme.dart';
 
 //Notification                1
 //Tap Animation               2
+//Combine Periods, Improve Widgets
 
 const List<Widget> pageLists = [SubsMain(), Settings()];
 const String title = "SubsManager";

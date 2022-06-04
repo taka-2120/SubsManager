@@ -17,8 +17,7 @@ class Settings extends StatelessWidget {
       backgroundColor: Theme.of(context).backgroundColor,
       body: Column(
         children: [
-          pageTitle(
-            context,
+          PageTitle(
             title: l10n.settings,
             back: false,
             rightButton: false,
@@ -36,14 +35,27 @@ class Settings extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        settingsItem(context, const Icon(Icons.notifications),
-                            l10n.notif, "", true,
-                            destination: const Notifications()),
-                        settingsItem(context, const Icon(Icons.note),
-                            l10n.credits, "", true,
-                            destination: const Credits()),
-                        settingsItem(context, const Icon(Icons.info),
-                            l10n.version, "1.0.0", false),
+                        SettingsItem(
+                          icon: const Icon(Icons.notifications),
+                          left: l10n.notif,
+                          right: "",
+                          navigatable: true,
+                          destination: const Notifications(),
+                        ),
+                        SettingsItem(
+                          icon: const Icon(Icons.note),
+                          left: l10n.credits,
+                          right: "",
+                          navigatable: true,
+                          destination: const Credits(),
+                        ),
+                        SettingsItem(
+                          icon: const Icon(Icons.info),
+                          left: l10n.version,
+                          right: "1.0.0",
+                          navigatable: false,
+                          destination: null,
+                        ),
                       ],
                     ),
                   ),

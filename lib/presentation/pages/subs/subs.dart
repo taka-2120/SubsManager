@@ -7,7 +7,6 @@ import 'package:subsmanager/presentation/notifiers/sub_value.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 
 import '../../../globals.dart';
-import '../../notifiers/favicon_value.dart';
 import '../../widgets/page_title.dart';
 import '../../widgets/subs_item.dart';
 import 'subs_add.dart';
@@ -38,8 +37,7 @@ class SubsPage extends ConsumerWidget {
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          pageTitle(
-            context,
+          PageTitle(
             title: l10n.subscriptions,
             back: false,
             rightButton: true,
@@ -128,13 +126,7 @@ class SubsPage extends ConsumerWidget {
           Expanded(
             child: ListView.builder(
               itemBuilder: (BuildContext context, int index) {
-                return subsItem(
-                  context,
-                  ref,
-                  l10n,
-                  index,
-                  subsList[index],
-                );
+                return SubsItem(index: index, item: subsList[index]);
               },
               itemCount: subsList.length,
             ),
@@ -145,7 +137,7 @@ class SubsPage extends ConsumerWidget {
         elevation: 4,
         onPressed: () {
           ref.read(subValueProvider.notifier).initialize();
-          ref.read(faviconValueProvider.notifier).initialize();
+          ref.read(subValueProvider.notifier).initialize();
           showBarModalBottomSheet(
             context: context,
             builder: (context) => const SubAdd(),
