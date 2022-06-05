@@ -124,12 +124,16 @@ class SubsPage extends ConsumerWidget {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-              itemBuilder: (BuildContext context, int index) {
-                return SubsItem(index: index, item: subsList[index]);
-              },
-              itemCount: subsList.length,
-            ),
+            child: (subsList.isEmpty)
+                ? const Center(
+                    child: Text("Tap + button to add your subscriptions!"),
+                  )
+                : ListView.builder(
+                    itemBuilder: (BuildContext context, int index) {
+                      return SubsItem(index: index, item: subsList[index]);
+                    },
+                    itemCount: subsList.length,
+                  ),
           ),
         ],
       ),

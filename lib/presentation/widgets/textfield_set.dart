@@ -11,6 +11,8 @@ class TextFieldSet extends ConsumerWidget {
       required this.num,
       required this.controller,
       required this.url,
+      required this.pass,
+      required this.divider,
       required this.rightContent,
       required this.bottomNotes,
       Key? key})
@@ -20,6 +22,8 @@ class TextFieldSet extends ConsumerWidget {
   final bool num;
   final TextEditingController controller;
   final bool url;
+  final bool pass;
+  final bool divider;
   final Widget? rightContent;
   final String? bottomNotes;
 
@@ -61,6 +65,8 @@ class TextFieldSet extends ConsumerWidget {
                   child: TextField(
                     controller: controller,
                     autocorrect: url ? false : true,
+                    enableSuggestions: url ? false : true,
+                    obscureText: pass ? true : false,
                     keyboardType: num
                         ? TextInputType.number
                         : (url ? TextInputType.url : TextInputType.text),
@@ -98,7 +104,12 @@ class TextFieldSet extends ConsumerWidget {
                 ),
         ],
       ),
-      const DefaultDivider(height: 40)
+      divider
+          ? const DefaultDivider(height: 40)
+          : const SizedBox(
+              width: 0,
+              height: 0,
+            )
     ]);
   }
 }

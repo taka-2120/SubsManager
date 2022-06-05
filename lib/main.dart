@@ -1,27 +1,30 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:subsmanager/firebase_options.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/notifiers/periods.dart';
+import 'package:subsmanager/presentation/pages/auth/login.dart';
 
 import 'presentation/notifiers/tab_index.dart';
 import 'presentation/pages/settings/settings.dart';
 import 'presentation/pages/subs/subs.dart';
 import 'theme.dart';
 
-//Notification                1
-//Tap Animation               2
-
 const List<Widget> pageLists = [SubsMain(), Settings()];
 const String title = "SubsManager";
 
-void main() {
+void main() async {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
     ),
   );
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
     const ProviderScope(child: MyApp()),
   );
@@ -29,18 +32,42 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+  Future<bool> isFirstRun() async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    bool? isInitialized = sharedPreferences.getBool("isInitialized");
+    isInitialized ??= false;
+    return isInitialized;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: title,
-      theme: lightTheme,
-      darkTheme: darkTheme,
-      themeMode: ThemeMode.system,
-      home: const BasePage(),
-      localizationsDelegates: L10n.localizationsDelegates,
-      supportedLocales: L10n.supportedLocales,
+    return FutureBuilder<bool?>(
+      future: isFirstRun(),
+      builder: (BuildContext context, AsyncSnapshot<bool?> snapshot) {
+        final hasData = snapshot.hasData;
+        if (hasData == false) {
+          return const CircularProgressIndicator();
+        }
+
+        final isInitialized = snapshot.data;
+        Widget homeWidget;
+        if (isInitialized!) {
+          homeWidget = const BasePage();
+        } else {
+          homeWidget = const LogIn();
+        }
+        var app = MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: title,
+          theme: lightTheme,
+          darkTheme: darkTheme,
+          themeMode: ThemeMode.system,
+          localizationsDelegates: L10n.localizationsDelegates,
+          supportedLocales: L10n.supportedLocales,
+          home: homeWidget,
+        );
+        return app;
+      },
     );
   }
 }

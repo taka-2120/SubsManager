@@ -9,6 +9,7 @@ import 'package:subsmanager/models/sub_item/sub_item.state.dart';
 import 'package:subsmanager/presentation/notifiers/sub_value.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 
+import '../../widgets/rounded_button.dart';
 import '../../widgets/sheet_header.dart';
 import '../../../theme.dart';
 import '../../widgets/sub_info.dart';
@@ -94,31 +95,14 @@ class SubEditSheet extends HookConsumerWidget {
                 child: Column(
                   children: [
                     const SubInfo(),
-                    Container(
-                      margin: const EdgeInsets.only(top: 30),
-                      decoration: BoxDecoration(
-                        color: entryBackground,
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: InkWell(
-                        child: Container(
-                          width: 100,
-                          padding: const EdgeInsets.all(15),
-                          child: Center(
-                            child: Text(
-                              l10n.delete_sub,
-                              style: const TextStyle(
-                                color: Colors.redAccent,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                        onTap: () {
-                          readSubList.removeAt(index);
-                          Navigator.pop(context);
-                        },
-                      ),
+                    RoundededButton(
+                      text: l10n.delete_sub,
+                      fontColor: Colors.redAccent,
+                      topPad: 30,
+                      onTap: () {
+                        readSubList.removeAt(index);
+                        Navigator.pop(context);
+                      },
                     ),
                   ],
                 ),

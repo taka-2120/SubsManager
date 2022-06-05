@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:subsmanager/extensions/fee_str_double.dart';
 import 'package:subsmanager/extensions/period_nstr_int.dart';
 import 'package:subsmanager/presentation/notifiers/subs_list.dart';
@@ -19,7 +22,7 @@ class SubAdd extends StatelessWidget {
 }
 
 // ignore: must_be_immutable
-class SubAddSheet extends ConsumerWidget {
+class SubAddSheet extends HookConsumerWidget {
   const SubAddSheet({Key? key}) : super(key: key);
 
   @override
@@ -28,6 +31,27 @@ class SubAddSheet extends ConsumerWidget {
     final readSubList = ref.read(subsListProvider.notifier);
     final l10n = L10n.of(context)!;
     final theme = Theme.of(context);
+
+    Future<void> notify() {
+      final flnp = FlutterLocalNotificationsPlugin();
+      return flnp.initialize(
+        const InitializationSettings(
+          iOS: IOSInitializationSettings(),
+        ),
+      );
+    }
+
+    Future checkIsFirst() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      bool isFirstAdd = (prefs.getBool('isFirstAdd') ?? false);
+
+      isFirstAdd ? null : notify();
+    }
+
+    useEffect(() {
+      checkIsFirst();
+      return;
+    });
 
     return Scaffold(
       backgroundColor: theme.backgroundColor,

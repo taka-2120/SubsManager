@@ -63,6 +63,7 @@ class SubsList extends StateNotifier<List<SubItemState>> {
     ];
   }
 
+  //ERROR HANDLING IS REQUIRED
   void update(
     BuildContext context, {
     required int index,
