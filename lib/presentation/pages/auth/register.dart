@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:subsmanager/main.dart';
 import 'package:subsmanager/presentation/dialogs/alert.dart';
+import 'package:subsmanager/presentation/widgets/page_title.dart';
 import 'package:subsmanager/presentation/widgets/textfield_set.dart';
 
+import '../../../main.dart';
+import '../../widgets/default_appbar.dart';
 import '../../widgets/rounded_button.dart';
 
 class Register extends StatelessWidget {
@@ -21,109 +23,86 @@ class Register extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(15),
+      appBar: const DefaultAppBar(),
+      body: WillPopScope(
+        onWillPop: () async => false,
+        child: SafeArea(
           child: Column(
             children: [
-              const Center(
-                child: Text(
-                  "Welcome!",
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
+              const PageTitle(
+                title: "Join Us Now!",
+                back: true,
+                rightButton: false,
+                rightFunc: null,
+                rightIcon: null,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 15,
+                  right: 15,
+                  bottom: 15,
                 ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              TextFieldSet(
-                title: "E-mail",
-                num: false,
-                controller: emailCtl,
-                url: false,
-                pass: false,
-                divider: true,
-                rightContent: null,
-                bottomNotes: null,
-              ),
-              TextFieldSet(
-                title: "Password",
-                num: false,
-                controller: passCtl,
-                url: false,
-                pass: true,
-                divider: false,
-                rightContent: null,
-                bottomNotes: null,
-              ),
-              RoundededButton(
-                text: "Register",
-                fontColor: Colors.black,
-                topPad: 10,
-                onTap: () {
-                  try {
-                    final newUser = auth.createUserWithEmailAndPassword(
-                        email: emailCtl.text, password: passCtl.text);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const BasePage()),
-                    );
-                  } on FirebaseAuthException catch (e) {
-                    if (e.code == 'email-already-in-use') {
-                      showDialog(
-                        barrierColor: Colors.black26,
-                        context: context,
-                        builder: (context) {
-                          return const CustomAlertDialog(
-                            title: "Error",
-                            description: "E-mail is already in use.",
-                            ok: true,
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    TextFieldSet(
+                      title: "E-mail",
+                      num: false,
+                      controller: emailCtl,
+                      url: false,
+                      pass: false,
+                      divider: true,
+                      rightContent: null,
+                      bottomNotes: null,
+                    ),
+                    TextFieldSet(
+                      title: "Password",
+                      num: false,
+                      controller: passCtl,
+                      url: false,
+                      pass: true,
+                      divider: false,
+                      rightContent: null,
+                      bottomNotes: null,
+                    ),
+                    RoundededButton(
+                      text: "Register",
+                      fontColor: Colors.black,
+                      topPad: 20,
+                      onTap: () async {
+                        try {
+                          final credential =
+                              await auth.createUserWithEmailAndPassword(
+                            email: emailCtl.text,
+                            password: passCtl.text,
                           );
-                        },
-                      );
-                    } else if (e.code == 'invalid-email') {
-                      showDialog(
-                        barrierColor: Colors.black26,
-                        context: context,
-                        builder: (context) {
-                          return const CustomAlertDialog(
-                            title: "Error",
-                            description: "E-mail format is incorecct.",
-                            ok: true,
+                          await Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (context) {
+                              return const BasePage();
+                            }),
                           );
-                        },
-                      );
-                    } else if (e.code == 'operation-not-allowed') {
-                      showDialog(
-                        barrierColor: Colors.black26,
-                        context: context,
-                        builder: (context) {
-                          return const CustomAlertDialog(
-                            title: "Error",
-                            description:
-                                "This E-mail address or password is currently disabled.",
-                            ok: true,
+                        } on FirebaseAuthException catch (e) {
+                          final isEmpty =
+                              emailCtl.text.isEmpty || passCtl.text.isEmpty;
+                          showDialog(
+                            barrierColor: Colors.black26,
+                            context: context,
+                            builder: (context) {
+                              return CustomAlertDialog(
+                                title: "Error",
+                                description: getRegisterErrorsString(
+                                    l10n, e.code, isEmpty),
+                                ok: true,
+                              );
+                            },
                           );
-                        },
-                      );
-                    } else if (e.code == 'weak-password') {
-                      showDialog(
-                        barrierColor: Colors.black26,
-                        context: context,
-                        builder: (context) {
-                          return const CustomAlertDialog(
-                            title: "Error",
-                            description:
-                                "Password should be 6 letters or more.",
-                            ok: true,
-                          );
-                        },
-                      );
-                    }
-                  }
-                },
+                        }
+                      },
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

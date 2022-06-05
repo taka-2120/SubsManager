@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 
 final localeStr = Platform.localeName;
@@ -82,5 +83,49 @@ getSortOptionsString(L10n l10n, SortOptions sortOptions) {
       return l10n.price_acc;
     case SortOptions.priceDec:
       return l10n.price_dec;
+  }
+}
+
+getLogInErrorsString(L10n l10n, String errors, bool isEmpty) {
+  switch (isEmpty) {
+    case true:
+      return "Please make sure to fill Email address and password.";
+  }
+
+  switch (errors) {
+    case "invalid-email":
+      return "E-mail format is incorecct.";
+    case "user-disabled":
+      return "This user is disabled.";
+    case "user-not-found":
+      return "This E-mail address is not registered.";
+    case "wrong-password":
+      return "Password is incorrect. Please check it again.";
+    case "email-already-in-use":
+      return "You have already signed in this account.";
+    default:
+      return "Sorry, unknown error has occured. Please try again later.";
+  }
+}
+
+getRegisterErrorsString(L10n l10n, String errors, bool isEmpty) {
+  switch (isEmpty) {
+    case true:
+      return "Please make sure to fill Email address and password.";
+  }
+
+  switch (errors) {
+    case "invalid-email":
+      return "This Email address format is incorecct.";
+    case "email-already-in-us":
+      return "This Email address is already in use.";
+    case "operation-not-allowed":
+      return "This Email address or password is currently disabled.";
+    case "weak-password":
+      return "Your password is too weak. It should be 6 letters or more.";
+    case "email-already-in-use":
+      return "You have already signed in this account.";
+    default:
+      return "Sorry, unknown error has occured. Please try again later.";
   }
 }

@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:subsmanager/extensions/fee_str_double.dart';
 import 'package:subsmanager/extensions/period_nstr_int.dart';
+import 'package:subsmanager/presentation/dialogs/intro_dialog.dart';
 import 'package:subsmanager/presentation/notifiers/subs_list.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 
@@ -21,7 +22,6 @@ class SubAdd extends StatelessWidget {
   }
 }
 
-// ignore: must_be_immutable
 class SubAddSheet extends HookConsumerWidget {
   const SubAddSheet({Key? key}) : super(key: key);
 
@@ -32,8 +32,14 @@ class SubAddSheet extends HookConsumerWidget {
     final l10n = L10n.of(context)!;
     final theme = Theme.of(context);
 
+    updateFirstAdd() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setBool('isFirstAdd', false);
+    }
+
     Future<void> notify() {
       final flnp = FlutterLocalNotificationsPlugin();
+      updateFirstAdd();
       return flnp.initialize(
         const InitializationSettings(
           iOS: IOSInitializationSettings(),
@@ -43,9 +49,24 @@ class SubAddSheet extends HookConsumerWidget {
 
     Future checkIsFirst() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      bool isFirstAdd = (prefs.getBool('isFirstAdd') ?? false);
+      bool isFirstAdd = (prefs.getBool('isFirstAdd') ?? true);
 
-      isFirstAdd ? null : notify();
+      switch (isFirstAdd) {
+        case true:
+          showDialog(
+            barrierColor: Colors.black26,
+            context: context,
+            builder: (context) {
+              return IntroDialog(
+                title: "Introduction",
+                description:
+                    "This app can notify you the billing date and prices. \nWe will send a notification 3 days before the billing date, but you can change this later in Settings tab. \nIn order to send notifications to you, please allow sending notification.",
+                func: notify(),
+              );
+            },
+          );
+          break;
+      }
     }
 
     useEffect(() {
@@ -72,7 +93,7 @@ class SubAddSheet extends HookConsumerWidget {
                 fee: subValue.fee.text.feeToDouble(),
                 url: subValue.url.text,
                 isIcon: subValue.isIcon,
-                favicon: subValue.favicon!,
+                favicon: subValue.favicon,
                 altColor: subValue.altColor,
                 date: subValue.date,
                 period: subValue.period.periodToInt(ref),

@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$UserDataState {
-  String get userName => throw _privateConstructorUsedError;
+  String get email => throw _privateConstructorUsedError;
   String get pass => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -29,7 +29,7 @@ abstract class $UserDataStateCopyWith<$Res> {
   factory $UserDataStateCopyWith(
           UserDataState value, $Res Function(UserDataState) then) =
       _$UserDataStateCopyWithImpl<$Res>;
-  $Res call({String userName, String pass});
+  $Res call({String email, String pass});
 }
 
 /// @nodoc
@@ -43,13 +43,13 @@ class _$UserDataStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? userName = freezed,
+    Object? email = freezed,
     Object? pass = freezed,
   }) {
     return _then(_value.copyWith(
-      userName: userName == freezed
-          ? _value.userName
-          : userName // ignore: cast_nullable_to_non_nullable
+      email: email == freezed
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
               as String,
       pass: pass == freezed
           ? _value.pass
@@ -66,7 +66,7 @@ abstract class _$$_UserDataStateCopyWith<$Res>
           _$_UserDataState value, $Res Function(_$_UserDataState) then) =
       __$$_UserDataStateCopyWithImpl<$Res>;
   @override
-  $Res call({String userName, String pass});
+  $Res call({String email, String pass});
 }
 
 /// @nodoc
@@ -82,13 +82,13 @@ class __$$_UserDataStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? userName = freezed,
+    Object? email = freezed,
     Object? pass = freezed,
   }) {
     return _then(_$_UserDataState(
-      userName: userName == freezed
-          ? _value.userName
-          : userName // ignore: cast_nullable_to_non_nullable
+      email: email == freezed
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
               as String,
       pass: pass == freezed
           ? _value.pass
@@ -101,18 +101,18 @@ class __$$_UserDataStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_UserDataState implements _UserDataState {
-  _$_UserDataState({this.userName = "", this.pass = ""});
+  _$_UserDataState({this.email = "", this.pass = ""});
 
   @override
   @JsonKey()
-  final String userName;
+  final String email;
   @override
   @JsonKey()
   final String pass;
 
   @override
   String toString() {
-    return 'UserDataState(userName: $userName, pass: $pass)';
+    return 'UserDataState(email: $email, pass: $pass)';
   }
 
   @override
@@ -120,14 +120,14 @@ class _$_UserDataState implements _UserDataState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_UserDataState &&
-            const DeepCollectionEquality().equals(other.userName, userName) &&
+            const DeepCollectionEquality().equals(other.email, email) &&
             const DeepCollectionEquality().equals(other.pass, pass));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(userName),
+      const DeepCollectionEquality().hash(email),
       const DeepCollectionEquality().hash(pass));
 
   @JsonKey(ignore: true)
@@ -137,11 +137,11 @@ class _$_UserDataState implements _UserDataState {
 }
 
 abstract class _UserDataState implements UserDataState {
-  factory _UserDataState({final String userName, final String pass}) =
+  factory _UserDataState({final String email, final String pass}) =
       _$_UserDataState;
 
   @override
-  String get userName => throw _privateConstructorUsedError;
+  String get email => throw _privateConstructorUsedError;
   @override
   String get pass => throw _privateConstructorUsedError;
   @override

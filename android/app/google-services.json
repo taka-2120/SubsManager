@@ -29,6 +29,13 @@
             {
               "client_id": "120696325435-6k2ni5keqm1uqco2d4pti218417d9agl.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "120696325435-gv6hsbpk74p38n925bk7onlvkaqa3n6p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.y.t.subsmanager"
+              }
             }
           ]
         }

@@ -1,28 +1,24 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:subsmanager/firebase_options.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/notifiers/periods.dart';
 import 'package:subsmanager/presentation/pages/auth/login.dart';
+import 'package:subsmanager/presentation/widgets/default_appbar.dart';
 
 import 'presentation/notifiers/tab_index.dart';
 import 'presentation/pages/settings/settings.dart';
 import 'presentation/pages/subs/subs.dart';
 import 'theme.dart';
+import 'globals.dart';
 
 const List<Widget> pageLists = [SubsMain(), Settings()];
 const String title = "SubsManager";
 
 void main() async {
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-    ),
-  );
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
@@ -30,45 +26,31 @@ void main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends HookWidget {
   const MyApp({Key? key}) : super(key: key);
-  Future<bool> isFirstRun() async {
-    final sharedPreferences = await SharedPreferences.getInstance();
-    bool? isInitialized = sharedPreferences.getBool("isInitialized");
-    isInitialized ??= false;
-    return isInitialized;
-  }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<bool?>(
-      future: isFirstRun(),
-      builder: (BuildContext context, AsyncSnapshot<bool?> snapshot) {
-        final hasData = snapshot.hasData;
-        if (hasData == false) {
-          return const CircularProgressIndicator();
-        }
-
-        final isInitialized = snapshot.data;
-        Widget homeWidget;
-        if (isInitialized!) {
-          homeWidget = const BasePage();
-        } else {
-          homeWidget = const LogIn();
-        }
-        var app = MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: title,
-          theme: lightTheme,
-          darkTheme: darkTheme,
-          themeMode: ThemeMode.system,
-          localizationsDelegates: L10n.localizationsDelegates,
-          supportedLocales: L10n.supportedLocales,
-          home: homeWidget,
-        );
-        return app;
-      },
-    );
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: title,
+        theme: lightTheme,
+        darkTheme: darkTheme,
+        themeMode: ThemeMode.system,
+        localizationsDelegates: L10n.localizationsDelegates,
+        supportedLocales: L10n.supportedLocales,
+        home: StreamBuilder<User?>(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const SizedBox();
+            }
+            if (!snapshot.hasData) {
+              return const BasePage();
+            }
+            return const LogIn();
+          },
+        ));
   }
 }
 
@@ -94,13 +76,7 @@ class BasePage extends HookConsumerWidget {
 
     return Scaffold(
       backgroundColor: theme.backgroundColor,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(0),
-        child: AppBar(
-          elevation: 0,
-          backgroundColor: theme.backgroundColor,
-        ),
-      ),
+      appBar: const DefaultAppBar(),
       body: IndexedStack(
         index: tabIndex,
         children: pageLists,

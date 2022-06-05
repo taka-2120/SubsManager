@@ -68,3 +68,5 @@ class Settings extends StatelessWidget {
     );
   }
 }
+
+//SIGN OUT: await FirebaseAuth.instance.signOut();

@@ -28,6 +28,7 @@ class RoundededButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
       ),
       child: InkWell(
+        onTap: onTap,
         child: Container(
           width: 130,
           padding: const EdgeInsets.all(15),
@@ -41,7 +42,6 @@ class RoundededButton extends StatelessWidget {
             ),
           ),
         ),
-        onTap: () => onTap,
       ),
     );
   }

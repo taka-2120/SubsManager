@@ -8,7 +8,7 @@ final userDataProvider =
 class UserData extends StateNotifier<UserDataState> {
   UserData() : super(UserDataState());
 
-  void update(String userName, String pass) {
-    state = state.copyWith(userName: userName, pass: pass);
+  void update(String email, String pass) {
+    state = state.copyWith(email: email, pass: pass);
   }
 }
