@@ -13,7 +13,6 @@ import 'presentation/notifiers/tab_index.dart';
 import 'presentation/pages/settings/settings.dart';
 import 'presentation/pages/subs/subs.dart';
 import 'theme.dart';
-import 'globals.dart';
 
 const List<Widget> pageLists = [SubsMain(), Settings()];
 const String title = "SubsManager";
@@ -21,6 +20,7 @@ const String title = "SubsManager";
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await FirebaseAuth.instance.signOut();
   runApp(
     const ProviderScope(child: MyApp()),
   );
@@ -32,25 +32,26 @@ class MyApp extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: title,
-        theme: lightTheme,
-        darkTheme: darkTheme,
-        themeMode: ThemeMode.system,
-        localizationsDelegates: L10n.localizationsDelegates,
-        supportedLocales: L10n.supportedLocales,
-        home: StreamBuilder<User?>(
-          stream: FirebaseAuth.instance.authStateChanges(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const SizedBox();
-            }
-            if (!snapshot.hasData) {
-              return const BasePage();
-            }
+      debugShowCheckedModeBanner: false,
+      title: title,
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: ThemeMode.system,
+      localizationsDelegates: L10n.localizationsDelegates,
+      supportedLocales: L10n.supportedLocales,
+      home: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
             return const LogIn();
-          },
-        ));
+          }
+          if (!snapshot.hasData) {
+            return const LogIn();
+          }
+          return const LogIn();
+        },
+      ),
+    );
   }
 }
 
@@ -74,42 +75,45 @@ class BasePage extends HookConsumerWidget {
       [],
     );
 
-    return Scaffold(
-      backgroundColor: theme.backgroundColor,
-      appBar: const DefaultAppBar(),
-      body: IndexedStack(
-        index: tabIndex,
-        children: pageLists,
-      ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          borderRadius:
-              const BorderRadius.only(topLeft: radius, topRight: radius),
-          boxShadow: [
-            BoxShadow(
-              color: theme.hoverColor,
-              spreadRadius: 0,
-              blurRadius: 15,
-            ),
-          ],
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        backgroundColor: theme.backgroundColor,
+        appBar: const DefaultAppBar(),
+        body: IndexedStack(
+          index: tabIndex,
+          children: pageLists,
         ),
-        child: ClipRRect(
-          borderRadius:
-              const BorderRadius.only(topLeft: radius, topRight: radius),
-          child: BottomNavigationBar(
-            items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: const Icon(Icons.account_balance_wallet),
-                label: l10n.subscriptions,
-              ),
-              BottomNavigationBarItem(
-                icon: const Icon(Icons.settings),
-                label: l10n.settings,
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+            borderRadius:
+                const BorderRadius.only(topLeft: radius, topRight: radius),
+            boxShadow: [
+              BoxShadow(
+                color: theme.hoverColor,
+                spreadRadius: 0,
+                blurRadius: 15,
               ),
             ],
-            currentIndex: tabIndex,
-            selectedItemColor: primaryColor,
-            onTap: readTabIndex.update,
+          ),
+          child: ClipRRect(
+            borderRadius:
+                const BorderRadius.only(topLeft: radius, topRight: radius),
+            child: BottomNavigationBar(
+              items: <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: const Icon(Icons.account_balance_wallet),
+                  label: l10n.subscriptions,
+                ),
+                BottomNavigationBarItem(
+                  icon: const Icon(Icons.settings),
+                  label: l10n.settings,
+                ),
+              ],
+              currentIndex: tabIndex,
+              selectedItemColor: primaryColor,
+              onTap: readTabIndex.update,
+            ),
           ),
         ),
       ),

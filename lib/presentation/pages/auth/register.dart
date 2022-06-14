@@ -3,10 +3,12 @@ import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:subsmanager/presentation/dialogs/alert.dart';
+import 'package:subsmanager/presentation/dialogs/loading.dart';
 import 'package:subsmanager/presentation/widgets/page_title.dart';
 import 'package:subsmanager/presentation/widgets/textfield_set.dart';
 
 import '../../../main.dart';
+import '../../../models/function.dart';
 import '../../widgets/default_appbar.dart';
 import '../../widgets/rounded_button.dart';
 
@@ -71,14 +73,40 @@ class Register extends StatelessWidget {
                       text: "Register",
                       fontColor: Colors.black,
                       topPad: 20,
-                      onTap: () async {
+                      onTap: () {
+                        isConnected().then(
+                          (result) {
+                            switch (result) {
+                              case false:
+                                showDialog(
+                                  barrierColor: Colors.black26,
+                                  context: context,
+                                  builder: (context) {
+                                    return CustomAlertDialog(
+                                      title: "Error",
+                                      description: getLogInErrorsString(
+                                          l10n,
+                                          "Please check your Internet connection.",
+                                          false),
+                                      ok: true,
+                                    );
+                                  },
+                                );
+                                return;
+                            }
+                          },
+                        );
                         try {
-                          final credential =
-                              await auth.createUserWithEmailAndPassword(
+                          auth.createUserWithEmailAndPassword(
                             email: emailCtl.text,
                             password: passCtl.text,
                           );
-                          await Navigator.of(context).pushReplacement(
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (_) => const Loading(),
+                          );
+                          Navigator.of(context).pushReplacement(
                             MaterialPageRoute(builder: (context) {
                               return const BasePage();
                             }),

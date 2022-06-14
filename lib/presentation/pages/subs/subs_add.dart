@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:subsmanager/extensions/fee_str_double.dart';
@@ -32,22 +31,7 @@ class SubAddSheet extends HookConsumerWidget {
     final l10n = L10n.of(context)!;
     final theme = Theme.of(context);
 
-    updateFirstAdd() async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setBool('isFirstAdd', false);
-    }
-
-    Future<void> notify() {
-      final flnp = FlutterLocalNotificationsPlugin();
-      updateFirstAdd();
-      return flnp.initialize(
-        const InitializationSettings(
-          iOS: IOSInitializationSettings(),
-        ),
-      );
-    }
-
-    Future checkIsFirst() async {
+    Future<void> checkIsFirst() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       bool isFirstAdd = (prefs.getBool('isFirstAdd') ?? true);
 
@@ -57,11 +41,11 @@ class SubAddSheet extends HookConsumerWidget {
             barrierColor: Colors.black26,
             context: context,
             builder: (context) {
-              return IntroDialog(
+              return const IntroDialog(
                 title: "Introduction",
                 description:
                     "This app can notify you the billing date and prices. \nWe will send a notification 3 days before the billing date, but you can change this later in Settings tab. \nIn order to send notifications to you, please allow sending notification.",
-                func: notify(),
+                notification: true,
               );
             },
           );

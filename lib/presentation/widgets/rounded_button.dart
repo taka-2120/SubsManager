@@ -8,6 +8,7 @@ class RoundededButton extends StatelessWidget {
     required this.text,
     required this.fontColor,
     required this.topPad,
+    this.backgroundColor,
     required this.onTap,
     Key? key,
   }) : super(key: key);
@@ -15,6 +16,7 @@ class RoundededButton extends StatelessWidget {
   final String text;
   final Color fontColor;
   final double topPad;
+  final Color? backgroundColor;
   final VoidCallback onTap;
 
   @override
@@ -24,7 +26,7 @@ class RoundededButton extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(top: topPad),
       decoration: BoxDecoration(
-        color: entryBackground,
+        color: (backgroundColor == null) ? entryBackground : backgroundColor,
         borderRadius: BorderRadius.circular(15),
       ),
       child: InkWell(

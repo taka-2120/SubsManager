@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:subsmanager/l10n/l10n.dart';
+
+import '../../notification_services.dart';
 
 class IntroDialog extends StatelessWidget {
   const IntroDialog({
     Key? key,
     required this.title,
     required this.description,
-    required this.func,
+    required this.notification,
   }) : super(key: key);
 
   final String title, description;
-  final Future<void> func;
+  final bool notification;
+
+  Future<void> updateFirstAdd() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isFirstAdd', false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +62,9 @@ class IntroDialog extends StatelessWidget {
             height: 50,
             child: InkWell(
               onTap: () {
-                func;
-                Navigator.of(context);
+                NotificationService().init();
+                updateFirstAdd();
+                Navigator.of(context).pop();
               },
               child: Center(
                 child: Text(

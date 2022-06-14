@@ -7,8 +7,9 @@ import 'package:subsmanager/presentation/dialogs/alert.dart';
 import 'package:subsmanager/presentation/pages/auth/register.dart';
 import 'package:subsmanager/presentation/widgets/textfield_set.dart';
 
+import '../../../models/function.dart';
+import '../../dialogs/loading.dart';
 import '../../widgets/default_appbar.dart';
-import '../../widgets/page_title.dart';
 import '../../widgets/rounded_button.dart';
 
 class LogIn extends StatelessWidget {
@@ -27,12 +28,25 @@ class LogIn extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            const PageTitle(
-              title: "Welcome!",
-              back: false,
-              rightButton: false,
-              rightFunc: null,
-              rightIcon: null,
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: Image.asset(
+                      "lib/assets/icon.png",
+                      height: 120,
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ),
+                  const Text(
+                    "Welcome!",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                  )
+                ],
+              ),
             ),
             const SizedBox(
               height: 15,
@@ -69,11 +83,40 @@ class LogIn extends StatelessWidget {
                     text: "Log In",
                     fontColor: Colors.black,
                     topPad: 20,
+                    backgroundColor: Theme.of(context).primaryColor,
                     onTap: () async {
+                      isConnected().then(
+                        (result) {
+                          switch (result) {
+                            case true:
+                              showDialog(
+                                barrierColor: Colors.black26,
+                                context: context,
+                                builder: (context) {
+                                  return CustomAlertDialog(
+                                    title: "Error",
+                                    description: getLogInErrorsString(
+                                        l10n,
+                                        "Please check your Internet connection.",
+                                        false),
+                                    ok: true,
+                                  );
+                                },
+                              );
+                              return;
+                          }
+                        },
+                      );
                       try {
                         await FirebaseAuth.instance.signInWithEmailAndPassword(
                           email: emailCtl.text,
                           password: passCtl.text,
+                        );
+                        FirebaseAuth.instance.authStateChanges();
+                        showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (_) => const Loading(),
                         );
                         await Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (context) {

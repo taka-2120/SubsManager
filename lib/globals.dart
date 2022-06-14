@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:subsmanager/l10n/l10n.dart';
+import 'package:subsmanager/models/function.dart';
 
 final localeStr = Platform.localeName;
 
@@ -108,7 +109,7 @@ getLogInErrorsString(L10n l10n, String errors, bool isEmpty) {
   }
 }
 
-getRegisterErrorsString(L10n l10n, String errors, bool isEmpty) {
+getRegisterErrorsString(L10n l10n, String errors, bool isEmpty) async {
   switch (isEmpty) {
     case true:
       return "Please make sure to fill Email address and password.";
