@@ -18,7 +18,7 @@ class LogIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = L10n.of(context)!;
-
+    final auth = FirebaseAuth.instance;
     final TextEditingController emailCtl = TextEditingController();
     final TextEditingController passCtl = TextEditingController();
 
@@ -34,7 +34,7 @@ class LogIn extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(25),
                     child: Image.asset(
                       "lib/assets/icon.png",
                       height: 120,
@@ -108,11 +108,11 @@ class LogIn extends StatelessWidget {
                         },
                       );
                       try {
-                        await FirebaseAuth.instance.signInWithEmailAndPassword(
+                        await auth.signInWithEmailAndPassword(
                           email: emailCtl.text,
                           password: passCtl.text,
                         );
-                        FirebaseAuth.instance.authStateChanges();
+                        auth.authStateChanges();
                         showDialog(
                           context: context,
                           barrierDismissible: false,

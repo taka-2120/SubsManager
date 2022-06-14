@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/l10n/l10n.dart';
+import 'package:subsmanager/presentation/pages/auth/login.dart';
+import 'package:subsmanager/theme.dart';
 
 import '../../widgets/page_title.dart';
 import '../../widgets/settings_item.dart';
@@ -46,12 +48,23 @@ class Settings extends HookConsumerWidget {
                       minHeight: constraints.maxHeight,
                     ),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        const Padding(
+                          padding: EdgeInsets.only(top: 10, left: 15),
+                          child: Text(
+                            "General",
+                            style: TextStyle(
+                              color: borderColor,
+                            ),
+                          ),
+                        ),
                         SettingsItem(
                           icon: const Icon(Icons.notifications),
                           left: l10n.notif,
                           right: "",
                           navigatable: true,
+                          disposable: false,
                           destination: const Notifications(),
                         ),
                         SettingsItem(
@@ -59,6 +72,7 @@ class Settings extends HookConsumerWidget {
                           left: l10n.credits,
                           right: "",
                           navigatable: true,
+                          disposable: false,
                           destination: const Credits(),
                         ),
                         SettingsItem(
@@ -66,14 +80,31 @@ class Settings extends HookConsumerWidget {
                           left: l10n.version,
                           right: "1.0.0",
                           navigatable: false,
-                          destination: null,
+                          disposable: false,
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(top: 10, left: 15),
+                          child: Text(
+                            "User Info",
+                            style: TextStyle(
+                              color: borderColor,
+                            ),
+                          ),
                         ),
                         SettingsItem(
-                          icon: const Icon(Icons.verified_user_rounded),
+                          icon: const Icon(Icons.person_rounded),
                           left: "E-mail",
                           right: userName,
                           navigatable: false,
-                          destination: null,
+                          disposable: false,
+                        ),
+                        const SettingsItem(
+                          icon: Icon(Icons.remove_circle_outline_rounded),
+                          left: "Sign Out",
+                          right: "",
+                          navigatable: true,
+                          disposable: true,
+                          destination: LogIn(),
                         ),
                       ],
                     ),
@@ -87,5 +118,3 @@ class Settings extends HookConsumerWidget {
     );
   }
 }
-
-//SIGN OUT: await FirebaseAuth.instance.signOut();

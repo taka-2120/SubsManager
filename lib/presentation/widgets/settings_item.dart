@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:subsmanager/presentation/pages/auth/login.dart';
 
 import '../../theme.dart';
 
@@ -8,7 +9,8 @@ class SettingsItem extends StatelessWidget {
     required this.left,
     required this.right,
     required this.navigatable,
-    required this.destination,
+    required this.disposable,
+    this.destination,
     Key? key,
   }) : super(key: key);
 
@@ -16,6 +18,7 @@ class SettingsItem extends StatelessWidget {
   final String left;
   final String right;
   final bool navigatable;
+  final bool disposable;
   final StatelessWidget? destination;
 
   @override
@@ -46,11 +49,21 @@ class SettingsItem extends StatelessWidget {
           ),
         ),
         onTap: () {
-          if (navigatable) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => destination!),
-            );
+          if (navigatable || destination != null) {
+            if (disposable) {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => destination!,
+                ),
+              );
+            } else {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => destination!,
+                ),
+              );
+            }
           }
         },
       ),

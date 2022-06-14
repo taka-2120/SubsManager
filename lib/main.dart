@@ -69,6 +69,7 @@ class BasePage extends HookConsumerWidget {
 
     useEffect(
       () {
+        readTabIndex.update(0);
         readPeriods.updateLocale(l10n);
         return;
       },

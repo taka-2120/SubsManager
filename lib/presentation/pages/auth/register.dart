@@ -39,6 +39,27 @@ class Register extends StatelessWidget {
                 rightIcon: null,
               ),
               Padding(
+                padding: const EdgeInsets.all(10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: Image.asset(
+                        "lib/assets/start.png",
+                        height: 120,
+                        fit: BoxFit.fitWidth,
+                      ),
+                    ),
+                    // const Text(
+                    //   " ",
+                    //   style:
+                    //       TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                    // )
+                  ],
+                ),
+              ),
+              Padding(
                 padding: const EdgeInsets.only(
                   left: 15,
                   right: 15,
@@ -73,7 +94,7 @@ class Register extends StatelessWidget {
                       text: "Register",
                       fontColor: Colors.black,
                       topPad: 20,
-                      onTap: () {
+                      onTap: () async {
                         isConnected().then(
                           (result) {
                             switch (result) {
@@ -97,16 +118,17 @@ class Register extends StatelessWidget {
                           },
                         );
                         try {
-                          auth.createUserWithEmailAndPassword(
+                          await auth.createUserWithEmailAndPassword(
                             email: emailCtl.text,
                             password: passCtl.text,
                           );
+                          auth.authStateChanges();
                           showDialog(
                             context: context,
                             barrierDismissible: false,
                             builder: (_) => const Loading(),
                           );
-                          Navigator.of(context).pushReplacement(
+                          await Navigator.of(context).pushReplacement(
                             MaterialPageRoute(builder: (context) {
                               return const BasePage();
                             }),
@@ -122,6 +144,21 @@ class Register extends StatelessWidget {
                                 title: "Error",
                                 description: getRegisterErrorsString(
                                     l10n, e.code, isEmpty),
+                                ok: true,
+                              );
+                            },
+                          );
+                        } catch (e) {
+                          final isEmpty =
+                              emailCtl.text.isEmpty || passCtl.text.isEmpty;
+                          showDialog(
+                            barrierColor: Colors.black26,
+                            context: context,
+                            builder: (context) {
+                              return CustomAlertDialog(
+                                title: "Error",
+                                description: getLogInErrorsString(
+                                    l10n, e.toString(), isEmpty),
                                 ok: true,
                               );
                             },
