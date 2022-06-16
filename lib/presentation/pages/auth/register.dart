@@ -17,6 +17,7 @@ class Register extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = L10n.of(context)!;
     final auth = FirebaseAuth.instance;
+    final TextEditingController nameCtl = TextEditingController();
     final TextEditingController emailCtl = TextEditingController();
     final TextEditingController passCtl = TextEditingController();
 
@@ -66,24 +67,31 @@ class Register extends StatelessWidget {
                     height: 15,
                   ),
                   TextFieldSet(
-                    title: "E-mail",
-                    num: false,
-                    controller: emailCtl,
-                    url: false,
-                    pass: false,
+                    title: "Username",
+                    type: KeyType.norm,
+                    controller: nameCtl,
+                    secured: false,
+                    suggestion: true,
                     divider: true,
-                    rightContent: null,
-                    bottomNotes: null,
+                    showTitle: true,
+                  ),
+                  TextFieldSet(
+                    title: "E-mail",
+                    type: KeyType.email,
+                    controller: emailCtl,
+                    secured: false,
+                    suggestion: false,
+                    divider: true,
+                    showTitle: true,
                   ),
                   TextFieldSet(
                     title: "Password",
-                    num: false,
+                    type: KeyType.norm,
                     controller: passCtl,
-                    url: false,
-                    pass: true,
+                    secured: true,
+                    suggestion: false,
                     divider: false,
-                    rightContent: null,
-                    bottomNotes: null,
+                    showTitle: true,
                   ),
                   RoundededButton(
                     text: "Register",
@@ -100,7 +108,7 @@ class Register extends StatelessWidget {
                                 builder: (context) {
                                   return CustomAlertDialog(
                                     title: "Error",
-                                    description: getLogInErrorsString(
+                                    description: getRegisterErrorsString(
                                         l10n, "network", false),
                                     ok: true,
                                   );
@@ -114,10 +122,13 @@ class Register extends StatelessWidget {
                                   email: emailCtl.text,
                                   password: passCtl.text,
                                 );
+                                auth.currentUser!
+                                    .updateDisplayName(nameCtl.text);
                                 auth.authStateChanges();
                               } on FirebaseAuthException catch (e) {
                                 final isEmpty = emailCtl.text.isEmpty ||
-                                    passCtl.text.isEmpty;
+                                    passCtl.text.isEmpty ||
+                                    nameCtl.text.isEmpty;
                                 await showDialog(
                                   barrierColor: Colors.black26,
                                   context: context,

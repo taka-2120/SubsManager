@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
+import 'package:subsmanager/presentation/dialogs/field_dialog.dart';
 import 'package:subsmanager/presentation/pages/auth/login.dart';
 import 'package:subsmanager/theme.dart';
 
@@ -18,11 +20,13 @@ class Settings extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = L10n.of(context)!;
     final FirebaseAuth auth = FirebaseAuth.instance;
-    var userName = "Not Signed In";
+    var email = "Not Signed In";
+    var username = "Not Signed In";
 
     useEffect(() {
       try {
-        userName = auth.currentUser!.email ?? "Not Signed In";
+        email = auth.currentUser!.email ?? "Not Signed In";
+        username = auth.currentUser!.displayName ?? "Not Signed In";
       } catch (e) {}
       return;
     });
@@ -93,18 +97,30 @@ class Settings extends HookConsumerWidget {
                         ),
                         SettingsItem(
                           icon: const Icon(Icons.person_rounded),
+                          left: "Username",
+                          right: username,
+                          navigatable: false,
+                          disposable: false,
+                          func: () {
+                            showFieldDialog(context);
+                          },
+                        ),
+                        SettingsItem(
+                          icon: const Icon(Icons.person_rounded),
                           left: "E-mail",
-                          right: userName,
+                          right: email,
                           navigatable: false,
                           disposable: false,
                         ),
-                        const SettingsItem(
-                          icon: Icon(Icons.remove_circle_outline_rounded),
+                        SettingsItem(
+                          icon: const Icon(Icons.remove_circle_outline_rounded),
                           left: "Sign Out",
                           right: "",
                           navigatable: true,
                           disposable: true,
-                          destination: LogIn(),
+                          func: () {
+                            signOut(ref);
+                          },
                         ),
                       ],
                     ),

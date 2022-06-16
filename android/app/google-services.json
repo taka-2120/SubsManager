@@ -29,6 +29,13 @@
             {
               "client_id": "416940566025-6fivopbupjg6qdraurc2m0lr5bs4utvj.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "416940566025-7vfgqt29euv2pe8rntr7s947n8ns63ao.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "yu-takahashi.subsmanager"
+              }
             }
           ]
         }

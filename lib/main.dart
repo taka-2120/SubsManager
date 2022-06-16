@@ -42,12 +42,23 @@ class MyApp extends HookWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return const AnimatedSwitcher(
+              duration: Duration(milliseconds: 300),
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
           }
           if (snapshot.hasData) {
-            return const BasePage();
+            return const AnimatedSwitcher(
+              duration: Duration(milliseconds: 300),
+              child: BasePage(),
+            );
           }
-          return const LogIn();
+          return const AnimatedSwitcher(
+            duration: Duration(milliseconds: 300),
+            child: LogIn(),
+          );
         },
       ),
     );
@@ -68,52 +79,48 @@ class BasePage extends HookConsumerWidget {
 
     useEffect(
       () {
-        readTabIndex.update(0);
         readPeriods.updateLocale(l10n);
         return;
       },
       [],
     );
 
-    return WillPopScope(
-      onWillPop: () async => false,
-      child: Scaffold(
-        backgroundColor: theme.backgroundColor,
-        appBar: const DefaultAppBar(),
-        body: IndexedStack(
-          index: tabIndex,
-          children: pageLists,
+    return Scaffold(
+      backgroundColor: theme.backgroundColor,
+      appBar: const DefaultAppBar(),
+      body: IndexedStack(
+        index: tabIndex,
+        children: pageLists,
+      ),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          borderRadius:
+              const BorderRadius.only(topLeft: radius, topRight: radius),
+          boxShadow: [
+            BoxShadow(
+              color: theme.hoverColor,
+              spreadRadius: 0,
+              blurRadius: 15,
+            ),
+          ],
         ),
-        bottomNavigationBar: Container(
-          decoration: BoxDecoration(
-            borderRadius:
-                const BorderRadius.only(topLeft: radius, topRight: radius),
-            boxShadow: [
-              BoxShadow(
-                color: theme.hoverColor,
-                spreadRadius: 0,
-                blurRadius: 15,
+        child: ClipRRect(
+          borderRadius:
+              const BorderRadius.only(topLeft: radius, topRight: radius),
+          child: BottomNavigationBar(
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.account_balance_wallet),
+                label: l10n.subscriptions,
+              ),
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.settings),
+                label: l10n.settings,
               ),
             ],
-          ),
-          child: ClipRRect(
-            borderRadius:
-                const BorderRadius.only(topLeft: radius, topRight: radius),
-            child: BottomNavigationBar(
-              items: <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: const Icon(Icons.account_balance_wallet),
-                  label: l10n.subscriptions,
-                ),
-                BottomNavigationBarItem(
-                  icon: const Icon(Icons.settings),
-                  label: l10n.settings,
-                ),
-              ],
-              currentIndex: tabIndex,
-              selectedItemColor: primaryColor,
-              onTap: readTabIndex.update,
-            ),
+            currentIndex: tabIndex,
+            selectedItemColor: primaryColor,
+            onTap: readTabIndex.update,
           ),
         ),
       ),

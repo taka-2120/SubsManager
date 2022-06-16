@@ -1,8 +1,12 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/l10n/l10n.dart';
-import 'package:subsmanager/models/function.dart';
+
+import 'presentation/dialogs/field_dialog.dart';
+import 'presentation/notifiers/tab_index.dart';
 
 final localeStr = Platform.localeName;
 
@@ -23,6 +27,26 @@ final localeStr = Platform.localeName;
 //   }
 // }
 
+enum KeyType {
+  num,
+  email,
+  url,
+  norm,
+}
+
+TextInputType setKeyType(KeyType type) {
+  switch (type) {
+    case KeyType.num:
+      return TextInputType.number;
+    case KeyType.email:
+      return TextInputType.emailAddress;
+    case KeyType.url:
+      return TextInputType.url;
+    case KeyType.norm:
+      return TextInputType.text;
+  }
+}
+
 enum NotifDates {
   theDay,
   oneDay,
@@ -36,7 +60,7 @@ enum NotifDates {
   threeWeeks,
 }
 
-getNotifDateString(L10n l10n, NotifDates dates) {
+String getNotifDateString(L10n l10n, NotifDates dates) {
   switch (dates) {
     case NotifDates.theDay:
       return l10n.the_day;
@@ -70,7 +94,7 @@ enum SortOptions {
   priceDec,
 }
 
-getSortOptionsString(L10n l10n, SortOptions sortOptions) {
+String getSortOptionsString(L10n l10n, SortOptions sortOptions) {
   switch (sortOptions) {
     case SortOptions.alphAcc:
       return l10n.alph_acc;
@@ -87,7 +111,7 @@ getSortOptionsString(L10n l10n, SortOptions sortOptions) {
   }
 }
 
-getLogInErrorsString(L10n l10n, String errors, bool isEmpty) {
+String getLogInErrorsString(L10n l10n, String errors, bool isEmpty) {
   switch (errors) {
     case "network":
       return "Please check your Internet connection.";
@@ -114,10 +138,15 @@ getLogInErrorsString(L10n l10n, String errors, bool isEmpty) {
   }
 }
 
-getRegisterErrorsString(L10n l10n, String errors, bool isEmpty) {
+String getRegisterErrorsString(L10n l10n, String errors, bool isEmpty) {
+  switch (errors) {
+    case "network":
+      return "Please check your Internet connection.";
+  }
+
   switch (isEmpty) {
     case true:
-      return "Please make sure to fill Email address and password.";
+      return "Please make sure to fill email address, password, and username.";
   }
 
   switch (errors) {
@@ -134,4 +163,23 @@ getRegisterErrorsString(L10n l10n, String errors, bool isEmpty) {
     default:
       return "Sorry, unknown error has occured. Please try again later.";
   }
+}
+
+void signOut(WidgetRef ref) async {
+  await FirebaseAuth.instance.signOut();
+  FirebaseAuth.instance.authStateChanges();
+  ref.read(tabIndexProvider.notifier).update(0);
+}
+
+void showFieldDialog(BuildContext context) {
+  showDialog(
+    barrierColor: Colors.black26,
+    context: context,
+    builder: (context) {
+      return FieldDialog(
+        title: "Update Username",
+        currentName: FirebaseAuth.instance.currentUser!.displayName ?? "",
+      );
+    },
+  );
 }

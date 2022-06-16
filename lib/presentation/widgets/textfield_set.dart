@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/presentation/notifiers/sub_value.dart';
 
 import '../../theme.dart';
@@ -8,40 +9,44 @@ import 'default_divider.dart';
 class TextFieldSet extends ConsumerWidget {
   const TextFieldSet(
       {required this.title,
-      required this.num,
+      required this.type,
       required this.controller,
-      required this.url,
-      required this.pass,
+      required this.secured,
+      required this.suggestion,
       required this.divider,
-      required this.rightContent,
-      required this.bottomNotes,
+      required this.showTitle,
+      this.rightContent,
+      this.bottomNotes,
       Key? key})
       : super(key: key);
 
   final String title;
-  final bool num;
+  final KeyType type;
   final TextEditingController controller;
-  final bool url;
-  final bool pass;
+  final bool secured;
+  final bool suggestion;
   final bool divider;
+  final bool showTitle;
   final Widget? rightContent;
   final String? bottomNotes;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(children: [
-      Padding(
-        padding: const EdgeInsets.only(bottom: 15),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: const TextStyle(fontSize: 18),
-            ),
-          ],
-        ),
-      ),
+      showTitle
+          ? Padding(
+              padding: const EdgeInsets.only(bottom: 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(fontSize: 18),
+                  ),
+                ],
+              ),
+            )
+          : const SizedBox(),
       Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -64,12 +69,10 @@ class TextFieldSet extends ConsumerWidget {
                   ),
                   child: TextField(
                     controller: controller,
-                    autocorrect: url ? false : true,
-                    enableSuggestions: url ? false : true,
-                    obscureText: pass ? true : false,
-                    keyboardType: num
-                        ? TextInputType.number
-                        : (url ? TextInputType.url : TextInputType.text),
+                    autocorrect: suggestion,
+                    enableSuggestions: suggestion,
+                    obscureText: secured,
+                    keyboardType: setKeyType(type),
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: title,

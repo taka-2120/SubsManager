@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:subsmanager/presentation/pages/auth/login.dart';
 
 import '../../theme.dart';
 
@@ -11,6 +10,7 @@ class SettingsItem extends StatelessWidget {
     required this.navigatable,
     required this.disposable,
     this.destination,
+    this.func,
     Key? key,
   }) : super(key: key);
 
@@ -20,6 +20,7 @@ class SettingsItem extends StatelessWidget {
   final bool navigatable;
   final bool disposable;
   final StatelessWidget? destination;
+  final VoidCallback? func;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +31,26 @@ class SettingsItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
       ),
       child: InkWell(
+        onTap: (func != null)
+            ? func
+            : () {
+                if (navigatable || destination != null) {
+                  if (disposable) {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => destination!,
+                      ),
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => destination!,
+                      ),
+                    );
+                  }
+                }
+              },
         child: Padding(
           padding: const EdgeInsets.all(15),
           child: Row(
@@ -48,24 +69,6 @@ class SettingsItem extends StatelessWidget {
             ],
           ),
         ),
-        onTap: () {
-          if (navigatable || destination != null) {
-            if (disposable) {
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                  builder: (context) => destination!,
-                ),
-              );
-            } else {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => destination!,
-                ),
-              );
-            }
-          }
-        },
       ),
     );
   }

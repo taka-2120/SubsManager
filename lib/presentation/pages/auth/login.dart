@@ -58,24 +58,22 @@ class LogIn extends StatelessWidget {
               child: Column(
                 children: [
                   TextFieldSet(
-                    title: "Email",
-                    num: false,
+                    title: "E-mail",
+                    type: KeyType.email,
                     controller: emailCtl,
-                    url: false,
-                    pass: false,
+                    secured: false,
+                    suggestion: false,
                     divider: true,
-                    rightContent: null,
-                    bottomNotes: null,
+                    showTitle: true,
                   ),
                   TextFieldSet(
                     title: "Password",
-                    num: false,
+                    type: KeyType.norm,
                     controller: passCtl,
-                    url: false,
-                    pass: true,
+                    secured: true,
+                    suggestion: false,
                     divider: false,
-                    rightContent: null,
-                    bottomNotes: null,
+                    showTitle: true,
                   ),
                   RoundededButton(
                     text: "Log In",

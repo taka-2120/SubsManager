@@ -8,6 +8,7 @@ import 'package:subsmanager/presentation/notifiers/periods.dart';
 import 'package:subsmanager/presentation/notifiers/sub_value.dart';
 import 'package:subsmanager/presentation/widgets/favicon.dart';
 
+import '../../globals.dart';
 import '../../theme.dart';
 import '../widgets/default_divider.dart';
 import 'textfield_set.dart';
@@ -32,31 +33,30 @@ class SubInfo extends ConsumerWidget {
       children: [
         TextFieldSet(
           title: l10n.name,
-          num: false,
+          type: KeyType.norm,
           controller: subValue.name,
-          url: false,
-          pass: false,
+          secured: false,
+          suggestion: true,
           divider: true,
-          rightContent: null,
-          bottomNotes: null,
+          showTitle: true,
         ),
         TextFieldSet(
           title: l10n.fee,
-          num: true,
+          type: KeyType.num,
           controller: subValue.fee,
-          url: false,
-          pass: false,
+          secured: false,
+          suggestion: true,
           divider: true,
-          rightContent: null,
-          bottomNotes: null,
+          showTitle: true,
         ),
         TextFieldSet(
           title: l10n.url,
-          num: false,
+          type: KeyType.url,
           controller: subValue.url,
-          url: true,
-          pass: false,
+          secured: false,
+          suggestion: false,
           divider: true,
+          showTitle: true,
           rightContent: Favicon(
             favicon: subValue.favicon,
             isIcon: subValue.isIcon,
