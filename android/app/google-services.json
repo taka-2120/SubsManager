@@ -1,41 +1,34 @@
 {
   "project_info": {
-    "project_number": "120696325435",
-    "project_id": "subsmanager-6fca5",
-    "storage_bucket": "subsmanager-6fca5.appspot.com"
+    "project_number": "416940566025",
+    "project_id": "subs-manager-a4a73",
+    "storage_bucket": "subs-manager-a4a73.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:120696325435:android:d617f0de017b41192aa31e",
+        "mobilesdk_app_id": "1:416940566025:android:91bf7ba56ae8931f3b3ad8",
         "android_client_info": {
-          "package_name": "com.example.subsmanager"
+          "package_name": "yutakahashi.subsmanager"
         }
       },
       "oauth_client": [
         {
-          "client_id": "120696325435-6k2ni5keqm1uqco2d4pti218417d9agl.apps.googleusercontent.com",
+          "client_id": "416940566025-6fivopbupjg6qdraurc2m0lr5bs4utvj.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAX0nYHUk87h6VarHcOrdBp2YaVPCTZxvw"
+          "current_key": "AIzaSyDwRGFaxDDppn1jaslChGHX5dTRH8lFFPE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "120696325435-6k2ni5keqm1uqco2d4pti218417d9agl.apps.googleusercontent.com",
+              "client_id": "416940566025-6fivopbupjg6qdraurc2m0lr5bs4utvj.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "120696325435-gv6hsbpk74p38n925bk7onlvkaqa3n6p.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.y.t.subsmanager"
-              }
             }
           ]
         }

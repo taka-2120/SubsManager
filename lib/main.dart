@@ -20,7 +20,6 @@ const String title = "SubsManager";
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await FirebaseAuth.instance.signOut();
   runApp(
     const ProviderScope(child: MyApp()),
   );
@@ -39,14 +38,14 @@ class MyApp extends HookWidget {
       themeMode: ThemeMode.system,
       localizationsDelegates: L10n.localizationsDelegates,
       supportedLocales: L10n.supportedLocales,
-      home: StreamBuilder<User?>(
+      home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const LogIn();
+            return const Center(child: CircularProgressIndicator());
           }
-          if (!snapshot.hasData) {
-            return const LogIn();
+          if (snapshot.hasData) {
+            return const BasePage();
           }
           return const LogIn();
         },

@@ -32,9 +32,6 @@ migrate_working_dir/
 .pub/
 /build/
 
-.fvm/flutter_sdk/
-**/l10n/*.dart
-
 # Web related
 lib/generated_plugin_registrant.dart
 

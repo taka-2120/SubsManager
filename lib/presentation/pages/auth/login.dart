@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:subsmanager/main.dart';
 import 'package:subsmanager/presentation/dialogs/alert.dart';
 import 'package:subsmanager/presentation/pages/auth/register.dart';
 import 'package:subsmanager/presentation/widgets/textfield_set.dart';
 
 import '../../../models/function.dart';
-import '../../dialogs/loading.dart';
 import '../../widgets/default_appbar.dart';
 import '../../widgets/rounded_button.dart';
 
@@ -86,59 +84,49 @@ class LogIn extends StatelessWidget {
                     backgroundColor: Theme.of(context).primaryColor,
                     onTap: () async {
                       isConnected().then(
-                        (result) {
+                        (result) async {
                           switch (result) {
-                            case true:
-                              showDialog(
+                            case false:
+                              await showDialog(
                                 barrierColor: Colors.black26,
                                 context: context,
                                 builder: (context) {
                                   return CustomAlertDialog(
                                     title: "Error",
                                     description: getLogInErrorsString(
-                                        l10n,
-                                        "Please check your Internet connection.",
-                                        false),
+                                        l10n, "network", false),
                                     ok: true,
                                   );
                                 },
                               );
                               return;
+
+                            case true:
+                              try {
+                                await auth.signInWithEmailAndPassword(
+                                  email: emailCtl.text,
+                                  password: passCtl.text,
+                                );
+                                auth.authStateChanges();
+                              } on FirebaseAuthException catch (e) {
+                                final isEmpty = emailCtl.text.isEmpty ||
+                                    passCtl.text.isEmpty;
+                                await showDialog(
+                                  barrierColor: Colors.black26,
+                                  context: context,
+                                  builder: (context) {
+                                    return CustomAlertDialog(
+                                      title: "Error",
+                                      description: getLogInErrorsString(
+                                          l10n, e.code, isEmpty),
+                                      ok: true,
+                                    );
+                                  },
+                                );
+                              }
                           }
                         },
                       );
-                      try {
-                        await auth.signInWithEmailAndPassword(
-                          email: emailCtl.text,
-                          password: passCtl.text,
-                        );
-                        auth.authStateChanges();
-                        showDialog(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (_) => const Loading(),
-                        );
-                        await Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) {
-                            return const BasePage();
-                          }),
-                        );
-                      } on FirebaseAuthException catch (e) {
-                        final isEmpty =
-                            emailCtl.text.isEmpty || passCtl.text.isEmpty;
-                        showDialog(
-                          barrierColor: Colors.black26,
-                          context: context,
-                          builder: (context) {
-                            return CustomAlertDialog(
-                              title: "Error",
-                              description:
-                                  getLogInErrorsString(l10n, e.code, isEmpty),
-                              ok: true,
-                            );
-                          },
-                        );
-                      }
                     },
                   ),
                   RoundededButton(

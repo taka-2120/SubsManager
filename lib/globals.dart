@@ -88,6 +88,11 @@ getSortOptionsString(L10n l10n, SortOptions sortOptions) {
 }
 
 getLogInErrorsString(L10n l10n, String errors, bool isEmpty) {
+  switch (errors) {
+    case "network":
+      return "Please check your Internet connection.";
+  }
+
   switch (isEmpty) {
     case true:
       return "Please make sure to fill Email address and password.";
@@ -109,7 +114,7 @@ getLogInErrorsString(L10n l10n, String errors, bool isEmpty) {
   }
 }
 
-getRegisterErrorsString(L10n l10n, String errors, bool isEmpty) async {
+getRegisterErrorsString(L10n l10n, String errors, bool isEmpty) {
   switch (isEmpty) {
     case true:
       return "Please make sure to fill Email address and password.";

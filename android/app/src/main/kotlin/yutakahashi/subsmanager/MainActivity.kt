@@ -1,4 +1,4 @@
-package com.example.subsmanager
+package yutakahashi.subsmanager
 
 import io.flutter.embedding.android.FlutterActivity
 

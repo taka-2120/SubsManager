@@ -50,20 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAX0nYHUk87h6VarHcOrdBp2YaVPCTZxvw',
-    appId: '1:120696325435:android:d617f0de017b41192aa31e',
-    messagingSenderId: '120696325435',
-    projectId: 'subsmanager-6fca5',
-    storageBucket: 'subsmanager-6fca5.appspot.com',
+    apiKey: 'AIzaSyDwRGFaxDDppn1jaslChGHX5dTRH8lFFPE',
+    appId: '1:416940566025:android:91bf7ba56ae8931f3b3ad8',
+    messagingSenderId: '416940566025',
+    projectId: 'subs-manager-a4a73',
+    storageBucket: 'subs-manager-a4a73.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyD1uZSyAe8GKy5P695hK1P4_E2TWzE_JIk',
-    appId: '1:120696325435:ios:cdaddce68cf8b6fe2aa31e',
-    messagingSenderId: '120696325435',
-    projectId: 'subsmanager-6fca5',
-    storageBucket: 'subsmanager-6fca5.appspot.com',
-    iosClientId: '120696325435-gv6hsbpk74p38n925bk7onlvkaqa3n6p.apps.googleusercontent.com',
-    iosBundleId: 'com.y.t.subsmanager',
+    apiKey: 'AIzaSyDex9tyK2uu62VQ5YL8cnVfOnlMx0vAMRY',
+    appId: '1:416940566025:ios:ef8eb0c0f02b4dcd3b3ad8',
+    messagingSenderId: '416940566025',
+    projectId: 'subs-manager-a4a73',
+    storageBucket: 'subs-manager-a4a73.appspot.com',
+    iosClientId: '416940566025-7vfgqt29euv2pe8rntr7s947n8ns63ao.apps.googleusercontent.com',
+    iosBundleId: 'yu-takahashi.subsmanager',
   );
 }

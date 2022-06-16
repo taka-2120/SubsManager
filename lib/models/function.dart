@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/extensions/fee_double_str.dart';
 import 'package:subsmanager/extensions/period_int_str.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 String feeAndPeriod(WidgetRef ref, double fee, int period) {
   String feeStr = fee.feeToString(format: true);
@@ -12,16 +13,12 @@ String feeAndPeriod(WidgetRef ref, double fee, int period) {
 }
 
 Future<bool> isConnected() async {
-  bool canCont = false;
+  bool canContinue = true;
+  final ConnectivityResult result = await Connectivity().checkConnectivity();
 
-  try {
-    final result = await InternetAddress.lookup('https://www.google.com');
-    if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-      canCont = true;
-    }
-  } catch (e) {
-    canCont = false;
+  if (result == ConnectivityResult.none) {
+    canContinue = false;
   }
 
-  return canCont;
+  return canContinue;
 }
