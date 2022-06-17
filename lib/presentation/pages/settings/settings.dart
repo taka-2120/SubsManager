@@ -4,10 +4,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
-import 'package:subsmanager/presentation/dialogs/field_dialog.dart';
-import 'package:subsmanager/presentation/pages/auth/login.dart';
 import 'package:subsmanager/theme.dart';
 
+import '../../notifiers/username.dart';
 import '../../widgets/page_title.dart';
 import '../../widgets/settings_item.dart';
 import 'credits.dart';
@@ -21,12 +20,11 @@ class Settings extends HookConsumerWidget {
     final l10n = L10n.of(context)!;
     final FirebaseAuth auth = FirebaseAuth.instance;
     var email = "Not Signed In";
-    var username = "Not Signed In";
+    final username = ref.watch(usernameProvider.select((value) => value));
 
     useEffect(() {
       try {
         email = auth.currentUser!.email ?? "Not Signed In";
-        username = auth.currentUser!.displayName ?? "Not Signed In";
       } catch (e) {}
       return;
     });
@@ -98,7 +96,7 @@ class Settings extends HookConsumerWidget {
                         SettingsItem(
                           icon: const Icon(Icons.person_rounded),
                           left: "Username",
-                          right: username,
+                          right: username.username,
                           navigatable: false,
                           disposable: false,
                           func: () {

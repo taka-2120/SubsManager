@@ -1,9 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
+import 'package:subsmanager/presentation/notifiers/username.dart';
 import 'package:subsmanager/presentation/widgets/textfield_set.dart';
 
 class FieldDialog extends HookConsumerWidget {
@@ -15,11 +15,12 @@ class FieldDialog extends HookConsumerWidget {
 
   final String title, currentName;
   final newNameCtl = TextEditingController();
-  bool isErrorShown = false;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = L10n.of(context)!;
+    final username = ref.watch(usernameProvider.select((value) => value));
+    final readUsername = ref.read(usernameProvider.notifier);
 
     useEffect(() {
       newNameCtl.text = currentName;
@@ -56,7 +57,7 @@ class FieldDialog extends HookConsumerWidget {
               showTitle: false,
             ),
           ),
-          isErrorShown
+          username.error
               ? const Text("Username cannot be empty.")
               : const SizedBox(
                   height: 10,
@@ -71,15 +72,7 @@ class FieldDialog extends HookConsumerWidget {
                 height: 50,
                 child: InkWell(
                   onTap: () {
-                    if (newNameCtl.text.isNotEmpty) {
-                      isErrorShown = false;
-                      FirebaseAuth.instance.currentUser!
-                          .updateDisplayName(newNameCtl.text);
-                      FirebaseAuth.instance.userChanges();
-                      Navigator.of(context).pop();
-                    } else {
-                      isErrorShown = true;
-                    }
+                    readUsername.update(newNameCtl.text, context);
                   },
                   child: Center(
                     child: Text(
