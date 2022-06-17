@@ -100,35 +100,11 @@ abstract class L10n {
   /// **'Subscriptions'**
   String get subscriptions;
 
-  /// No description provided for @settings.
+  /// No description provided for @first_add.
   ///
   /// In en, this message translates to:
-  /// **'Settings'**
-  String get settings;
-
-  /// No description provided for @notif.
-  ///
-  /// In en, this message translates to:
-  /// **'Notification'**
-  String get notif;
-
-  /// No description provided for @enable_notif.
-  ///
-  /// In en, this message translates to:
-  /// **'Enable Notification'**
-  String get enable_notif;
-
-  /// No description provided for @credits.
-  ///
-  /// In en, this message translates to:
-  /// **'Credits'**
-  String get credits;
-
-  /// No description provided for @version.
-  ///
-  /// In en, this message translates to:
-  /// **'Version'**
-  String get version;
+  /// **'Tap + button to add your subscriptions!'**
+  String get first_add;
 
   /// No description provided for @add.
   ///
@@ -147,48 +123,6 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Delete'**
   String get delete_sub;
-
-  /// No description provided for @error.
-  ///
-  /// In en, this message translates to:
-  /// **'Error'**
-  String get error;
-
-  /// No description provided for @e_fill.
-  ///
-  /// In en, this message translates to:
-  /// **'Please fill name, fee, and billing period correctly.'**
-  String get e_fill;
-
-  /// No description provided for @monthly.
-  ///
-  /// In en, this message translates to:
-  /// **'Monthly'**
-  String get monthly;
-
-  /// No description provided for @annually.
-  ///
-  /// In en, this message translates to:
-  /// **'Annually'**
-  String get annually;
-
-  /// No description provided for @monthly_total.
-  ///
-  /// In en, this message translates to:
-  /// **'Monthly'**
-  String get monthly_total;
-
-  /// No description provided for @annually_total.
-  ///
-  /// In en, this message translates to:
-  /// **'Annually'**
-  String get annually_total;
-
-  /// No description provided for @semi_annually.
-  ///
-  /// In en, this message translates to:
-  /// **'Semi-Annually'**
-  String get semi_annually;
 
   /// No description provided for @name.
   ///
@@ -232,23 +166,89 @@ abstract class L10n {
   /// **'Select'**
   String get select;
 
-  /// No description provided for @d_ok.
+  /// No description provided for @intro_title.
   ///
   /// In en, this message translates to:
-  /// **'OK'**
-  String get d_ok;
+  /// **'Introduction'**
+  String get intro_title;
 
-  /// No description provided for @d_continue.
+  /// No description provided for @intro_notif.
   ///
   /// In en, this message translates to:
-  /// **'Continue'**
-  String get d_continue;
+  /// **'This app can notify you the billing date and prices. \nWe will send a notification 3 days before the billing date, but you can change this later in Settings tab. \nIn order to send notifications to you, please allow sending notification.'**
+  String get intro_notif;
 
-  /// No description provided for @d_cancel.
+  /// No description provided for @settings.
   ///
   /// In en, this message translates to:
-  /// **'Cancel'**
-  String get d_cancel;
+  /// **'Settings'**
+  String get settings;
+
+  /// No description provided for @general.
+  ///
+  /// In en, this message translates to:
+  /// **'General'**
+  String get general;
+
+  /// No description provided for @userinfo.
+  ///
+  /// In en, this message translates to:
+  /// **'User Info'**
+  String get userinfo;
+
+  /// No description provided for @notif.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification'**
+  String get notif;
+
+  /// No description provided for @enable_notif.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Notification'**
+  String get enable_notif;
+
+  /// No description provided for @credits.
+  ///
+  /// In en, this message translates to:
+  /// **'Credits'**
+  String get credits;
+
+  /// No description provided for @version.
+  ///
+  /// In en, this message translates to:
+  /// **'Version'**
+  String get version;
+
+  /// No description provided for @monthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get monthly;
+
+  /// No description provided for @annually.
+  ///
+  /// In en, this message translates to:
+  /// **'Annually'**
+  String get annually;
+
+  /// No description provided for @monthly_total.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get monthly_total;
+
+  /// No description provided for @annually_total.
+  ///
+  /// In en, this message translates to:
+  /// **'Annually'**
+  String get annually_total;
+
+  /// No description provided for @semi_annually.
+  ///
+  /// In en, this message translates to:
+  /// **'Semi-Annually'**
+  String get semi_annually;
 
   /// No description provided for @the_day.
   ///
@@ -345,6 +345,156 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Low to High'**
   String get price_dec;
+
+  /// No description provided for @welcome.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome!'**
+  String get welcome;
+
+  /// No description provided for @username.
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get username;
+
+  /// No description provided for @email.
+  ///
+  /// In en, this message translates to:
+  /// **'E-mail'**
+  String get email;
+
+  /// No description provided for @pass.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get pass;
+
+  /// No description provided for @login.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get login;
+
+  /// No description provided for @register.
+  ///
+  /// In en, this message translates to:
+  /// **'Register'**
+  String get register;
+
+  /// No description provided for @signout.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Out'**
+  String get signout;
+
+  /// No description provided for @update_username.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Username'**
+  String get update_username;
+
+  /// No description provided for @error.
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get error;
+
+  /// No description provided for @e_fill.
+  ///
+  /// In en, this message translates to:
+  /// **'Please fill name, fee, and billing period correctly.'**
+  String get e_fill;
+
+  /// No description provided for @e_network.
+  ///
+  /// In en, this message translates to:
+  /// **'Please check your Internet connection.'**
+  String get e_network;
+
+  /// No description provided for @e_login_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'Please make sure to fill Email address and password.'**
+  String get e_login_empty;
+
+  /// No description provided for @e_register_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'Please make sure to fill your username, email address, and password.'**
+  String get e_register_empty;
+
+  /// No description provided for @e_invaild_email.
+  ///
+  /// In en, this message translates to:
+  /// **'E-mail format is incorecct.'**
+  String get e_invaild_email;
+
+  /// No description provided for @e_user_disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'This user is disabled.'**
+  String get e_user_disabled;
+
+  /// No description provided for @e_user_not_found.
+  ///
+  /// In en, this message translates to:
+  /// **'This E-mail address is not registered.'**
+  String get e_user_not_found;
+
+  /// No description provided for @e_wrong_pass.
+  ///
+  /// In en, this message translates to:
+  /// **'Password is incorrect. Please check it again.'**
+  String get e_wrong_pass;
+
+  /// No description provided for @e_unexpected.
+  ///
+  /// In en, this message translates to:
+  /// **'Sorry, unknown error has occured. Please try again later.'**
+  String get e_unexpected;
+
+  /// No description provided for @e_email_already_in_use.
+  ///
+  /// In en, this message translates to:
+  /// **'This Email address is already in use.'**
+  String get e_email_already_in_use;
+
+  /// No description provided for @e_all_disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'This Email address or password is currently disabled.'**
+  String get e_all_disabled;
+
+  /// No description provided for @e_weak_pass.
+  ///
+  /// In en, this message translates to:
+  /// **'Your password is too weak. It should be 6 letters or more.'**
+  String get e_weak_pass;
+
+  /// No description provided for @d_ok.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get d_ok;
+
+  /// No description provided for @d_continue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get d_continue;
+
+  /// No description provided for @d_cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get d_cancel;
+
+  /// No description provided for @d_save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get d_save;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {

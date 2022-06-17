@@ -114,54 +114,50 @@ String getSortOptionsString(L10n l10n, SortOptions sortOptions) {
 String getLogInErrorsString(L10n l10n, String errors, bool isEmpty) {
   switch (errors) {
     case "network":
-      return "Please check your Internet connection.";
+      return l10n.e_network;
   }
 
   switch (isEmpty) {
     case true:
-      return "Please make sure to fill Email address and password.";
+      return l10n.e_login_empty;
   }
 
   switch (errors) {
     case "invalid-email":
-      return "E-mail format is incorecct.";
+      return l10n.e_invaild_email;
     case "user-disabled":
-      return "This user is disabled.";
+      return l10n.e_user_disabled;
     case "user-not-found":
-      return "This E-mail address is not registered.";
+      return l10n.e_user_not_found;
     case "wrong-password":
-      return "Password is incorrect. Please check it again.";
-    case "email-already-in-use":
-      return "You have already signed in this account.";
+      return l10n.e_wrong_pass;
     default:
-      return "Sorry, unknown error has occured. Please try again later.";
+      return l10n.e_unexpected;
   }
 }
 
 String getRegisterErrorsString(L10n l10n, String errors, bool isEmpty) {
   switch (errors) {
     case "network":
-      return "Please check your Internet connection.";
+      return l10n.e_network;
   }
 
   switch (isEmpty) {
     case true:
-      return "Please make sure to fill email address, password, and username.";
+      return l10n.e_register_empty;
   }
 
   switch (errors) {
     case "invalid-email":
-      return "This Email address format is incorecct.";
+      return l10n.e_invaild_email;
     case "email-already-in-us":
-      return "This Email address is already in use.";
+      return l10n.e_email_already_in_use;
     case "operation-not-allowed":
-      return "This Email address or password is currently disabled.";
+      return l10n.e_all_disabled;
     case "weak-password":
-      return "Your password is too weak. It should be 6 letters or more.";
-    case "email-already-in-use":
-      return "You have already signed in this account.";
+      return l10n.e_weak_pass;
     default:
-      return "Sorry, unknown error has occured. Please try again later.";
+      return l10n.e_unexpected;
   }
 }
 
@@ -177,7 +173,7 @@ void showFieldDialog(BuildContext context) {
     context: context,
     builder: (context) {
       return FieldDialog(
-        title: "Update Username",
+        title: L10n.of(context)!.update_username,
         currentName: FirebaseAuth.instance.currentUser!.displayName ?? "",
       );
     },

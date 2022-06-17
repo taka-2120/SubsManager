@@ -67,7 +67,7 @@ class Register extends StatelessWidget {
                     height: 15,
                   ),
                   TextFieldSet(
-                    title: "Username",
+                    title: l10n.username,
                     type: KeyType.norm,
                     controller: nameCtl,
                     secured: false,
@@ -76,7 +76,7 @@ class Register extends StatelessWidget {
                     showTitle: true,
                   ),
                   TextFieldSet(
-                    title: "E-mail",
+                    title: l10n.email,
                     type: KeyType.email,
                     controller: emailCtl,
                     secured: false,
@@ -85,7 +85,7 @@ class Register extends StatelessWidget {
                     showTitle: true,
                   ),
                   TextFieldSet(
-                    title: "Password",
+                    title: l10n.pass,
                     type: KeyType.norm,
                     controller: passCtl,
                     secured: true,
@@ -94,7 +94,7 @@ class Register extends StatelessWidget {
                     showTitle: true,
                   ),
                   RoundededButton(
-                    text: "Register",
+                    text: l10n.register,
                     fontColor: Colors.black,
                     topPad: 20,
                     onTap: () async {
@@ -107,7 +107,7 @@ class Register extends StatelessWidget {
                                 context: context,
                                 builder: (context) {
                                   return CustomAlertDialog(
-                                    title: "Error",
+                                    title: l10n.error,
                                     description: getRegisterErrorsString(
                                         l10n, "network", false),
                                     ok: true,
@@ -134,7 +134,7 @@ class Register extends StatelessWidget {
                                   context: context,
                                   builder: (context) {
                                     return CustomAlertDialog(
-                                      title: "Error",
+                                      title: l10n.error,
                                       description: getRegisterErrorsString(
                                           l10n, e.code, isEmpty),
                                       ok: true,

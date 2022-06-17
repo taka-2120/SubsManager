@@ -11,19 +11,7 @@ class L10nEn extends L10n {
   String get subscriptions => 'Subscriptions';
 
   @override
-  String get settings => 'Settings';
-
-  @override
-  String get notif => 'Notification';
-
-  @override
-  String get enable_notif => 'Enable Notification';
-
-  @override
-  String get credits => 'Credits';
-
-  @override
-  String get version => 'Version';
+  String get first_add => 'Tap + button to add your subscriptions!';
 
   @override
   String get add => 'Add';
@@ -33,27 +21,6 @@ class L10nEn extends L10n {
 
   @override
   String get delete_sub => 'Delete';
-
-  @override
-  String get error => 'Error';
-
-  @override
-  String get e_fill => 'Please fill name, fee, and billing period correctly.';
-
-  @override
-  String get monthly => 'Monthly';
-
-  @override
-  String get annually => 'Annually';
-
-  @override
-  String get monthly_total => 'Monthly';
-
-  @override
-  String get annually_total => 'Annually';
-
-  @override
-  String get semi_annually => 'Semi-Annually';
 
   @override
   String get name => 'Name';
@@ -77,13 +44,46 @@ class L10nEn extends L10n {
   String get select => 'Select';
 
   @override
-  String get d_ok => 'OK';
+  String get intro_title => 'Introduction';
 
   @override
-  String get d_continue => 'Continue';
+  String get intro_notif => 'This app can notify you the billing date and prices. \nWe will send a notification 3 days before the billing date, but you can change this later in Settings tab. \nIn order to send notifications to you, please allow sending notification.';
 
   @override
-  String get d_cancel => 'Cancel';
+  String get settings => 'Settings';
+
+  @override
+  String get general => 'General';
+
+  @override
+  String get userinfo => 'User Info';
+
+  @override
+  String get notif => 'Notification';
+
+  @override
+  String get enable_notif => 'Enable Notification';
+
+  @override
+  String get credits => 'Credits';
+
+  @override
+  String get version => 'Version';
+
+  @override
+  String get monthly => 'Monthly';
+
+  @override
+  String get annually => 'Annually';
+
+  @override
+  String get monthly_total => 'Monthly';
+
+  @override
+  String get annually_total => 'Annually';
+
+  @override
+  String get semi_annually => 'Semi-Annually';
 
   @override
   String get the_day => 'On The Day';
@@ -132,4 +132,79 @@ class L10nEn extends L10n {
 
   @override
   String get price_dec => 'Low to High';
+
+  @override
+  String get welcome => 'Welcome!';
+
+  @override
+  String get username => 'Username';
+
+  @override
+  String get email => 'E-mail';
+
+  @override
+  String get pass => 'Password';
+
+  @override
+  String get login => 'Login';
+
+  @override
+  String get register => 'Register';
+
+  @override
+  String get signout => 'Sign Out';
+
+  @override
+  String get update_username => 'Update Username';
+
+  @override
+  String get error => 'Error';
+
+  @override
+  String get e_fill => 'Please fill name, fee, and billing period correctly.';
+
+  @override
+  String get e_network => 'Please check your Internet connection.';
+
+  @override
+  String get e_login_empty => 'Please make sure to fill Email address and password.';
+
+  @override
+  String get e_register_empty => 'Please make sure to fill your username, email address, and password.';
+
+  @override
+  String get e_invaild_email => 'E-mail format is incorecct.';
+
+  @override
+  String get e_user_disabled => 'This user is disabled.';
+
+  @override
+  String get e_user_not_found => 'This E-mail address is not registered.';
+
+  @override
+  String get e_wrong_pass => 'Password is incorrect. Please check it again.';
+
+  @override
+  String get e_unexpected => 'Sorry, unknown error has occured. Please try again later.';
+
+  @override
+  String get e_email_already_in_use => 'This Email address is already in use.';
+
+  @override
+  String get e_all_disabled => 'This Email address or password is currently disabled.';
+
+  @override
+  String get e_weak_pass => 'Your password is too weak. It should be 6 letters or more.';
+
+  @override
+  String get d_ok => 'OK';
+
+  @override
+  String get d_continue => 'Continue';
+
+  @override
+  String get d_cancel => 'Cancel';
+
+  @override
+  String get d_save => 'Save';
 }

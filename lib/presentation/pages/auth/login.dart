@@ -39,9 +39,10 @@ class LogIn extends StatelessWidget {
                       fit: BoxFit.fitWidth,
                     ),
                   ),
-                  const Text(
-                    "Welcome!",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                  Text(
+                    l10n.welcome,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 22),
                   )
                 ],
               ),
@@ -58,7 +59,7 @@ class LogIn extends StatelessWidget {
               child: Column(
                 children: [
                   TextFieldSet(
-                    title: "E-mail",
+                    title: l10n.email,
                     type: KeyType.email,
                     controller: emailCtl,
                     secured: false,
@@ -67,7 +68,7 @@ class LogIn extends StatelessWidget {
                     showTitle: true,
                   ),
                   TextFieldSet(
-                    title: "Password",
+                    title: l10n.pass,
                     type: KeyType.norm,
                     controller: passCtl,
                     secured: true,
@@ -76,7 +77,7 @@ class LogIn extends StatelessWidget {
                     showTitle: true,
                   ),
                   RoundededButton(
-                    text: "Log In",
+                    text: l10n.login,
                     fontColor: Colors.black,
                     topPad: 20,
                     backgroundColor: Theme.of(context).primaryColor,
@@ -90,7 +91,7 @@ class LogIn extends StatelessWidget {
                                 context: context,
                                 builder: (context) {
                                   return CustomAlertDialog(
-                                    title: "Error",
+                                    title: l10n.error,
                                     description: getLogInErrorsString(
                                         l10n, "network", false),
                                     ok: true,
@@ -114,7 +115,7 @@ class LogIn extends StatelessWidget {
                                   context: context,
                                   builder: (context) {
                                     return CustomAlertDialog(
-                                      title: "Error",
+                                      title: l10n.error,
                                       description: getLogInErrorsString(
                                           l10n, e.code, isEmpty),
                                       ok: true,
@@ -128,7 +129,7 @@ class LogIn extends StatelessWidget {
                     },
                   ),
                   RoundededButton(
-                    text: "Register",
+                    text: l10n.register,
                     fontColor: Colors.black,
                     topPad: 20,
                     onTap: () {

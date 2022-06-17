@@ -125,8 +125,8 @@ class SubsPage extends ConsumerWidget {
           ),
           Expanded(
             child: (subsList.isEmpty)
-                ? const Center(
-                    child: Text("Tap + button to add your subscriptions!"),
+                ? Center(
+                    child: Text(l10n.first_add),
                   )
                 : ListView.builder(
                     itemBuilder: (BuildContext context, int index) {

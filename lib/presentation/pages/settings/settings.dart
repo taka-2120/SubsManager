@@ -52,11 +52,11 @@ class Settings extends HookConsumerWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Padding(
-                          padding: EdgeInsets.only(top: 10, left: 15),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10, left: 15),
                           child: Text(
-                            "General",
-                            style: TextStyle(
+                            l10n.general,
+                            style: const TextStyle(
                               color: borderColor,
                             ),
                           ),
@@ -84,18 +84,18 @@ class Settings extends HookConsumerWidget {
                           navigatable: false,
                           disposable: false,
                         ),
-                        const Padding(
-                          padding: EdgeInsets.only(top: 10, left: 15),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10, left: 15),
                           child: Text(
-                            "User Info",
-                            style: TextStyle(
+                            l10n.userinfo,
+                            style: const TextStyle(
                               color: borderColor,
                             ),
                           ),
                         ),
                         SettingsItem(
                           icon: const Icon(Icons.person_rounded),
-                          left: "Username",
+                          left: l10n.username,
                           right: username.username,
                           navigatable: false,
                           disposable: false,
@@ -105,14 +105,14 @@ class Settings extends HookConsumerWidget {
                         ),
                         SettingsItem(
                           icon: const Icon(Icons.person_rounded),
-                          left: "E-mail",
+                          left: l10n.email,
                           right: email,
                           navigatable: false,
                           disposable: false,
                         ),
                         SettingsItem(
                           icon: const Icon(Icons.remove_circle_outline_rounded),
-                          left: "Sign Out",
+                          left: l10n.signout,
                           right: "",
                           navigatable: true,
                           disposable: true,

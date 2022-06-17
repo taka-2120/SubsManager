@@ -11,7 +11,6 @@ import 'package:subsmanager/l10n/l10n.dart';
 
 import '../../widgets/rounded_button.dart';
 import '../../widgets/sheet_header.dart';
-import '../../../theme.dart';
 import '../../widgets/sub_info.dart';
 import '../../notifiers/subs_list.dart';
 

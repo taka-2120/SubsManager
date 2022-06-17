@@ -41,10 +41,9 @@ class SubAddSheet extends HookConsumerWidget {
             barrierColor: Colors.black26,
             context: context,
             builder: (context) {
-              return const IntroDialog(
-                title: "Introduction",
-                description:
-                    "This app can notify you the billing date and prices. \nWe will send a notification 3 days before the billing date, but you can change this later in Settings tab. \nIn order to send notifications to you, please allow sending notification.",
+              return IntroDialog(
+                title: l10n.intro_title,
+                description: l10n.intro_notif,
                 notification: true,
               );
             },
