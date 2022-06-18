@@ -25,129 +25,142 @@ class Register extends StatelessWidget {
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: const DefaultAppBar(),
       body: SafeArea(
-        child: Column(
+        child: Flex(
+          direction: Axis.vertical,
           children: [
-            const PageTitle(
-              title: "Join Us Now!",
-              back: true,
-              rightButton: false,
-              rightFunc: null,
-              rightIcon: null,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: Image.asset(
-                      "lib/assets/start.png",
-                      height: 120,
-                      fit: BoxFit.fitWidth,
+            Expanded(
+              flex: 1,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const PageTitle(
+                      title: "Join Us Now!",
+                      back: true,
+                      rightButton: false,
+                      rightFunc: null,
+                      rightIcon: null,
                     ),
-                  ),
-                  // const Text(
-                  //   " ",
-                  //   style:
-                  //       TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
-                  // )
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 15,
-                right: 15,
-                bottom: 15,
-              ),
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  TextFieldSet(
-                    title: l10n.username,
-                    type: KeyType.norm,
-                    controller: nameCtl,
-                    secured: false,
-                    suggestion: true,
-                    divider: true,
-                    showTitle: true,
-                  ),
-                  TextFieldSet(
-                    title: l10n.email,
-                    type: KeyType.email,
-                    controller: emailCtl,
-                    secured: false,
-                    suggestion: false,
-                    divider: true,
-                    showTitle: true,
-                  ),
-                  TextFieldSet(
-                    title: l10n.pass,
-                    type: KeyType.norm,
-                    controller: passCtl,
-                    secured: true,
-                    suggestion: false,
-                    divider: false,
-                    showTitle: true,
-                  ),
-                  RoundededButton(
-                    text: l10n.register,
-                    fontColor: Colors.black,
-                    topPad: 20,
-                    onTap: () async {
-                      isConnected().then(
-                        (result) async {
-                          switch (result) {
-                            case false:
-                              await showDialog(
-                                barrierColor: Colors.black26,
-                                context: context,
-                                builder: (context) {
-                                  return CustomAlertDialog(
-                                    title: l10n.error,
-                                    description: getRegisterErrorsString(
-                                        l10n, "network", false),
-                                    ok: true,
-                                  );
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(15),
+                            child: Image.asset(
+                              "lib/assets/start.png",
+                              height: 120,
+                              fit: BoxFit.fitWidth,
+                            ),
+                          ),
+                          // const Text(
+                          //   " ",
+                          //   style:
+                          //       TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                          // )
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 15,
+                        right: 15,
+                        bottom: 15,
+                      ),
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          TextFieldSet(
+                            title: l10n.username,
+                            type: KeyType.norm,
+                            controller: nameCtl,
+                            secured: false,
+                            suggestion: true,
+                            divider: true,
+                            showTitle: true,
+                          ),
+                          TextFieldSet(
+                            title: l10n.email,
+                            type: KeyType.email,
+                            controller: emailCtl,
+                            secured: false,
+                            suggestion: false,
+                            divider: true,
+                            showTitle: true,
+                          ),
+                          TextFieldSet(
+                            title: l10n.pass,
+                            type: KeyType.norm,
+                            controller: passCtl,
+                            secured: true,
+                            suggestion: false,
+                            divider: false,
+                            showTitle: true,
+                          ),
+                          RoundededButton(
+                            text: l10n.register,
+                            fontColor: Colors.black,
+                            topPad: 20,
+                            onTap: () async {
+                              isConnected().then(
+                                (result) async {
+                                  switch (result) {
+                                    case false:
+                                      await showDialog(
+                                        barrierColor: Colors.black26,
+                                        context: context,
+                                        builder: (context) {
+                                          return CustomAlertDialog(
+                                            title: l10n.error,
+                                            description:
+                                                getRegisterErrorsString(
+                                                    l10n, "network", false),
+                                            ok: true,
+                                          );
+                                        },
+                                      );
+                                      return;
+
+                                    case true:
+                                      try {
+                                        await auth
+                                            .createUserWithEmailAndPassword(
+                                          email: emailCtl.text,
+                                          password: passCtl.text,
+                                        );
+                                        auth.currentUser!
+                                            .updateDisplayName(nameCtl.text);
+                                        auth.authStateChanges();
+                                      } on FirebaseAuthException catch (e) {
+                                        final isEmpty = emailCtl.text.isEmpty ||
+                                            passCtl.text.isEmpty ||
+                                            nameCtl.text.isEmpty;
+                                        await showDialog(
+                                          barrierColor: Colors.black26,
+                                          context: context,
+                                          builder: (context) {
+                                            return CustomAlertDialog(
+                                              title: l10n.error,
+                                              description:
+                                                  getRegisterErrorsString(
+                                                      l10n, e.code, isEmpty),
+                                              ok: true,
+                                            );
+                                          },
+                                        );
+                                      }
+                                  }
                                 },
                               );
-                              return;
-
-                            case true:
-                              try {
-                                await auth.createUserWithEmailAndPassword(
-                                  email: emailCtl.text,
-                                  password: passCtl.text,
-                                );
-                                auth.currentUser!
-                                    .updateDisplayName(nameCtl.text);
-                                auth.authStateChanges();
-                              } on FirebaseAuthException catch (e) {
-                                final isEmpty = emailCtl.text.isEmpty ||
-                                    passCtl.text.isEmpty ||
-                                    nameCtl.text.isEmpty;
-                                await showDialog(
-                                  barrierColor: Colors.black26,
-                                  context: context,
-                                  builder: (context) {
-                                    return CustomAlertDialog(
-                                      title: l10n.error,
-                                      description: getRegisterErrorsString(
-                                          l10n, e.code, isEmpty),
-                                      ok: true,
-                                    );
-                                  },
-                                );
-                              }
-                          }
-                        },
-                      );
-                    },
-                  ),
-                ],
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
