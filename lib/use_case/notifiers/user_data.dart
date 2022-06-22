@@ -1,6 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import '../../models/user_data/user_data.state.dart';
+import 'package:subsmanager/domain/models/user_data/user_data.state.dart';
 
 final userDataProvider =
     StateNotifierProvider<UserData, UserDataState>((ref) => UserData());

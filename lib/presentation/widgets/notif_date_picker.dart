@@ -6,23 +6,22 @@ import 'package:subsmanager/extensions/date_ext.dart';
 import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/widgets/default_divider.dart';
-
-import '../../theme.dart';
-import '../notifiers/notif_date.dart';
-import '../notifiers/notif_enabled.dart';
-import '../notifiers/notif_time.dart';
+import 'package:subsmanager/theme.dart';
+import 'package:subsmanager/use_case/notifiers/notif_date.dart';
+import 'package:subsmanager/use_case/notifiers/notif_enabled.dart';
+import 'package:subsmanager/use_case/notifiers/notif_time.dart';
 
 class NotifDatePicker extends ConsumerWidget {
   const NotifDatePicker({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = L10n.of(context)!;
     final isNotifEnabled = ref.watch(notifEnabledProvider);
     final notifDate = ref.watch(notifDateProvider);
-    final readNotifDate = ref.watch(notifDateProvider.notifier);
-    final l10n = L10n.of(context)!;
+    final readNotifDate = ref.read(notifDateProvider.notifier);
     final notifTime = ref.watch(notifTimeProvider);
-    final readNotifTime = ref.watch(notifTimeProvider.notifier);
+    final readNotifTime = ref.read(notifTimeProvider.notifier);
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),

@@ -1,5 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:subsmanager/presentation/notifiers/subs_list.dart';
+import 'package:subsmanager/use_case/notifiers/subs_list.dart';
 
 final sortOptionProvider =
     StateNotifierProvider<SortOption, int>((ref) => SortOption(0));

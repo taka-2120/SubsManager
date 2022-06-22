@@ -3,15 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/extensions/date_ext.dart';
+import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
-import 'package:subsmanager/presentation/notifiers/periods.dart';
-import 'package:subsmanager/presentation/notifiers/sub_value.dart';
+import 'package:subsmanager/presentation/widgets/default_divider.dart';
 import 'package:subsmanager/presentation/widgets/favicon.dart';
-
-import '../../globals.dart';
-import '../../theme.dart';
-import '../widgets/default_divider.dart';
-import 'textfield_set.dart';
+import 'package:subsmanager/presentation/widgets/textfield_set.dart';
+import 'package:subsmanager/theme.dart';
+import 'package:subsmanager/use_case/notifiers/periods.dart';
+import 'package:subsmanager/use_case/notifiers/sub_value.dart';
 
 class SubInfo extends ConsumerWidget {
   const SubInfo({Key? key}) : super(key: key);

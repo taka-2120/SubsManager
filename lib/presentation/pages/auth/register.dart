@@ -6,7 +6,8 @@ import 'package:subsmanager/presentation/dialogs/alert.dart';
 import 'package:subsmanager/presentation/widgets/page_title.dart';
 import 'package:subsmanager/presentation/widgets/textfield_set.dart';
 
-import '../../../models/function.dart';
+import '../../../domain/auth/auth_services.dart';
+import '../../../use_case/network.dart';
 import '../../widgets/default_appbar.dart';
 import '../../widgets/rounded_button.dart';
 
@@ -16,7 +17,6 @@ class Register extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = L10n.of(context)!;
-    final auth = FirebaseAuth.instance;
     final TextEditingController nameCtl = TextEditingController();
     final TextEditingController emailCtl = TextEditingController();
     final TextEditingController passCtl = TextEditingController();
@@ -42,23 +42,13 @@ class Register extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(15),
-                            child: Image.asset(
-                              "lib/assets/start.png",
-                              height: 120,
-                              fit: BoxFit.fitWidth,
-                            ),
-                          ),
-                          // const Text(
-                          //   " ",
-                          //   style:
-                          //       TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
-                          // )
-                        ],
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: Image.asset(
+                          "lib/assets/start.png",
+                          height: 120,
+                          fit: BoxFit.fitWidth,
+                        ),
                       ),
                     ),
                     Padding(
@@ -104,7 +94,7 @@ class Register extends StatelessWidget {
                             fontColor: Colors.black,
                             topPad: 20,
                             onTap: () async {
-                              isConnected().then(
+                              Network().isConnected().then(
                                 (result) async {
                                   switch (result) {
                                     case false:
@@ -125,14 +115,11 @@ class Register extends StatelessWidget {
 
                                     case true:
                                       try {
-                                        await auth
-                                            .createUserWithEmailAndPassword(
+                                        AuthServices().register(
                                           email: emailCtl.text,
-                                          password: passCtl.text,
+                                          pass: passCtl.text,
+                                          name: nameCtl.text,
                                         );
-                                        auth.currentUser!
-                                            .updateDisplayName(nameCtl.text);
-                                        auth.authStateChanges();
                                       } on FirebaseAuthException catch (e) {
                                         final isEmpty = emailCtl.text.isEmpty ||
                                             passCtl.text.isEmpty ||

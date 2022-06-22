@@ -2,15 +2,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:subsmanager/use_case/app_info.dart';
 import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
+import 'package:subsmanager/presentation/pages/settings/credits.dart';
+import 'package:subsmanager/presentation/pages/settings/notifications.dart';
+import 'package:subsmanager/presentation/widgets/page_title.dart';
+import 'package:subsmanager/presentation/widgets/settings_item.dart';
 import 'package:subsmanager/theme.dart';
-
-import '../../notifiers/username.dart';
-import '../../widgets/page_title.dart';
-import '../../widgets/settings_item.dart';
-import 'credits.dart';
-import 'notifications.dart';
+import 'package:subsmanager/use_case/notifiers/username.dart';
 
 class Settings extends HookConsumerWidget {
   const Settings({Key? key}) : super(key: key);
@@ -80,7 +80,7 @@ class Settings extends HookConsumerWidget {
                         SettingsItem(
                           icon: const Icon(Icons.info),
                           left: l10n.version,
-                          right: "1.0.0",
+                          right: AppInfo().getAppVersion(),
                           navigatable: false,
                           disposable: false,
                         ),

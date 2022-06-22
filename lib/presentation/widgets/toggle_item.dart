@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import '../../theme.dart';
-import '../notifiers/notif_enabled.dart';
+import 'package:subsmanager/theme.dart';
+import 'package:subsmanager/use_case/notifiers/notif_enabled.dart';
 
 class ToggleItem extends ConsumerWidget {
   const ToggleItem(this.title, {Key? key}) : super(key: key);

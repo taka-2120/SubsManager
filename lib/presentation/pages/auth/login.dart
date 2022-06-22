@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:subsmanager/domain/auth/auth_services.dart';
 import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,7 +7,7 @@ import 'package:subsmanager/presentation/dialogs/alert.dart';
 import 'package:subsmanager/presentation/pages/auth/register.dart';
 import 'package:subsmanager/presentation/widgets/textfield_set.dart';
 
-import '../../../models/function.dart';
+import '../../../use_case/network.dart';
 import '../../widgets/default_appbar.dart';
 import '../../widgets/rounded_button.dart';
 
@@ -16,7 +17,6 @@ class LogIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = L10n.of(context)!;
-    final auth = FirebaseAuth.instance;
     final TextEditingController emailCtl = TextEditingController();
     final TextEditingController passCtl = TextEditingController();
 
@@ -87,7 +87,7 @@ class LogIn extends StatelessWidget {
                             topPad: 20,
                             backgroundColor: Theme.of(context).primaryColor,
                             onTap: () async {
-                              isConnected().then(
+                              Network().isConnected().then(
                                 (result) async {
                                   switch (result) {
                                     case false:
@@ -107,11 +107,10 @@ class LogIn extends StatelessWidget {
 
                                     case true:
                                       try {
-                                        await auth.signInWithEmailAndPassword(
+                                        AuthServices().signIn(
                                           email: emailCtl.text,
-                                          password: passCtl.text,
+                                          pass: passCtl.text,
                                         );
-                                        auth.authStateChanges();
                                       } on FirebaseAuthException catch (e) {
                                         final isEmpty = emailCtl.text.isEmpty ||
                                             passCtl.text.isEmpty;

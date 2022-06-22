@@ -1,9 +1,10 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:subsmanager/domain/models/periods/periods.state.dart';
 import 'package:subsmanager/l10n/l10n.dart';
-import 'package:subsmanager/models/periods/periods.state.dart';
 
-final periodsProvider =
-    StateNotifierProvider<Periods, PeriodsState>((ref) => Periods());
+final periodsProvider = StateNotifierProvider<Periods, PeriodsState>(
+  (ref) => Periods(),
+);
 
 class Periods extends StateNotifier<PeriodsState> {
   Periods() : super(const PeriodsState());

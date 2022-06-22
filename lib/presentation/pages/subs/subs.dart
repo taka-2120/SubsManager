@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:subsmanager/extensions/fee_double_str.dart';
-import 'package:subsmanager/presentation/notifiers/sort_option.dart';
-import 'package:subsmanager/presentation/notifiers/sub_value.dart';
+import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
-
-import '../../../globals.dart';
-import '../../widgets/page_title.dart';
-import '../../widgets/subs_item.dart';
-import 'subs_add.dart';
-import '../../../theme.dart';
-import '../../notifiers/subs_list.dart';
+import 'package:subsmanager/presentation/pages/subs/subs_add.dart';
+import 'package:subsmanager/presentation/widgets/page_title.dart';
+import 'package:subsmanager/presentation/widgets/subs_item.dart';
+import 'package:subsmanager/theme.dart';
+import 'package:subsmanager/use_case/notifiers/sort_option.dart';
+import 'package:subsmanager/use_case/notifiers/sub_value.dart';
+import 'package:subsmanager/use_case/notifiers/subs_list.dart';
 
 class SubsMain extends StatelessWidget {
   const SubsMain({Key? key}) : super(key: key);

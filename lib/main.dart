@@ -3,19 +3,18 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:subsmanager/use_case/app_info.dart';
 import 'package:subsmanager/firebase_options.dart';
 import 'package:subsmanager/l10n/l10n.dart';
-import 'package:subsmanager/presentation/notifiers/periods.dart';
+import 'package:subsmanager/use_case/notifiers/periods.dart';
 import 'package:subsmanager/presentation/pages/auth/login.dart';
 import 'package:subsmanager/presentation/widgets/default_appbar.dart';
-
-import 'presentation/notifiers/tab_index.dart';
-import 'presentation/pages/settings/settings.dart';
-import 'presentation/pages/subs/subs.dart';
-import 'theme.dart';
+import 'package:subsmanager/use_case/notifiers/tab_index.dart';
+import 'package:subsmanager/presentation/pages/settings/settings.dart';
+import 'package:subsmanager/presentation/pages/subs/subs.dart';
+import 'package:subsmanager/theme.dart';
 
 const List<Widget> pageLists = [SubsMain(), Settings()];
-const String title = "SubsManager";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +31,7 @@ class MyApp extends HookWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: title,
+      title: AppInfo().getAppName(),
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: ThemeMode.system,

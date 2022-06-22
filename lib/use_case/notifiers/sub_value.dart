@@ -3,8 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
-
-import '../../models/sub_value/sub_value.state.dart';
+import 'package:subsmanager/domain/models/sub_value/sub_value.state.dart';
 
 final subValueProvider = StateNotifierProvider<SubValueNotifier, SubValueState>(
   (ref) => SubValueNotifier(),

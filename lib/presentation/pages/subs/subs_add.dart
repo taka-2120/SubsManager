@@ -5,12 +5,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:subsmanager/extensions/fee_str_double.dart';
 import 'package:subsmanager/extensions/period_nstr_int.dart';
 import 'package:subsmanager/presentation/dialogs/intro_dialog.dart';
-import 'package:subsmanager/presentation/notifiers/subs_list.dart';
 import 'package:subsmanager/l10n/l10n.dart';
-
-import '../../notifiers/sub_value.dart';
-import '../../widgets/sheet_header.dart';
-import '../../widgets/sub_info.dart';
+import 'package:subsmanager/presentation/widgets/sheet_header.dart';
+import 'package:subsmanager/presentation/widgets/sub_info.dart';
+import 'package:subsmanager/use_case/notifiers/sub_value.dart';
+import 'package:subsmanager/use_case/notifiers/subs_list.dart';
 
 class SubAdd extends StatelessWidget {
   const SubAdd({Key? key}) : super(key: key);

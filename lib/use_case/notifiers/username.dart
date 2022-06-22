@@ -1,10 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:subsmanager/models/username/username.state.dart';
+import 'package:subsmanager/domain/models/username/username.state.dart';
 
-final usernameProvider =
-    StateNotifierProvider<Username, UsernameState>((ref) => Username());
+final usernameProvider = StateNotifierProvider<Username, UsernameState>(
+  (ref) => Username(),
+);
 
 class Username extends StateNotifier<UsernameState> {
   Username() : super(const UsernameState());

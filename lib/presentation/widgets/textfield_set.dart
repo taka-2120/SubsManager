@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/globals.dart';
-import 'package:subsmanager/presentation/notifiers/sub_value.dart';
-
-import '../../theme.dart';
-import 'default_divider.dart';
+import 'package:subsmanager/presentation/widgets/default_divider.dart';
+import 'package:subsmanager/theme.dart';
+import 'package:subsmanager/use_case/notifiers/sub_value.dart';
 
 class TextFieldSet extends ConsumerWidget {
   const TextFieldSet(
@@ -32,6 +31,8 @@ class TextFieldSet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final readSubValue = ref.read(subValueProvider.notifier);
+
     return Column(children: [
       showTitle
           ? Padding(
@@ -80,9 +81,7 @@ class TextFieldSet extends ConsumerWidget {
                     ),
                     onChanged: (text) {
                       (rightContent != null)
-                          ? ref
-                              .read(subValueProvider.notifier)
-                              .generateFavicon(text)
+                          ? readSubValue.generateFavicon(text)
                           : null;
                     },
                   ),

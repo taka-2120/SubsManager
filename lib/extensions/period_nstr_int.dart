@@ -1,6 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import '../presentation/notifiers/periods.dart';
+import 'package:subsmanager/use_case/notifiers/periods.dart';
 
 extension PeriodStrExt on String? {
   int periodToInt(WidgetRef ref) {

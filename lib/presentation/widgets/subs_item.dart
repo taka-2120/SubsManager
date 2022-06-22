@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:subsmanager/domain/models/sub_item/sub_item.state.dart';
 import 'package:subsmanager/extensions/date_ext.dart';
 import 'package:subsmanager/l10n/l10n.dart';
-import 'package:subsmanager/models/sub_item/sub_item.state.dart';
+import 'package:subsmanager/presentation/pages/subs/subs_edit.dart';
 import 'package:subsmanager/presentation/widgets/favicon.dart';
-
-import '../../models/function.dart';
-import '../../theme.dart';
-import '../notifiers/sub_value.dart';
-import '../pages/subs/subs_edit.dart';
+import 'package:subsmanager/theme.dart';
+import 'package:subsmanager/use_case/converters.dart';
+import 'package:subsmanager/use_case/notifiers/sub_value.dart';
 
 class SubsItem extends ConsumerWidget {
   const SubsItem({
@@ -86,7 +85,11 @@ class SubsItem extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                feeAndPeriod(ref, item.fee, item.period),
+                Converters().combineFeePeriodAsString(
+                  ref,
+                  fee: item.fee,
+                  period: item.period,
+                ),
                 style:
                     const TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
               ),

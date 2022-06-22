@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:subsmanager/domain/models/sub_item/sub_item.state.dart';
 import 'package:subsmanager/extensions/fee_double_str.dart';
 import 'package:subsmanager/extensions/fee_str_double.dart';
 import 'package:subsmanager/extensions/period_int_str.dart';
 import 'package:subsmanager/extensions/period_nstr_int.dart';
-import 'package:subsmanager/models/sub_item/sub_item.state.dart';
-import 'package:subsmanager/presentation/notifiers/sub_value.dart';
 import 'package:subsmanager/l10n/l10n.dart';
-
-import '../../widgets/rounded_button.dart';
-import '../../widgets/sheet_header.dart';
-import '../../widgets/sub_info.dart';
-import '../../notifiers/subs_list.dart';
+import 'package:subsmanager/presentation/widgets/rounded_button.dart';
+import 'package:subsmanager/presentation/widgets/sheet_header.dart';
+import 'package:subsmanager/presentation/widgets/sub_info.dart';
+import 'package:subsmanager/use_case/notifiers/sub_value.dart';
+import 'package:subsmanager/use_case/notifiers/subs_list.dart';
 
 class SubEdit extends StatelessWidget {
   const SubEdit(this.index, this.selectedItem, {Key? key}) : super(key: key);
