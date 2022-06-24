@@ -160,12 +160,6 @@ String getRegisterErrorsString(L10n l10n, String errors, bool isEmpty) {
   }
 }
 
-void signOut(WidgetRef ref) async {
-  await FirebaseAuth.instance.signOut();
-  FirebaseAuth.instance.authStateChanges();
-  ref.read(tabIndexProvider.notifier).update(0);
-}
-
 void showFieldDialog(BuildContext context) {
   showDialog(
     barrierColor: Colors.black26,

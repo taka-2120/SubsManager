@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/widgets/textfield_set.dart';
-import 'package:subsmanager/use_case/notifiers/username.dart';
+import 'package:subsmanager/use_case/notifiers/user_data.dart';
 
 class FieldDialog extends HookConsumerWidget {
   FieldDialog({
@@ -19,8 +19,8 @@ class FieldDialog extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = L10n.of(context)!;
-    final username = ref.watch(usernameProvider.select((value) => value));
-    final readUsername = ref.read(usernameProvider.notifier);
+    final userData = ref.watch(userDataProvider.select((value) => value));
+    final readUserData = ref.read(userDataProvider.notifier);
 
     useEffect(() {
       newNameCtl.text = currentName;
@@ -57,7 +57,7 @@ class FieldDialog extends HookConsumerWidget {
               showTitle: false,
             ),
           ),
-          username.error
+          userData.error
               ? const Text("Username cannot be empty.")
               : const SizedBox(
                   height: 10,
@@ -71,8 +71,9 @@ class FieldDialog extends HookConsumerWidget {
                 width: MediaQuery.of(context).size.width,
                 height: 50,
                 child: InkWell(
-                  onTap: () {
-                    readUsername.update(newNameCtl.text, context);
+                  onTap: () async {
+                    await readUserData.updateUsername(newNameCtl.text);
+                    Navigator.of(context).pop();
                   },
                   child: Center(
                     child: Text(

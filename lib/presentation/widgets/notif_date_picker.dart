@@ -54,6 +54,7 @@ class NotifDatePicker extends ConsumerWidget {
                       return Center(
                         child: Text(
                           getNotifDateString(l10n, NotifDates.values[index]),
+                          style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       );
                     },

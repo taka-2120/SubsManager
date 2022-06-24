@@ -12,6 +12,10 @@ final subsListProvider = StateNotifierProvider<SubsList, List<SubItemState>>(
 class SubsList extends StateNotifier<List<SubItemState>> {
   SubsList([List<SubItemState>? initial]) : super(initial ?? []);
 
+  void init() {
+    state = [];
+  }
+
   void add(
     BuildContext context,
     L10n l10n,

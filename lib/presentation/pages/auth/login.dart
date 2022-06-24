@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:subsmanager/domain/auth/auth_services.dart';
 import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:subsmanager/presentation/dialogs/alert.dart';
 import 'package:subsmanager/presentation/pages/auth/register.dart';
+import 'package:subsmanager/presentation/widgets/default_appbar.dart';
+import 'package:subsmanager/presentation/widgets/rounded_button.dart';
 import 'package:subsmanager/presentation/widgets/textfield_set.dart';
-
-import '../../../use_case/network.dart';
-import '../../widgets/default_appbar.dart';
-import '../../widgets/rounded_button.dart';
+import 'package:subsmanager/use_case/auth_controller.dart';
 
 class LogIn extends StatelessWidget {
   const LogIn({Key? key}) : super(key: key);
@@ -47,7 +43,9 @@ class LogIn extends StatelessWidget {
                           Text(
                             l10n.welcome,
                             style: const TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 22),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22,
+                            ),
                           )
                         ],
                       ),
@@ -86,55 +84,15 @@ class LogIn extends StatelessWidget {
                             fontColor: Colors.black,
                             topPad: 20,
                             backgroundColor: Theme.of(context).primaryColor,
-                            onTap: () async {
-                              Network().isConnected().then(
-                                (result) async {
-                                  switch (result) {
-                                    case false:
-                                      await showDialog(
-                                        barrierColor: Colors.black26,
-                                        context: context,
-                                        builder: (context) {
-                                          return CustomAlertDialog(
-                                            title: l10n.error,
-                                            description: getLogInErrorsString(
-                                                l10n, "network", false),
-                                            ok: true,
-                                          );
-                                        },
-                                      );
-                                      return;
-
-                                    case true:
-                                      try {
-                                        AuthServices().signIn(
-                                          email: emailCtl.text,
-                                          pass: passCtl.text,
-                                        );
-                                      } on FirebaseAuthException catch (e) {
-                                        final isEmpty = emailCtl.text.isEmpty ||
-                                            passCtl.text.isEmpty;
-                                        await showDialog(
-                                          barrierColor: Colors.black26,
-                                          context: context,
-                                          builder: (context) {
-                                            return CustomAlertDialog(
-                                              title: l10n.error,
-                                              description: getLogInErrorsString(
-                                                  l10n, e.code, isEmpty),
-                                              ok: true,
-                                            );
-                                          },
-                                        );
-                                      }
-                                  }
-                                },
-                              );
-                            },
+                            onTap: () => AuthController().connectFB(
+                              context,
+                              isLogin: true,
+                              email: emailCtl.text,
+                              pass: passCtl.text,
+                            ),
                           ),
                           RoundededButton(
                             text: l10n.register,
-                            fontColor: Colors.black,
                             topPad: 20,
                             onTap: () {
                               Navigator.push(

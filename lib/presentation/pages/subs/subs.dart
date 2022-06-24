@@ -139,8 +139,8 @@ class SubsPage extends ConsumerWidget {
       floatingActionButton: FloatingActionButton(
         elevation: 4,
         onPressed: () {
-          ref.read(subValueProvider.notifier).initialize();
-          ref.read(subValueProvider.notifier).initialize();
+          ref.read(subValueProvider.notifier).init();
+          ref.read(subValueProvider.notifier).init();
           showBarModalBottomSheet(
             context: context,
             builder: (context) => const SubAdd(),

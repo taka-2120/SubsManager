@@ -6,16 +6,16 @@ import '../../theme.dart';
 class RoundededButton extends StatelessWidget {
   const RoundededButton({
     required this.text,
-    required this.fontColor,
     required this.topPad,
+    this.fontColor,
     this.backgroundColor,
     required this.onTap,
     Key? key,
   }) : super(key: key);
 
   final String text;
-  final Color fontColor;
   final double topPad;
+  final Color? fontColor;
   final Color? backgroundColor;
   final VoidCallback onTap;
 
@@ -27,12 +27,12 @@ class RoundededButton extends StatelessWidget {
       margin: EdgeInsets.only(top: topPad),
       decoration: BoxDecoration(
         color: (backgroundColor == null) ? entryBackground : backgroundColor,
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(20),
       ),
       child: InkWell(
         onTap: onTap,
         child: Container(
-          width: 130,
+          width: 180, //Set Mininum Width
           padding: const EdgeInsets.all(15),
           child: Center(
             child: Text(
@@ -40,6 +40,7 @@ class RoundededButton extends StatelessWidget {
               style: TextStyle(
                 color: fontColor,
                 fontWeight: FontWeight.bold,
+                fontSize: 18,
               ),
             ),
           ),

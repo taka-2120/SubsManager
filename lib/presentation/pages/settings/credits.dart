@@ -36,7 +36,8 @@ class Credits extends StatelessWidget {
                           child: Column(
                             children: const [
                               Text(
-                                  "Icons made by Freepik from www.flaticon.com"),
+                                "Icons made by Freepik from www.flaticon.com",
+                              ),
                             ],
                           ),
                         )),

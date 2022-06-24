@@ -1,7 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:subsmanager/domain/auth/auth_services.dart';
 import 'package:subsmanager/use_case/app_info.dart';
 import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
@@ -10,7 +9,7 @@ import 'package:subsmanager/presentation/pages/settings/notifications.dart';
 import 'package:subsmanager/presentation/widgets/page_title.dart';
 import 'package:subsmanager/presentation/widgets/settings_item.dart';
 import 'package:subsmanager/theme.dart';
-import 'package:subsmanager/use_case/notifiers/username.dart';
+import 'package:subsmanager/use_case/notifiers/user_data.dart';
 
 class Settings extends HookConsumerWidget {
   const Settings({Key? key}) : super(key: key);
@@ -18,16 +17,7 @@ class Settings extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = L10n.of(context)!;
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    var email = "Not Signed In";
-    final username = ref.watch(usernameProvider.select((value) => value));
-
-    useEffect(() {
-      try {
-        email = auth.currentUser!.email ?? "Not Signed In";
-      } catch (e) {}
-      return;
-    });
+    final userData = ref.watch(userDataProvider.select((value) => value));
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
@@ -96,7 +86,7 @@ class Settings extends HookConsumerWidget {
                         SettingsItem(
                           icon: const Icon(Icons.person_rounded),
                           left: l10n.username,
-                          right: username.username,
+                          right: userData.username ?? "Not Set",
                           navigatable: false,
                           disposable: false,
                           func: () {
@@ -104,9 +94,9 @@ class Settings extends HookConsumerWidget {
                           },
                         ),
                         SettingsItem(
-                          icon: const Icon(Icons.person_rounded),
+                          icon: const Icon(Icons.mail_rounded),
                           left: l10n.email,
-                          right: email,
+                          right: userData.email,
                           navigatable: false,
                           disposable: false,
                         ),
@@ -117,7 +107,7 @@ class Settings extends HookConsumerWidget {
                           navigatable: true,
                           disposable: true,
                           func: () {
-                            signOut(ref);
+                            AuthServices().signOut(context, ref);
                           },
                         ),
                       ],

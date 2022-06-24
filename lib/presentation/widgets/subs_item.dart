@@ -66,7 +66,7 @@ class SubsItem extends ConsumerWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  ref.read(subValueProvider.notifier).initialize();
+                  ref.read(subValueProvider.notifier).init();
                   showBarModalBottomSheet(
                     context: context,
                     builder: (context) => SubEdit(index, item),

@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:subsmanager/presentation/dialogs/alert.dart';
+import 'package:subsmanager/presentation/widgets/default_appbar.dart';
 import 'package:subsmanager/presentation/widgets/page_title.dart';
+import 'package:subsmanager/presentation/widgets/rounded_button.dart';
 import 'package:subsmanager/presentation/widgets/textfield_set.dart';
-
-import '../../../domain/auth/auth_services.dart';
-import '../../../use_case/network.dart';
-import '../../widgets/default_appbar.dart';
-import '../../widgets/rounded_button.dart';
+import 'package:subsmanager/use_case/auth_controller.dart';
 
 class Register extends StatelessWidget {
   const Register({Key? key}) : super(key: key);
@@ -91,57 +87,14 @@ class Register extends StatelessWidget {
                           ),
                           RoundededButton(
                             text: l10n.register,
-                            fontColor: Colors.black,
                             topPad: 20,
-                            onTap: () async {
-                              Network().isConnected().then(
-                                (result) async {
-                                  switch (result) {
-                                    case false:
-                                      await showDialog(
-                                        barrierColor: Colors.black26,
-                                        context: context,
-                                        builder: (context) {
-                                          return CustomAlertDialog(
-                                            title: l10n.error,
-                                            description:
-                                                getRegisterErrorsString(
-                                                    l10n, "network", false),
-                                            ok: true,
-                                          );
-                                        },
-                                      );
-                                      return;
-
-                                    case true:
-                                      try {
-                                        AuthServices().register(
-                                          email: emailCtl.text,
-                                          pass: passCtl.text,
-                                          name: nameCtl.text,
-                                        );
-                                      } on FirebaseAuthException catch (e) {
-                                        final isEmpty = emailCtl.text.isEmpty ||
-                                            passCtl.text.isEmpty ||
-                                            nameCtl.text.isEmpty;
-                                        await showDialog(
-                                          barrierColor: Colors.black26,
-                                          context: context,
-                                          builder: (context) {
-                                            return CustomAlertDialog(
-                                              title: l10n.error,
-                                              description:
-                                                  getRegisterErrorsString(
-                                                      l10n, e.code, isEmpty),
-                                              ok: true,
-                                            );
-                                          },
-                                        );
-                                      }
-                                  }
-                                },
-                              );
-                            },
+                            onTap: () => AuthController().connectFB(
+                              context,
+                              isLogin: false,
+                              email: emailCtl.text,
+                              pass: passCtl.text,
+                              name: nameCtl.text,
+                            ),
                           ),
                         ],
                       ),

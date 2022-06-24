@@ -78,7 +78,7 @@ class SubValueNotifier extends StateNotifier<SubValueState> {
     );
   }
 
-  void initialize() {
+  void init() {
     state = state.copyWith(
       period: null,
       date: DateTime.now(),
