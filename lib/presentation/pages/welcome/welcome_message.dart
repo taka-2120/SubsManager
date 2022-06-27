@@ -28,13 +28,27 @@ class WelcomeMessage extends StatelessWidget {
                   fontSize: 22,
                 ),
               ),
-              Text(
-                "Thank you for using SubsManager!\nLet's get startd setup this app first, and register to our services!",
-                style: Theme.of(context).textTheme.titleLarge,
+              Column(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(25),
+                    child: Image.asset(
+                      "lib/assets/icon.png",
+                      height: 120,
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ),
+                  const SizedBox(height: 80),
+                  Text(
+                    "Thank you for using SubsManager!\n\nLet's get startd to setup this app first, and register to our services!",
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ],
               ),
               RoundededButton(
                 text: "Next",
                 topPad: 20,
+                isDisabled: false,
                 onTap: () {
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(

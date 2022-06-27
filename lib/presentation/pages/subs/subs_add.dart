@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:subsmanager/extensions/fee_str_double.dart';
 import 'package:subsmanager/extensions/period_nstr_int.dart';
-import 'package:subsmanager/presentation/dialogs/intro_dialog.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/widgets/sheet_header.dart';
 import 'package:subsmanager/presentation/widgets/sub_info.dart';
@@ -20,7 +17,7 @@ class SubAdd extends StatelessWidget {
   }
 }
 
-class SubAddSheet extends HookConsumerWidget {
+class SubAddSheet extends ConsumerWidget {
   const SubAddSheet({Key? key}) : super(key: key);
 
   @override
@@ -29,32 +26,6 @@ class SubAddSheet extends HookConsumerWidget {
     final readSubList = ref.read(subsListProvider.notifier);
     final l10n = L10n.of(context)!;
     final theme = Theme.of(context);
-
-    Future<void> checkIsFirst() async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      bool isFirstAdd = (prefs.getBool('isFirstAdd') ?? true);
-
-      switch (isFirstAdd) {
-        case true:
-          showDialog(
-            barrierColor: Colors.black26,
-            context: context,
-            builder: (context) {
-              return IntroDialog(
-                title: l10n.intro_title,
-                description: l10n.intro_notif,
-                notification: true,
-              );
-            },
-          );
-          break;
-      }
-    }
-
-    useEffect(() {
-      checkIsFirst();
-      return;
-    });
 
     return Scaffold(
       backgroundColor: theme.backgroundColor,

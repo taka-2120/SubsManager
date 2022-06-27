@@ -83,6 +83,7 @@ class LogIn extends StatelessWidget {
                             text: l10n.login,
                             fontColor: Colors.black,
                             topPad: 20,
+                            isDisabled: false,
                             backgroundColor: Theme.of(context).primaryColor,
                             onTap: () => AuthController().connectFB(
                               context,
@@ -94,6 +95,7 @@ class LogIn extends StatelessWidget {
                           RoundededButton(
                             text: l10n.register,
                             topPad: 20,
+                            isDisabled: false,
                             onTap: () {
                               Navigator.push(
                                 context,

@@ -88,6 +88,7 @@ class Register extends StatelessWidget {
                           RoundededButton(
                             text: l10n.register,
                             topPad: 20,
+                            isDisabled: false,
                             onTap: () => AuthController().connectFB(
                               context,
                               isLogin: false,

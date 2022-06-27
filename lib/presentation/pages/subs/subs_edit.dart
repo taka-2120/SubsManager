@@ -35,7 +35,7 @@ class SubEditSheet extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final subValue = ref.watch(subValueProvider);
     final readSubValue = ref.read(subValueProvider.notifier);
-    final readSubList = ref.read(subsListProvider.notifier); //Read Only
+    final readSubList = ref.read(subsListProvider.notifier);
     final l10n = L10n.of(context)!;
 
     useEffect(
@@ -97,6 +97,7 @@ class SubEditSheet extends HookConsumerWidget {
                       text: l10n.delete_sub,
                       fontColor: Colors.redAccent,
                       topPad: 30,
+                      isDisabled: false,
                       onTap: () {
                         readSubList.removeAt(index);
                         Navigator.pop(context);
