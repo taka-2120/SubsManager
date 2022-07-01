@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:subsmanager/domain/auth/auth_services.dart';
-import 'package:subsmanager/use_case/app_info.dart';
 import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/pages/settings/credits.dart';
 import 'package:subsmanager/presentation/pages/settings/notifications.dart';
-import 'package:subsmanager/presentation/widgets/page_title.dart';
-import 'package:subsmanager/presentation/widgets/settings_item.dart';
+import 'package:subsmanager/presentation/widgets/page_title_widget.dart';
+import 'package:subsmanager/presentation/widgets/settings_item_widget.dart';
 import 'package:subsmanager/theme.dart';
 import 'package:subsmanager/use_case/notifiers/user_data.dart';
 
@@ -18,6 +19,14 @@ class Settings extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = L10n.of(context)!;
     final userData = ref.watch(userDataProvider.select((value) => value));
+    String version = "";
+
+    useEffect(() {
+      PackageInfo.fromPlatform().then((value) {
+        version = value.version;
+      });
+      return;
+    });
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
@@ -70,7 +79,7 @@ class Settings extends HookConsumerWidget {
                         SettingsItem(
                           icon: const Icon(Icons.info),
                           left: l10n.version,
-                          right: AppInfo().getAppVersion(),
+                          right: version,
                           navigatable: false,
                           disposable: false,
                         ),

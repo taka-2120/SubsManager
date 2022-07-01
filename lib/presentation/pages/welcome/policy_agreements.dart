@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/pages/welcome/end_intro.dart';
-import 'package:subsmanager/presentation/widgets/default_appbar.dart';
-import 'package:subsmanager/presentation/widgets/rounded_button.dart';
+import 'package:subsmanager/presentation/widgets/default_appbar_widget.dart';
+import 'package:subsmanager/presentation/widgets/rounded_button_widget.dart';
 import 'package:subsmanager/use_case/notifiers/welcome_settings.dart';
 
 class PolicyAgreemtenes extends ConsumerWidget {

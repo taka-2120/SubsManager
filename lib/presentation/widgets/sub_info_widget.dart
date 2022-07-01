@@ -5,27 +5,21 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/extensions/date_ext.dart';
 import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
-import 'package:subsmanager/presentation/widgets/default_divider.dart';
-import 'package:subsmanager/presentation/widgets/favicon.dart';
-import 'package:subsmanager/presentation/widgets/textfield_set.dart';
+import 'package:subsmanager/presentation/widgets/default_divider_widget.dart';
+import 'package:subsmanager/presentation/widgets/favicon_widget.dart';
+import 'package:subsmanager/presentation/widgets/textfield_set_widget.dart';
 import 'package:subsmanager/theme.dart';
 import 'package:subsmanager/use_case/notifiers/periods.dart';
-import 'package:subsmanager/use_case/notifiers/sub_value.dart';
+import 'package:subsmanager/use_case/notifiers/sub_value_notifier.dart';
 
 class SubInfo extends ConsumerWidget {
   const SubInfo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final periods = ref
-        .watch(
-          periodsProvider.select((value) => value),
-        )
-        .periods;
-    final subValue = ref.watch(
-      subValueProvider.select((value) => value),
-    );
-    final readSubValue = ref.read(subValueProvider.notifier);
+    final valueNotifier = ref.read(subValueNotifierProvider.notifier);
+    final valueState = ref.watch(subValueNotifierProvider);
+    final periods = ref.watch(periodsProvider).periods;
     final l10n = L10n.of(context)!;
 
     return Column(
@@ -33,7 +27,7 @@ class SubInfo extends ConsumerWidget {
         TextFieldSet(
           title: l10n.name,
           type: KeyType.norm,
-          controller: subValue.name,
+          controller: valueState.name,
           secured: false,
           suggestion: true,
           divider: true,
@@ -42,7 +36,7 @@ class SubInfo extends ConsumerWidget {
         TextFieldSet(
           title: l10n.fee,
           type: KeyType.num,
-          controller: subValue.fee,
+          controller: valueState.fee,
           secured: false,
           suggestion: true,
           divider: true,
@@ -51,15 +45,15 @@ class SubInfo extends ConsumerWidget {
         TextFieldSet(
           title: l10n.url,
           type: KeyType.url,
-          controller: subValue.url,
+          controller: valueState.url,
           secured: false,
           suggestion: false,
           divider: true,
           showTitle: true,
           rightContent: Favicon(
-            favicon: subValue.favicon,
-            isIcon: subValue.isIcon,
-            altColor: subValue.altColor,
+            favicon: valueState.favicon,
+            isIcon: valueState.hasIcon,
+            altColor: valueState.altColor,
           ),
           bottomNotes:
               "If you type the domain of provider's URL, the icon will be shown up at the right next of the name.",
@@ -73,14 +67,14 @@ class SubInfo extends ConsumerWidget {
             ),
             MaterialButton(
               child: Text(
-                subValue.date.dateToString(context),
+                valueState.date.dateToString(context),
                 style: const TextStyle(fontSize: 16),
               ),
               onPressed: () async {
-                readSubValue.updateDate(
+                valueNotifier.updateDate(
                   await showRoundedDatePicker(
                         context: context,
-                        initialDate: subValue.date,
+                        initialDate: valueState.date,
                         borderRadius: 20,
                         theme: ThemeData(
                           primarySwatch: customSwatch,
@@ -102,9 +96,9 @@ class SubInfo extends ConsumerWidget {
             ),
             CustomDropdownButton2(
               hint: "${l10n.select}...",
-              value: subValue.period,
+              value: valueState.period,
               dropdownItems: periods,
-              onChanged: (value) => readSubValue.updatePeriod(value),
+              onChanged: (value) => valueNotifier.updatePeriod(value),
             ),
           ],
         ),

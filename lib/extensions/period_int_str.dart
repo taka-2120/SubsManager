@@ -1,14 +1,14 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/use_case/notifiers/periods.dart';
 
-extension PeriodIntExt on int {
+extension PeriodIntExt on int? {
   String periodToString(WidgetRef ref) {
     final periods = ref
         .watch(
           periodsProvider.select((value) => value),
         )
         .periods;
-    int period = this;
+    int? period = this;
     String periodStr = "";
 
     switch (period) {

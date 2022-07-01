@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/extensions/date_ext.dart';
 import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
-import 'package:subsmanager/presentation/widgets/default_divider.dart';
+import 'package:subsmanager/presentation/widgets/default_divider_widget.dart';
 import 'package:subsmanager/theme.dart';
 import 'package:subsmanager/use_case/notifiers/notif_date.dart';
 import 'package:subsmanager/use_case/notifiers/notif_enabled.dart';

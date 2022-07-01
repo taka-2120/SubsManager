@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/pages/welcome/intro_notif.dart';
-import 'package:subsmanager/presentation/widgets/default_appbar.dart';
-import 'package:subsmanager/presentation/widgets/rounded_button.dart';
+import 'package:subsmanager/presentation/widgets/default_appbar_widget.dart';
+import 'package:subsmanager/presentation/widgets/rounded_button_widget.dart';
 
 class WelcomeMessage extends StatelessWidget {
   const WelcomeMessage({Key? key}) : super(key: key);

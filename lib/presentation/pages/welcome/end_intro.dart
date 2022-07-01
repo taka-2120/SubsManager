@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/pages/auth/auth_outer.dart';
-import 'package:subsmanager/presentation/widgets/default_appbar.dart';
-import 'package:subsmanager/presentation/widgets/rounded_button.dart';
+import 'package:subsmanager/presentation/widgets/default_appbar_widget.dart';
+import 'package:subsmanager/presentation/widgets/rounded_button_widget.dart';
 
 class EndIntro extends StatelessWidget {
   const EndIntro({Key? key}) : super(key: key);

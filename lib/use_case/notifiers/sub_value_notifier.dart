@@ -2,24 +2,29 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:http/http.dart' as http;
 import 'package:subsmanager/domain/models/sub_value/sub_value.state.dart';
+import 'package:subsmanager/extensions/hex_color.dart';
+import 'package:subsmanager/use_case/get_favicon.dart';
 
-final subValueProvider = StateNotifierProvider<SubValueNotifier, SubValueState>(
+final subValueNotifierProvider =
+    StateNotifierProvider<SubValueNotifier, SubValue>(
   (ref) => SubValueNotifier(),
 );
 
-class SubValueNotifier extends StateNotifier<SubValueState> {
+class SubValueNotifier extends StateNotifier<SubValue> {
   SubValueNotifier()
       : super(
-          SubValueState(
-            date: DateTime.now(),
+          SubValue(
             name: TextEditingController(),
             fee: TextEditingController(),
             url: TextEditingController(),
+            favicon: null,
+            hasIcon: false,
             altColor: Colors.primaries[Random().nextInt(
               Colors.primaries.length,
             )],
+            date: DateTime.now(),
+            period: null,
           ),
         );
 
@@ -47,49 +52,31 @@ class SubValueNotifier extends StateNotifier<SubValueState> {
     state = state.copyWith(favicon: favicon);
   }
 
+  void updateAltColor(String value) {
+    state = state.copyWith(altColor: HexColor(value));
+  }
+
   Future<void> generateFavicon(String url) async {
-    String formattedUrl = url;
-    bool isVaild = false;
-    formattedUrl.contains("http://")
-        ? null
-        : formattedUrl = "http://$formattedUrl";
-
-    try {
-      isVaild = Uri.parse(formattedUrl).host.isNotEmpty;
-
-      final response = await http.head(Uri.parse(formattedUrl));
-      switch (response.statusCode) {
-        case 200:
-          isVaild = true;
-          break;
-        default:
-          isVaild = false;
-          break;
-      }
-    } catch (e) {
-      isVaild = false;
-    }
-
-    isVaild ? formattedUrl += "/favicon.ico" : formattedUrl = "";
-
-    state = state.copyWith(
-      favicon: Image.network(formattedUrl),
-      isIcon: isVaild,
-    );
+    await getFavicon(url).then((value) {
+      state = state.copyWith(
+        favicon: value[0],
+        hasIcon: value[1],
+      );
+    });
   }
 
   void init() {
     state = state.copyWith(
-      period: null,
-      date: DateTime.now(),
       name: TextEditingController(),
       fee: TextEditingController(),
       url: TextEditingController(),
       favicon: null,
-      isIcon: false,
+      hasIcon: false,
       altColor: Colors.primaries[Random().nextInt(
         Colors.primaries.length,
       )],
+      date: DateTime.now(),
+      period: null,
     );
   }
 }

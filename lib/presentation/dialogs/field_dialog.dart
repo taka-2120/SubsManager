@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
-import 'package:subsmanager/presentation/widgets/textfield_set.dart';
+import 'package:subsmanager/presentation/widgets/textfield_set_widget.dart';
 import 'package:subsmanager/use_case/notifiers/user_data.dart';
 
 class FieldDialog extends HookConsumerWidget {

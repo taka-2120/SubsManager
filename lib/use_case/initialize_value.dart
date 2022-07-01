@@ -4,10 +4,10 @@ import 'package:subsmanager/use_case/notifiers/notif_date.dart';
 import 'package:subsmanager/use_case/notifiers/notif_enabled.dart';
 import 'package:subsmanager/use_case/notifiers/notif_time.dart';
 import 'package:subsmanager/use_case/notifiers/sort_option.dart';
-import 'package:subsmanager/use_case/notifiers/sub_value.dart';
-import 'package:subsmanager/use_case/notifiers/subs_list.dart';
+import 'package:subsmanager/use_case/notifiers/sub_value_notifier.dart';
 import 'package:subsmanager/use_case/notifiers/tab_index.dart';
 import 'package:subsmanager/use_case/notifiers/user_data.dart';
+import 'package:subsmanager/use_case/subs_list/notifier/subs_list_notifier.dart';
 
 class InitializeValue {
   void init(BuildContext context, WidgetRef ref) {
@@ -17,7 +17,7 @@ class InitializeValue {
     ref.read(sortOptionProvider.notifier).update(ref, 0);
     ref.read(userDataProvider.notifier).init();
     ref.read(tabIndexProvider.notifier).update(0);
-    ref.read(subValueProvider.notifier).init();
-    ref.read(subsListProvider.notifier).init();
+    ref.read(subValueNotifierProvider.notifier).init();
+    ref.read(subsListNotifierProvider.notifier).init();
   }
 }

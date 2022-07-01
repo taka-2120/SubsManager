@@ -2,7 +2,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/use_case/notifiers/periods.dart';
 
 extension PeriodStrExt on String? {
-  int periodToInt(WidgetRef ref) {
+  int periodToInt(Ref ref) {
     final periods = ref
         .watch(
           periodsProvider.select((value) => value),

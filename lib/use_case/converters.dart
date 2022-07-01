@@ -8,7 +8,7 @@ class Converters {
     required double fee,
     required int period,
   }) {
-    String feeStr = fee.feeToString(format: true);
+    String feeStr = fee.feeToString(currency: true);
     String periodStr = period.periodToString(ref);
 
     return "$feeStr/$periodStr";

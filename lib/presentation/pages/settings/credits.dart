@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 
-import '../../widgets/page_title.dart';
+import '../../widgets/page_title_widget.dart';
 
 class Credits extends StatelessWidget {
   const Credits({Key? key}) : super(key: key);

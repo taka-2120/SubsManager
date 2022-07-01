@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:subsmanager/extensions/fee_double_str.dart';
 import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/pages/subs/subs_add.dart';
-import 'package:subsmanager/presentation/widgets/page_title.dart';
+import 'package:subsmanager/presentation/widgets/page_title_widget.dart';
 import 'package:subsmanager/presentation/widgets/subs_item.dart';
 import 'package:subsmanager/theme.dart';
 import 'package:subsmanager/use_case/notifiers/sort_option.dart';
-import 'package:subsmanager/use_case/notifiers/sub_value.dart';
-import 'package:subsmanager/use_case/notifiers/subs_list.dart';
+import 'package:subsmanager/use_case/notifiers/sub_value_notifier.dart';
+import 'package:subsmanager/use_case/subs_list/notifier/subs_list_notifier.dart';
 
 class SubsMain extends StatelessWidget {
   const SubsMain({Key? key}) : super(key: key);
@@ -21,14 +22,24 @@ class SubsMain extends StatelessWidget {
   }
 }
 
-class SubsPage extends ConsumerWidget {
+class SubsPage extends HookConsumerWidget {
   const SubsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final subsList = ref.watch(subsListProvider);
-    final readSubsList = ref.read(subsListProvider.notifier);
+    final listNotifier = ref.read(subsListNotifierProvider.notifier);
+    final listState = ref.watch(subsListNotifierProvider);
     final l10n = L10n.of(context)!;
+
+    useEffect(
+      () {
+        WidgetsBinding.instance.addPostFrameCallback((_) async {
+          await listNotifier.getSubsList();
+        });
+        return;
+      },
+      const [],
+    );
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
@@ -87,9 +98,9 @@ class SubsPage extends ConsumerWidget {
                         ),
                       ),
                       Text(
-                        readSubsList
-                            .subSum(monthly: true, list: subsList)
-                            .feeToString(format: true),
+                        listNotifier
+                            .subSum(monthly: true, list: listState.subsList)
+                            .feeToString(currency: true),
                         style: const TextStyle(
                           fontSize: 18,
                           color: Colors.black,
@@ -108,9 +119,9 @@ class SubsPage extends ConsumerWidget {
                         ),
                       ),
                       Text(
-                        readSubsList
-                            .subSum(monthly: false, list: subsList)
-                            .feeToString(format: true),
+                        listNotifier
+                            .subSum(monthly: false, list: listState.subsList)
+                            .feeToString(currency: true),
                         style: const TextStyle(
                           fontSize: 18,
                           color: Colors.black,
@@ -123,15 +134,16 @@ class SubsPage extends ConsumerWidget {
             ),
           ),
           Expanded(
-            child: (subsList.isEmpty)
+            child: (listState.subsList.isEmpty)
                 ? Center(
                     child: Text(l10n.first_add),
                   )
                 : ListView.builder(
                     itemBuilder: (BuildContext context, int index) {
-                      return SubsItem(index: index, item: subsList[index]);
+                      return SubsItem(
+                          index: index, item: listState.subsList[index]);
                     },
-                    itemCount: subsList.length,
+                    itemCount: listState.subsList.length,
                   ),
           ),
         ],
@@ -139,8 +151,7 @@ class SubsPage extends ConsumerWidget {
       floatingActionButton: FloatingActionButton(
         elevation: 4,
         onPressed: () {
-          ref.read(subValueProvider.notifier).init();
-          ref.read(subValueProvider.notifier).init();
+          ref.read(subValueNotifierProvider.notifier).init();
           showBarModalBottomSheet(
             context: context,
             builder: (context) => const SubAdd(),

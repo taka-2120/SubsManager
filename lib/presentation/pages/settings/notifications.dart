@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../widgets/notif_date_picker.dart';
-import '../../widgets/page_title.dart';
-import '../../widgets/toggle_item.dart';
+import '../../widgets/notif_date_picker_widget.dart';
+import '../../widgets/page_title_widget.dart';
+import '../../widgets/toggle_item_widget.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 
 class Notifications extends StatelessWidget {

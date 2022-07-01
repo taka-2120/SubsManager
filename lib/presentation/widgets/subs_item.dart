@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:subsmanager/domain/models/sub_item/sub_item.state.dart';
+import 'package:subsmanager/domain/subs_list/models/sub_item.dart';
 import 'package:subsmanager/extensions/date_ext.dart';
+import 'package:subsmanager/extensions/hex_color.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/pages/subs/subs_edit.dart';
-import 'package:subsmanager/presentation/widgets/favicon.dart';
+import 'package:subsmanager/presentation/widgets/favicon_widget.dart';
 import 'package:subsmanager/theme.dart';
 import 'package:subsmanager/use_case/converters.dart';
-import 'package:subsmanager/use_case/notifiers/sub_value.dart';
+import 'package:subsmanager/use_case/get_favicon.dart';
+import 'package:subsmanager/use_case/notifiers/favicon_info_notifier.dart';
+import 'package:subsmanager/use_case/notifiers/sub_value_notifier.dart';
 
-class SubsItem extends ConsumerWidget {
+class SubsItem extends HookConsumerWidget {
   const SubsItem({
     required this.index,
     required this.item,
@@ -18,11 +22,25 @@ class SubsItem extends ConsumerWidget {
   }) : super(key: key);
 
   final int index;
-  final SubItemState item;
+  final SubItem item;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = L10n.of(context)!;
+    final faviconInfoNotifier = ref.read(favicnoInfoNotifierProvider.notifier);
+    final faviconInfoState = ref.read(favicnoInfoNotifierProvider);
+
+    useEffect(() {
+      Future.microtask(() async {
+        await getFavicon(item.url).then((value) {
+          final favicon = value[0];
+          final hasIcon = value[1];
+          faviconInfoNotifier.updateFaviconInfo(
+              favicon: favicon, hasIcon: hasIcon);
+        });
+      });
+      return;
+    });
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
@@ -52,9 +70,9 @@ class SubsItem extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Favicon(
-                    favicon: item.favicon,
-                    isIcon: item.isIcon,
-                    altColor: item.altColor,
+                    favicon: faviconInfoState.favicon,
+                    isIcon: faviconInfoState.hasIcon,
+                    altColor: HexColor(item.altHexColorCode),
                   ),
                   const SizedBox(width: 4),
                   Text(
@@ -66,10 +84,10 @@ class SubsItem extends ConsumerWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  ref.read(subValueProvider.notifier).init();
+                  ref.read(subValueNotifierProvider.notifier).init();
                   showBarModalBottomSheet(
                     context: context,
-                    builder: (context) => SubEdit(index, item),
+                    builder: (context) => SubEdit(index),
                     bounce: true,
                     expand: true,
                   );
@@ -88,7 +106,7 @@ class SubsItem extends ConsumerWidget {
                 Converters().combineFeePeriodAsString(
                   ref,
                   fee: item.fee,
-                  period: item.period,
+                  period: item.period!,
                 ),
                 style:
                     const TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
@@ -97,7 +115,7 @@ class SubsItem extends ConsumerWidget {
                 height: 5,
               ),
               Text(
-                "${l10n.next}: ${item.date.dateToString(context)}",
+                "${l10n.next}: ${item.date!.dateToString(context)}",
                 style: const TextStyle(
                     color: borderColor,
                     fontWeight: FontWeight.w700,

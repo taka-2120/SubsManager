@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/globals.dart';
-import 'package:subsmanager/presentation/widgets/default_divider.dart';
+import 'package:subsmanager/presentation/widgets/default_divider_widget.dart';
 import 'package:subsmanager/theme.dart';
-import 'package:subsmanager/use_case/notifiers/sub_value.dart';
+import 'package:subsmanager/use_case/notifiers/sub_value_notifier.dart';
 
 class TextFieldSet extends ConsumerWidget {
   const TextFieldSet(
@@ -31,7 +31,7 @@ class TextFieldSet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final readSubValue = ref.read(subValueProvider.notifier);
+    final readSubValue = ref.read(subValueNotifierProvider.notifier);
 
     return Column(children: [
       showTitle

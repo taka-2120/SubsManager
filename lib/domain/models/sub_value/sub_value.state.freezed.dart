@@ -15,71 +15,56 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$SubValueState {
-  String? get period => throw _privateConstructorUsedError;
-  @DateTimeDefault()
-  DateTime get date => throw _privateConstructorUsedError;
-  @TextFieldDefault()
+mixin _$SubValue {
   TextEditingController get name => throw _privateConstructorUsedError;
-  @TextFieldDefault()
   TextEditingController get fee => throw _privateConstructorUsedError;
-  @TextFieldDefault()
   TextEditingController get url => throw _privateConstructorUsedError;
   Image? get favicon => throw _privateConstructorUsedError;
-  bool get isIcon => throw _privateConstructorUsedError;
-  @AltColorDefault()
+  bool get hasIcon => throw _privateConstructorUsedError;
   Color get altColor => throw _privateConstructorUsedError;
+  DateTime get date => throw _privateConstructorUsedError;
+  String? get period => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $SubValueStateCopyWith<SubValueState> get copyWith =>
+  $SubValueCopyWith<SubValue> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SubValueStateCopyWith<$Res> {
-  factory $SubValueStateCopyWith(
-          SubValueState value, $Res Function(SubValueState) then) =
-      _$SubValueStateCopyWithImpl<$Res>;
+abstract class $SubValueCopyWith<$Res> {
+  factory $SubValueCopyWith(SubValue value, $Res Function(SubValue) then) =
+      _$SubValueCopyWithImpl<$Res>;
   $Res call(
-      {String? period,
-      @DateTimeDefault() DateTime date,
-      @TextFieldDefault() TextEditingController name,
-      @TextFieldDefault() TextEditingController fee,
-      @TextFieldDefault() TextEditingController url,
+      {TextEditingController name,
+      TextEditingController fee,
+      TextEditingController url,
       Image? favicon,
-      bool isIcon,
-      @AltColorDefault() Color altColor});
+      bool hasIcon,
+      Color altColor,
+      DateTime date,
+      String? period});
 }
 
 /// @nodoc
-class _$SubValueStateCopyWithImpl<$Res>
-    implements $SubValueStateCopyWith<$Res> {
-  _$SubValueStateCopyWithImpl(this._value, this._then);
+class _$SubValueCopyWithImpl<$Res> implements $SubValueCopyWith<$Res> {
+  _$SubValueCopyWithImpl(this._value, this._then);
 
-  final SubValueState _value;
+  final SubValue _value;
   // ignore: unused_field
-  final $Res Function(SubValueState) _then;
+  final $Res Function(SubValue) _then;
 
   @override
   $Res call({
-    Object? period = freezed,
-    Object? date = freezed,
     Object? name = freezed,
     Object? fee = freezed,
     Object? url = freezed,
     Object? favicon = freezed,
-    Object? isIcon = freezed,
+    Object? hasIcon = freezed,
     Object? altColor = freezed,
+    Object? date = freezed,
+    Object? period = freezed,
   }) {
     return _then(_value.copyWith(
-      period: period == freezed
-          ? _value.period
-          : period // ignore: cast_nullable_to_non_nullable
-              as String?,
-      date: date == freezed
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as DateTime,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -96,67 +81,65 @@ class _$SubValueStateCopyWithImpl<$Res>
           ? _value.favicon
           : favicon // ignore: cast_nullable_to_non_nullable
               as Image?,
-      isIcon: isIcon == freezed
-          ? _value.isIcon
-          : isIcon // ignore: cast_nullable_to_non_nullable
+      hasIcon: hasIcon == freezed
+          ? _value.hasIcon
+          : hasIcon // ignore: cast_nullable_to_non_nullable
               as bool,
       altColor: altColor == freezed
           ? _value.altColor
           : altColor // ignore: cast_nullable_to_non_nullable
               as Color,
+      date: date == freezed
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      period: period == freezed
+          ? _value.period
+          : period // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
 /// @nodoc
-abstract class _$$_SubValueStateCopyWith<$Res>
-    implements $SubValueStateCopyWith<$Res> {
-  factory _$$_SubValueStateCopyWith(
-          _$_SubValueState value, $Res Function(_$_SubValueState) then) =
-      __$$_SubValueStateCopyWithImpl<$Res>;
+abstract class _$$_SubValueCopyWith<$Res> implements $SubValueCopyWith<$Res> {
+  factory _$$_SubValueCopyWith(
+          _$_SubValue value, $Res Function(_$_SubValue) then) =
+      __$$_SubValueCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String? period,
-      @DateTimeDefault() DateTime date,
-      @TextFieldDefault() TextEditingController name,
-      @TextFieldDefault() TextEditingController fee,
-      @TextFieldDefault() TextEditingController url,
+      {TextEditingController name,
+      TextEditingController fee,
+      TextEditingController url,
       Image? favicon,
-      bool isIcon,
-      @AltColorDefault() Color altColor});
+      bool hasIcon,
+      Color altColor,
+      DateTime date,
+      String? period});
 }
 
 /// @nodoc
-class __$$_SubValueStateCopyWithImpl<$Res>
-    extends _$SubValueStateCopyWithImpl<$Res>
-    implements _$$_SubValueStateCopyWith<$Res> {
-  __$$_SubValueStateCopyWithImpl(
-      _$_SubValueState _value, $Res Function(_$_SubValueState) _then)
-      : super(_value, (v) => _then(v as _$_SubValueState));
+class __$$_SubValueCopyWithImpl<$Res> extends _$SubValueCopyWithImpl<$Res>
+    implements _$$_SubValueCopyWith<$Res> {
+  __$$_SubValueCopyWithImpl(
+      _$_SubValue _value, $Res Function(_$_SubValue) _then)
+      : super(_value, (v) => _then(v as _$_SubValue));
 
   @override
-  _$_SubValueState get _value => super._value as _$_SubValueState;
+  _$_SubValue get _value => super._value as _$_SubValue;
 
   @override
   $Res call({
-    Object? period = freezed,
-    Object? date = freezed,
     Object? name = freezed,
     Object? fee = freezed,
     Object? url = freezed,
     Object? favicon = freezed,
-    Object? isIcon = freezed,
+    Object? hasIcon = freezed,
     Object? altColor = freezed,
+    Object? date = freezed,
+    Object? period = freezed,
   }) {
-    return _then(_$_SubValueState(
-      period: period == freezed
-          ? _value.period
-          : period // ignore: cast_nullable_to_non_nullable
-              as String?,
-      date: date == freezed
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+    return _then(_$_SubValue(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -173,143 +156,139 @@ class __$$_SubValueStateCopyWithImpl<$Res>
           ? _value.favicon
           : favicon // ignore: cast_nullable_to_non_nullable
               as Image?,
-      isIcon: isIcon == freezed
-          ? _value.isIcon
-          : isIcon // ignore: cast_nullable_to_non_nullable
+      hasIcon: hasIcon == freezed
+          ? _value.hasIcon
+          : hasIcon // ignore: cast_nullable_to_non_nullable
               as bool,
       altColor: altColor == freezed
           ? _value.altColor
           : altColor // ignore: cast_nullable_to_non_nullable
               as Color,
+      date: date == freezed
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      period: period == freezed
+          ? _value.period
+          : period // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_SubValueState with DiagnosticableTreeMixin implements _SubValueState {
-  _$_SubValueState(
-      {this.period = null,
-      @DateTimeDefault() required this.date,
-      @TextFieldDefault() required this.name,
-      @TextFieldDefault() required this.fee,
-      @TextFieldDefault() required this.url,
-      this.favicon = null,
-      this.isIcon = false,
-      @AltColorDefault() required this.altColor});
+class _$_SubValue with DiagnosticableTreeMixin implements _SubValue {
+  _$_SubValue(
+      {required this.name,
+      required this.fee,
+      required this.url,
+      required this.favicon,
+      required this.hasIcon,
+      required this.altColor,
+      required this.date,
+      this.period = null});
 
+  @override
+  final TextEditingController name;
+  @override
+  final TextEditingController fee;
+  @override
+  final TextEditingController url;
+  @override
+  final Image? favicon;
+  @override
+  final bool hasIcon;
+  @override
+  final Color altColor;
+  @override
+  final DateTime date;
   @override
   @JsonKey()
   final String? period;
-  @override
-  @DateTimeDefault()
-  final DateTime date;
-  @override
-  @TextFieldDefault()
-  final TextEditingController name;
-  @override
-  @TextFieldDefault()
-  final TextEditingController fee;
-  @override
-  @TextFieldDefault()
-  final TextEditingController url;
-  @override
-  @JsonKey()
-  final Image? favicon;
-  @override
-  @JsonKey()
-  final bool isIcon;
-  @override
-  @AltColorDefault()
-  final Color altColor;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SubValueState(period: $period, date: $date, name: $name, fee: $fee, url: $url, favicon: $favicon, isIcon: $isIcon, altColor: $altColor)';
+    return 'SubValue(name: $name, fee: $fee, url: $url, favicon: $favicon, hasIcon: $hasIcon, altColor: $altColor, date: $date, period: $period)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'SubValueState'))
-      ..add(DiagnosticsProperty('period', period))
-      ..add(DiagnosticsProperty('date', date))
+      ..add(DiagnosticsProperty('type', 'SubValue'))
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('fee', fee))
       ..add(DiagnosticsProperty('url', url))
       ..add(DiagnosticsProperty('favicon', favicon))
-      ..add(DiagnosticsProperty('isIcon', isIcon))
-      ..add(DiagnosticsProperty('altColor', altColor));
+      ..add(DiagnosticsProperty('hasIcon', hasIcon))
+      ..add(DiagnosticsProperty('altColor', altColor))
+      ..add(DiagnosticsProperty('date', date))
+      ..add(DiagnosticsProperty('period', period));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SubValueState &&
-            const DeepCollectionEquality().equals(other.period, period) &&
-            const DeepCollectionEquality().equals(other.date, date) &&
+            other is _$_SubValue &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.fee, fee) &&
             const DeepCollectionEquality().equals(other.url, url) &&
             const DeepCollectionEquality().equals(other.favicon, favicon) &&
-            const DeepCollectionEquality().equals(other.isIcon, isIcon) &&
-            const DeepCollectionEquality().equals(other.altColor, altColor));
+            const DeepCollectionEquality().equals(other.hasIcon, hasIcon) &&
+            const DeepCollectionEquality().equals(other.altColor, altColor) &&
+            const DeepCollectionEquality().equals(other.date, date) &&
+            const DeepCollectionEquality().equals(other.period, period));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(period),
-      const DeepCollectionEquality().hash(date),
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(fee),
       const DeepCollectionEquality().hash(url),
       const DeepCollectionEquality().hash(favicon),
-      const DeepCollectionEquality().hash(isIcon),
-      const DeepCollectionEquality().hash(altColor));
+      const DeepCollectionEquality().hash(hasIcon),
+      const DeepCollectionEquality().hash(altColor),
+      const DeepCollectionEquality().hash(date),
+      const DeepCollectionEquality().hash(period));
 
   @JsonKey(ignore: true)
   @override
-  _$$_SubValueStateCopyWith<_$_SubValueState> get copyWith =>
-      __$$_SubValueStateCopyWithImpl<_$_SubValueState>(this, _$identity);
+  _$$_SubValueCopyWith<_$_SubValue> get copyWith =>
+      __$$_SubValueCopyWithImpl<_$_SubValue>(this, _$identity);
 }
 
-abstract class _SubValueState implements SubValueState {
-  factory _SubValueState(
-      {final String? period,
-      @DateTimeDefault() required final DateTime date,
-      @TextFieldDefault() required final TextEditingController name,
-      @TextFieldDefault() required final TextEditingController fee,
-      @TextFieldDefault() required final TextEditingController url,
-      final Image? favicon,
-      final bool isIcon,
-      @AltColorDefault() required final Color altColor}) = _$_SubValueState;
+abstract class _SubValue implements SubValue {
+  factory _SubValue(
+      {required final TextEditingController name,
+      required final TextEditingController fee,
+      required final TextEditingController url,
+      required final Image? favicon,
+      required final bool hasIcon,
+      required final Color altColor,
+      required final DateTime date,
+      final String? period}) = _$_SubValue;
 
   @override
-  String? get period => throw _privateConstructorUsedError;
-  @override
-  @DateTimeDefault()
-  DateTime get date => throw _privateConstructorUsedError;
-  @override
-  @TextFieldDefault()
   TextEditingController get name => throw _privateConstructorUsedError;
   @override
-  @TextFieldDefault()
   TextEditingController get fee => throw _privateConstructorUsedError;
   @override
-  @TextFieldDefault()
   TextEditingController get url => throw _privateConstructorUsedError;
   @override
   Image? get favicon => throw _privateConstructorUsedError;
   @override
-  bool get isIcon => throw _privateConstructorUsedError;
+  bool get hasIcon => throw _privateConstructorUsedError;
   @override
-  @AltColorDefault()
   Color get altColor => throw _privateConstructorUsedError;
   @override
+  DateTime get date => throw _privateConstructorUsedError;
+  @override
+  String? get period => throw _privateConstructorUsedError;
+  @override
   @JsonKey(ignore: true)
-  _$$_SubValueStateCopyWith<_$_SubValueState> get copyWith =>
+  _$$_SubValueCopyWith<_$_SubValue> get copyWith =>
       throw _privateConstructorUsedError;
 }

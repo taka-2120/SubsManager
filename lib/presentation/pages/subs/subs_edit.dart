@@ -1,64 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:subsmanager/domain/models/sub_item/sub_item.state.dart';
-import 'package:subsmanager/extensions/fee_double_str.dart';
-import 'package:subsmanager/extensions/fee_str_double.dart';
-import 'package:subsmanager/extensions/period_int_str.dart';
-import 'package:subsmanager/extensions/period_nstr_int.dart';
 import 'package:subsmanager/l10n/l10n.dart';
-import 'package:subsmanager/presentation/widgets/rounded_button.dart';
-import 'package:subsmanager/presentation/widgets/sheet_header.dart';
-import 'package:subsmanager/presentation/widgets/sub_info.dart';
-import 'package:subsmanager/use_case/notifiers/sub_value.dart';
-import 'package:subsmanager/use_case/notifiers/subs_list.dart';
+import 'package:subsmanager/presentation/widgets/rounded_button_widget.dart';
+import 'package:subsmanager/presentation/widgets/sheet_header_widget.dart';
+import 'package:subsmanager/presentation/widgets/sub_info_widget.dart';
+import 'package:subsmanager/use_case/notifiers/sub_value_notifier.dart';
+import 'package:subsmanager/use_case/subs_list/notifier/subs_list_notifier.dart';
+import 'package:subsmanager/extensions/fee_double_str.dart';
+import 'package:subsmanager/extensions/period_int_str.dart';
 
 class SubEdit extends StatelessWidget {
-  const SubEdit(this.index, this.selectedItem, {Key? key}) : super(key: key);
+  const SubEdit(this.index, {Key? key}) : super(key: key);
   final int index;
-  final SubItemState selectedItem;
 
   @override
   Widget build(BuildContext context) {
-    return SubEditSheet(index, selectedItem);
+    return SubEditSheet(index);
   }
 }
 
 class SubEditSheet extends HookConsumerWidget {
-  const SubEditSheet(this.index, this.selectedItem, {Key? key})
-      : super(key: key);
+  const SubEditSheet(this.index, {Key? key}) : super(key: key);
 
   final int index;
-  final SubItemState selectedItem;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final subValue = ref.watch(subValueProvider);
-    final readSubValue = ref.read(subValueProvider.notifier);
-    final readSubList = ref.read(subsListProvider.notifier);
     final l10n = L10n.of(context)!;
+    final listNotifier = ref.read(subsListNotifierProvider.notifier);
+    final listState = ref.watch(subsListNotifierProvider);
+    final valueNotifier = ref.read(subValueNotifierProvider.notifier);
+    final valueState = ref.watch(subValueNotifierProvider);
 
     useEffect(
       () {
-        Future.microtask(() {
-          readSubValue.updateName(
-            selectedItem.name,
-          );
-          readSubValue.updateFee(
-            selectedItem.fee.feeToString(format: false),
-          );
-          readSubValue.updateUrl(
-            selectedItem.url.toString(),
-          );
-          readSubValue.updateDate(selectedItem.date);
-          readSubValue.updatePeriod(
-            selectedItem.period.periodToString(ref),
-          );
-          readSubValue.updateFavicon(selectedItem.favicon!);
+        Future.microtask(() async {
+          final selectedList = listState.subsList[index];
+          valueNotifier.updateName(selectedList.name);
+          valueNotifier.updateFee(selectedList.fee.feeToString(
+            currency: false,
+          ));
+          valueNotifier.updateUrl(selectedList.url);
+          valueNotifier.updateDate(selectedList.date!);
+          valueNotifier.updatePeriod(selectedList.period.periodToString(ref));
+          valueNotifier.updateAltColor(selectedList.altHexColorCode);
+          await valueNotifier.generateFavicon(selectedList.url);
         });
         return;
       },
-      [],
+      const [],
     );
 
     return Scaffold(
@@ -70,23 +61,12 @@ class SubEditSheet extends HookConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SheetHeader(
-              title: l10n.edit,
-              funcLeft: () => Navigator.pop(context),
-              funcRight: () => readSubList.update(
-                context,
-                index: index,
-                subItem: SubItemState(
-                  name: subValue.name.text,
-                  fee: subValue.fee.text.feeToDouble(),
-                  url: subValue.url.text,
-                  isIcon: subValue.isIcon,
-                  favicon: subValue.favicon,
-                  altColor: subValue.altColor,
-                  date: subValue.date,
-                  period: subValue.period.periodToInt(ref),
-                ),
-              ),
-            ),
+                title: l10n.edit,
+                funcLeft: () => Navigator.pop(context),
+                funcRight: () {
+                  listNotifier.updateSub(item: listState.subsList[index]);
+                  Navigator.of(context).pop();
+                }),
             Expanded(
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
@@ -95,11 +75,11 @@ class SubEditSheet extends HookConsumerWidget {
                     const SubInfo(),
                     RoundededButton(
                       text: l10n.delete_sub,
-                      fontColor: Colors.redAccent,
+                      fontColor: const Color.fromARGB(255, 235, 35, 35),
                       topPad: 30,
                       isDisabled: false,
                       onTap: () {
-                        readSubList.removeAt(index);
+                        listNotifier.deleteSub(item: listState.subsList[index]);
                         Navigator.pop(context);
                       },
                     ),

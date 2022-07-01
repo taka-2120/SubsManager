@@ -6,11 +6,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:subsmanager/presentation/pages/auth/auth_outer.dart';
 import 'package:subsmanager/presentation/pages/welcome/welcome_message.dart';
-import 'package:subsmanager/use_case/app_info.dart';
 import 'package:subsmanager/firebase_options.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/use_case/notifiers/periods.dart';
-import 'package:subsmanager/presentation/widgets/default_appbar.dart';
+import 'package:subsmanager/presentation/widgets/default_appbar_widget.dart';
 import 'package:subsmanager/use_case/notifiers/tab_index.dart';
 import 'package:subsmanager/presentation/pages/settings/settings.dart';
 import 'package:subsmanager/presentation/pages/subs/subs.dart';
@@ -34,7 +33,7 @@ class MyApp extends HookWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: AppInfo().getAppName(),
+      title: "SubsManager",
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: ThemeMode.system,
