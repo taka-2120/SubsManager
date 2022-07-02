@@ -67,6 +67,40 @@ class SubsListNotifier extends StateNotifier<SubsListState> {
     );
   }
 
+  Future<void> updateDate() async {
+    final currentDate = DateTime.now();
+    List<SubItem> updatedList = [];
+
+    for (var item in state.subsList) {
+      if (item.date!.compareTo(currentDate) < 0) {
+        final updatedDate = DateTime(
+          item.date!.year,
+          item.date!.month + 1,
+          item.date!.day,
+        );
+
+        final subItem = SubItem(
+          uid: item.uid,
+          id: item.id,
+          name: item.name,
+          fee: item.fee,
+          url: item.url,
+          hasIcon: item.hasIcon,
+          altHexColorCode: item.altHexColorCode,
+          date: updatedDate,
+          period: item.period,
+        );
+
+        updatedList.add(subItem);
+        await _ref.read(subsListRepositoryProvider).updateSub(item: subItem);
+      } else {
+        updatedList.add(item);
+      }
+    }
+
+    state = state.copyWith(subsList: updatedList);
+  }
+
   Future<void> updateSub({required SubItem item}) async {
     final subValueState = _ref.read(subValueNotifierProvider);
     final subItem = SubItem(
@@ -110,10 +144,10 @@ class SubsListNotifier extends StateNotifier<SubsListState> {
         sortedList.sort((a, b) => b.name.compareTo(a.name));
         break;
       case 2:
-        sortedList.sort((a, b) => a.date!.compareTo(b.date!)); //FORCE
+        sortedList.sort((a, b) => a.date!.compareTo(b.date!));
         break;
       case 3:
-        sortedList.sort((a, b) => b.date!.compareTo(a.date!)); //FORCE
+        sortedList.sort((a, b) => b.date!.compareTo(a.date!));
         break;
       case 4:
         sortedList.sort((a, b) => a.fee.compareTo(b.fee));

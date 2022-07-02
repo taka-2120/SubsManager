@@ -35,6 +35,7 @@ class SubsPage extends HookConsumerWidget {
       () {
         WidgetsBinding.instance.addPostFrameCallback((_) async {
           await listNotifier.getSubsList();
+          await listNotifier.updateDate();
         });
         return;
       },

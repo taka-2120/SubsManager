@@ -2,10 +2,8 @@ import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/dialogs/field_dialog.dart';
-import 'package:subsmanager/use_case/notifiers/tab_index.dart';
 
 final localeStr = Platform.localeName;
 

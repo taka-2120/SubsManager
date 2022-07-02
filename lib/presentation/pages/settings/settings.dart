@@ -11,6 +11,7 @@ import 'package:subsmanager/presentation/widgets/page_title_widget.dart';
 import 'package:subsmanager/presentation/widgets/settings_item_widget.dart';
 import 'package:subsmanager/theme.dart';
 import 'package:subsmanager/use_case/notifiers/user_data.dart';
+import 'package:subsmanager/use_case/notifiers/versions_notifier.dart';
 
 class Settings extends HookConsumerWidget {
   const Settings({Key? key}) : super(key: key);
@@ -19,11 +20,12 @@ class Settings extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = L10n.of(context)!;
     final userData = ref.watch(userDataProvider.select((value) => value));
-    String version = "";
+    final versions = ref.watch(versionsNotifierProvider);
+    final versionNotifier = ref.read(versionsNotifierProvider.notifier);
 
     useEffect(() {
       PackageInfo.fromPlatform().then((value) {
-        version = value.version;
+        versionNotifier.update(value.version);
       });
       return;
     });
@@ -79,7 +81,7 @@ class Settings extends HookConsumerWidget {
                         SettingsItem(
                           icon: const Icon(Icons.info),
                           left: l10n.version,
-                          right: version,
+                          right: versions,
                           navigatable: false,
                           disposable: false,
                         ),
