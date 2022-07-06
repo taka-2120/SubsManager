@@ -62,7 +62,7 @@ class L10nEn extends L10n {
   String get notif => 'Notification';
 
   @override
-  String get enable_notif => 'Enable Notification';
+  String get enable_notif => 'Enable Notifications';
 
   @override
   String get credits => 'Credits';
@@ -197,6 +197,9 @@ class L10nEn extends L10n {
   String get e_weak_pass => 'Your password is too weak. It should be 6 letters or more.';
 
   @override
+  String get e_username_empty => 'Username cannot be empty.';
+
+  @override
   String get d_ok => 'OK';
 
   @override
@@ -207,4 +210,25 @@ class L10nEn extends L10n {
 
   @override
   String get d_save => 'Save';
+
+  @override
+  String get privacy_policy => 'Privacy Policy';
+
+  @override
+  String get agree_privacy_policy => 'I agree to this Privacy Policy';
+
+  @override
+  String get notif_perm => 'Notifications Permission';
+
+  @override
+  String get all_done => 'All Done!';
+
+  @override
+  String get done_msg => 'Next, please login or register to our service!';
+
+  @override
+  String get lets_go => 'Let\'s Go!';
+
+  @override
+  String get welcome_msg => 'Thank you for using SubsManager!\n\nLet\'s get startd to setup this app first, and register to our services!';
 }

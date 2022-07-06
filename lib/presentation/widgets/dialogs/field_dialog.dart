@@ -6,8 +6,8 @@ import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/widgets/textfield_set_widget.dart';
 import 'package:subsmanager/use_case/notifiers/user_data.dart';
 
-class FieldDialog extends HookConsumerWidget {
-  FieldDialog({
+class UsernameDialog extends HookConsumerWidget {
+  UsernameDialog({
     Key? key,
     required this.title,
     required this.currentName,
@@ -58,7 +58,7 @@ class FieldDialog extends HookConsumerWidget {
             ),
           ),
           userData.error
-              ? const Text("Username cannot be empty.")
+              ? Text(l10n.e_username_empty)
               : const SizedBox(
                   height: 10,
                 ),
@@ -77,7 +77,7 @@ class FieldDialog extends HookConsumerWidget {
                   },
                   child: Center(
                     child: Text(
-                      "Save",
+                      l10n.d_save,
                       style: TextStyle(
                         fontSize: 18.0,
                         color: Theme.of(context).primaryColor,

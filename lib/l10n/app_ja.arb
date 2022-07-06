@@ -71,9 +71,18 @@
     "e_email_already_in_use": "このメールアドレスはすでに使用されています。",
     "e_all_disabled": "このメールアドレスとパスワードは現在無効化されています。",
     "e_weak_pass": "パスワードが弱すぎます。パスワードは最低6文字以上入力してください。",
+    "e_username_empty": "ユーザー名は空欄にできません。",
 
     "d_ok": "OK",
     "d_continue": "続ける",
     "d_cancel": "キャンセル",
-    "d_save": "保存"
+    "d_save": "保存",
+
+    "privacy_policy": "プライバシーポリシー",
+    "agree_privacy_policy": "プライバシポリシーに同意します",
+    "notif_perm": "通知の許可",
+    "all_done": "すべて完了です！",
+    "done_msg": "次に、ログインもしくは登録をしてください！",
+    "lets_go": "さあ始めましょう！",
+    "welcome_msg": "SubsManagerをダウンロードしていただきありがとうございます！\n\n早速初期設定をして、ログインもしくは登録をしましょう！" 
 }

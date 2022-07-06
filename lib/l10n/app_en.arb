@@ -21,7 +21,7 @@
     "general": "General",
     "userinfo": "User Info",
     "notif": "Notification",
-    "enable_notif": "Enable Notification",
+    "enable_notif": "Enable Notifications",
     "credits": "Credits",
     "version": "Version",
 
@@ -71,9 +71,18 @@
     "e_email_already_in_use": "This Email address is already in use.",
     "e_all_disabled": "This Email address or password is currently disabled.",
     "e_weak_pass": "Your password is too weak. It should be 6 letters or more.",
+    "e_username_empty": "Username cannot be empty.",
 
     "d_ok": "OK",
     "d_continue": "Continue",
     "d_cancel": "Cancel",
-    "d_save": "Save"
+    "d_save": "Save",
+
+    "privacy_policy": "Privacy Policy",
+    "agree_privacy_policy": "I agree to this Privacy Policy",
+    "notif_perm": "Notifications Permission",
+    "all_done": "All Done!",
+    "done_msg": "Next, please login or register to our service!",
+    "lets_go": "Let's Go!",
+    "welcome_msg": "Thank you for using SubsManager!\n\nLet's get startd to setup this app first, and register to our services!" 
 }

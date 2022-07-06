@@ -34,9 +34,9 @@ class PolicyAgreemtenes extends ConsumerWidget {
                     height: 80,
                     fit: BoxFit.fitWidth,
                   ),
-                  const Text(
-                    "Privacy Policy",
-                    style: TextStyle(
+                  Text(
+                    l10n.privacy_policy,
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 22,
                     ),
@@ -74,11 +74,11 @@ class PolicyAgreemtenes extends ConsumerWidget {
                         onChanged: (bool? value) => readWelcomeSettings
                             .updateAgreeState(value ?? false),
                       ),
-                      const Text("I agree to Privacy Policy")
+                      Text(l10n.agree_privacy_policy)
                     ],
                   ),
                   RoundededButton(
-                    text: "Next",
+                    text: l10n.next,
                     topPad: 20,
                     isDisabled: !welcomeSettings.isAgreed,
                     onTap: () {

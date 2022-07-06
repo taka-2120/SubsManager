@@ -40,13 +40,13 @@ class WelcomeMessage extends StatelessWidget {
                   ),
                   const SizedBox(height: 80),
                   Text(
-                    "Thank you for using SubsManager!\n\nLet's get startd to setup this app first, and register to our services!",
+                    l10n.welcome_msg,
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ],
               ),
               RoundededButton(
-                text: "Next",
+                text: l10n.next,
                 topPad: 20,
                 isDisabled: false,
                 onTap: () {

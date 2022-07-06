@@ -205,7 +205,7 @@ abstract class L10n {
   /// No description provided for @enable_notif.
   ///
   /// In en, this message translates to:
-  /// **'Enable Notification'**
+  /// **'Enable Notifications'**
   String get enable_notif;
 
   /// No description provided for @credits.
@@ -472,6 +472,12 @@ abstract class L10n {
   /// **'Your password is too weak. It should be 6 letters or more.'**
   String get e_weak_pass;
 
+  /// No description provided for @e_username_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'Username cannot be empty.'**
+  String get e_username_empty;
+
   /// No description provided for @d_ok.
   ///
   /// In en, this message translates to:
@@ -495,6 +501,48 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Save'**
   String get d_save;
+
+  /// No description provided for @privacy_policy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacy_policy;
+
+  /// No description provided for @agree_privacy_policy.
+  ///
+  /// In en, this message translates to:
+  /// **'I agree to this Privacy Policy'**
+  String get agree_privacy_policy;
+
+  /// No description provided for @notif_perm.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications Permission'**
+  String get notif_perm;
+
+  /// No description provided for @all_done.
+  ///
+  /// In en, this message translates to:
+  /// **'All Done!'**
+  String get all_done;
+
+  /// No description provided for @done_msg.
+  ///
+  /// In en, this message translates to:
+  /// **'Next, please login or register to our service!'**
+  String get done_msg;
+
+  /// No description provided for @lets_go.
+  ///
+  /// In en, this message translates to:
+  /// **'Let\'s Go!'**
+  String get lets_go;
+
+  /// No description provided for @welcome_msg.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you for using SubsManager!\n\nLet\'s get startd to setup this app first, and register to our services!'**
+  String get welcome_msg;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {

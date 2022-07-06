@@ -197,6 +197,9 @@ class L10nJa extends L10n {
   String get e_weak_pass => 'パスワードが弱すぎます。パスワードは最低6文字以上入力してください。';
 
   @override
+  String get e_username_empty => 'ユーザー名は空欄にできません。';
+
+  @override
   String get d_ok => 'OK';
 
   @override
@@ -207,4 +210,25 @@ class L10nJa extends L10n {
 
   @override
   String get d_save => '保存';
+
+  @override
+  String get privacy_policy => 'プライバシーポリシー';
+
+  @override
+  String get agree_privacy_policy => 'プライバシポリシーに同意します';
+
+  @override
+  String get notif_perm => '通知の許可';
+
+  @override
+  String get all_done => 'すべて完了です！';
+
+  @override
+  String get done_msg => '次に、ログインもしくは登録をしてください！';
+
+  @override
+  String get lets_go => 'さあ始めましょう！';
+
+  @override
+  String get welcome_msg => 'SubsManagerをダウンロードしていただきありがとうございます！\n\n早速初期設定をして、ログインもしくは登録をしましょう！';
 }

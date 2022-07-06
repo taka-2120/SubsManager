@@ -165,7 +165,7 @@ void showFieldDialog(BuildContext context) {
     barrierColor: Colors.black26,
     context: context,
     builder: (context) {
-      return FieldDialog(
+      return UsernameDialog(
         title: L10n.of(context)!.update_username,
         currentName: FirebaseAuth.instance.currentUser!.displayName ?? "",
       );

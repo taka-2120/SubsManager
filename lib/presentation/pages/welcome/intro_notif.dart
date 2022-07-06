@@ -26,9 +26,9 @@ class IntroNotif extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text(
-                "Notifications Permission",
-                style: TextStyle(
+              Text(
+                l10n.notif_perm,
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 22,
                 ),
@@ -45,7 +45,7 @@ class IntroNotif extends ConsumerWidget {
               Column(
                 children: [
                   RoundededButton(
-                    text: "Enable Notifications",
+                    text: l10n.enable_notif,
                     topPad: 20,
                     isDisabled: false,
                     onTap: () {
@@ -61,7 +61,7 @@ class IntroNotif extends ConsumerWidget {
                     },
                   ),
                   RoundededButton(
-                    text: "Next",
+                    text: l10n.next,
                     topPad: 20,
                     isDisabled: !welcomeSettings.isNotifEnabled,
                     onTap: () {

@@ -24,9 +24,9 @@ class EndIntro extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text(
-                "All Done!",
-                style: TextStyle(
+              Text(
+                l10n.all_done,
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 22,
                 ),
@@ -37,7 +37,7 @@ class EndIntro extends StatelessWidget {
                 fit: BoxFit.fitWidth,
               ),
               Text(
-                "Next, please login or register to our service!",
+                l10n.done_msg,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               RoundededButton(
