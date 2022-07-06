@@ -3,13 +3,12 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:subsmanager/extensions/fee_double_str.dart';
-import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/pages/subs/subs_add.dart';
 import 'package:subsmanager/presentation/widgets/page_title_widget.dart';
+import 'package:subsmanager/presentation/widgets/sort_options_widget.dart';
 import 'package:subsmanager/presentation/widgets/subs_item_widget.dart';
 import 'package:subsmanager/theme.dart';
-import 'package:subsmanager/use_case/notifiers/sort_option.dart';
 import 'package:subsmanager/use_case/notifiers/sub_value_notifier.dart';
 import 'package:subsmanager/use_case/subs_list/notifier/subs_list_notifier.dart';
 
@@ -167,41 +166,6 @@ class SubsPage extends HookConsumerWidget {
           size: 25,
         ),
       ),
-    );
-  }
-
-  showSortOptions(BuildContext context, WidgetRef ref) async {
-    final screenSize = MediaQuery.of(context).size;
-    final l10n = L10n.of(context)!;
-    final sortOption = ref.read(sortOptionProvider.notifier);
-    final Offset offset = Offset(screenSize.width - 10, 95);
-    double left = offset.dx;
-    double top = offset.dy;
-    double right = screenSize.width - offset.dx;
-    double bottom = screenSize.height - offset.dy;
-
-    await showMenu<SortOptions>(
-      context: context,
-      position: RelativeRect.fromLTRB(left, top, right, bottom),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(15.0),
-        ),
-      ),
-      items: SortOptions.values
-          .map(
-            (SortOptions menuItemType) => PopupMenuItem<SortOptions>(
-              value: menuItemType,
-              child: Text(
-                getSortOptionsString(l10n, menuItemType),
-              ),
-            ),
-          )
-          .toList(),
-    ).then(
-      (item) {
-        sortOption.update(ref, item?.index ?? 0);
-      },
     );
   }
 }
