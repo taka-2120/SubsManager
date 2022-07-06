@@ -51,8 +51,7 @@ class SubInfo extends ConsumerWidget {
           divider: true,
           showTitle: true,
           rightContent: Favicon(
-            favicon: valueState.favicon,
-            isIcon: valueState.hasIcon,
+            url: valueState.url.text,
             altColor: valueState.altColor,
           ),
           bottomNotes:

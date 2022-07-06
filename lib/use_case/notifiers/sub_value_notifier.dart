@@ -57,7 +57,7 @@ class SubValueNotifier extends StateNotifier<SubValue> {
   }
 
   Future<void> generateFavicon(String url) async {
-    await getFavicon(url).then((value) {
+    await getFavicon(url: url).then((value) {
       state = state.copyWith(
         favicon: value[0],
         hasIcon: value[1],

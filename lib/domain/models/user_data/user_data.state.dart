@@ -6,7 +6,7 @@ part 'user_data.state.freezed.dart';
 class UserDataState with _$UserDataState {
   factory UserDataState({
     @Default("") String email,
-    @Default(null) String? username,
+    @Default("") String username,
     @Default(false) bool error,
   }) = _UserDataState;
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-Future<List> getFavicon(String url) async {
+Future<List> getFavicon({required String url}) async {
   String formattedUrl = url;
   bool isVaild = false;
   formattedUrl.contains("http://")

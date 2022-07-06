@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:subsmanager/domain/subs_list/models/sub_item.dart';
@@ -10,11 +9,9 @@ import 'package:subsmanager/presentation/pages/subs/subs_edit.dart';
 import 'package:subsmanager/presentation/widgets/favicon_widget.dart';
 import 'package:subsmanager/theme.dart';
 import 'package:subsmanager/use_case/converters.dart';
-import 'package:subsmanager/use_case/get_favicon.dart';
-import 'package:subsmanager/use_case/notifiers/favicon_info_notifier.dart';
 import 'package:subsmanager/use_case/notifiers/sub_value_notifier.dart';
 
-class SubsItem extends HookConsumerWidget {
+class SubsItem extends ConsumerWidget {
   const SubsItem({
     required this.index,
     required this.item,
@@ -27,20 +24,6 @@ class SubsItem extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = L10n.of(context)!;
-    final faviconInfoNotifier = ref.read(favicnoInfoNotifierProvider.notifier);
-    final faviconInfoState = ref.read(favicnoInfoNotifierProvider);
-
-    useEffect(() {
-      Future.microtask(() async {
-        await getFavicon(item.url).then((value) {
-          final favicon = value[0];
-          final hasIcon = value[1];
-          faviconInfoNotifier.updateFaviconInfo(
-              favicon: favicon, hasIcon: hasIcon);
-        });
-      });
-      return;
-    });
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
@@ -70,8 +53,7 @@ class SubsItem extends HookConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Favicon(
-                    favicon: faviconInfoState.favicon,
-                    isIcon: faviconInfoState.hasIcon,
+                    url: item.url,
                     altColor: HexColor(item.altHexColorCode),
                   ),
                   const SizedBox(width: 4),
