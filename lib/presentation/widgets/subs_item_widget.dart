@@ -86,7 +86,7 @@ class SubsItem extends ConsumerWidget {
             children: [
               Text(
                 Converters().combineFeePeriodAsString(
-                  ref,
+                  l10n,
                   fee: item.fee,
                   period: item.period!,
                 ),

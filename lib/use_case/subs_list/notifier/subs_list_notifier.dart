@@ -4,9 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/domain/auth/auth_services.dart';
 import 'package:subsmanager/domain/subs_list/models/sub_item.dart';
 import 'package:subsmanager/domain/subs_list/subs_list_repository.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:subsmanager/use_case/notifiers/notif_date.dart';
-import 'package:subsmanager/use_case/notifiers/notif_time.dart';
+import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/use_case/notifiers/sub_value_notifier.dart';
 import 'package:subsmanager/use_case/subs_list/state/subs_list_state.dart';
 import 'package:uuid/uuid.dart';
@@ -32,6 +30,7 @@ class SubsListNotifier extends StateNotifier<SubsListState> {
   Future<void> addSub(BuildContext context) async {
     final authState = _ref.read(authServicesProvider);
     final subValueState = _ref.read(subValueNotifierProvider);
+    final l10n = L10n.of(context)!;
 
     try {
       final subItem = SubItem(
@@ -43,7 +42,7 @@ class SubsListNotifier extends StateNotifier<SubsListState> {
         hasIcon: subValueState.hasIcon,
         altHexColorCode: subValueState.altColor.value.toRadixString(16),
         date: subValueState.date,
-        period: subValueState.period.periodToInt(_ref),
+        period: subValueState.period.periodToInt(l10n),
       );
 
       state = state.copyWith(
@@ -124,8 +123,10 @@ class SubsListNotifier extends StateNotifier<SubsListState> {
     state = state.copyWith(subsList: updatedList);
   }
 
-  Future<void> updateSub({required SubItem item}) async {
+  Future<void> updateSub(BuildContext context, {required SubItem item}) async {
     final subValueState = _ref.read(subValueNotifierProvider);
+    final l10n = L10n.of(context)!;
+
     final subItem = SubItem(
       uid: item.uid,
       id: item.id,
@@ -135,7 +136,7 @@ class SubsListNotifier extends StateNotifier<SubsListState> {
       hasIcon: subValueState.hasIcon,
       altHexColorCode: subValueState.altColor.value.toRadixString(16),
       date: subValueState.date,
-      period: subValueState.period.periodToInt(_ref),
+      period: subValueState.period.periodToInt(l10n),
     );
 
     List<SubItem> updatedList = [];
@@ -173,10 +174,10 @@ class SubsListNotifier extends StateNotifier<SubsListState> {
         sortedList.sort((a, b) => b.date!.compareTo(a.date!));
         break;
       case 4:
-        sortedList.sort((a, b) => a.fee.compareTo(b.fee));
+        sortedList.sort((a, b) => b.fee.compareTo(a.fee));
         break;
       case 5:
-        sortedList.sort((a, b) => b.fee.compareTo(a.fee));
+        sortedList.sort((a, b) => a.fee.compareTo(b.fee));
         break;
     }
     state = state.copyWith(subsList: sortedList);

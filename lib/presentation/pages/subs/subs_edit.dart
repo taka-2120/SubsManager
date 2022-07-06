@@ -43,7 +43,7 @@ class SubEditSheet extends HookConsumerWidget {
           ));
           valueNotifier.updateUrl(selectedList.url);
           valueNotifier.updateDate(selectedList.date!);
-          valueNotifier.updatePeriod(selectedList.period.periodToString(ref));
+          valueNotifier.updatePeriod(selectedList.period.periodToString(l10n));
           valueNotifier.updateAltColor(selectedList.altHexColorCode);
           await valueNotifier.generateFavicon(selectedList.url);
         });
@@ -64,7 +64,8 @@ class SubEditSheet extends HookConsumerWidget {
                 title: l10n.edit,
                 funcLeft: () => Navigator.pop(context),
                 funcRight: () {
-                  listNotifier.updateSub(item: listState.subsList[index]);
+                  listNotifier.updateSub(context,
+                      item: listState.subsList[index]);
                   Navigator.of(context).pop();
                 }),
             Expanded(

@@ -1,21 +1,15 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:subsmanager/use_case/notifiers/periods.dart';
+import 'package:subsmanager/l10n/l10n.dart';
 
 extension PeriodStrExt on String? {
-  int periodToInt(Ref ref) {
-    final periods = ref
-        .watch(
-          periodsProvider.select((value) => value),
-        )
-        .periods;
+  int periodToInt(L10n l10n) {
     String? period = this;
     int periodIndex = 0;
 
-    if (period == periods[0]) {
+    if (period == l10n.monthly) {
       periodIndex = 0;
-    } else if (period == periods[1]) {
+    } else if (period == l10n.semi_annually) {
       periodIndex = 1;
-    } else if (period == periods[2]) {
+    } else if (period == l10n.annually) {
       periodIndex = 2;
     } else {
       periodIndex = 99;

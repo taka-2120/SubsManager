@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:subsmanager/l10n/l10n.dart';
-import 'package:subsmanager/presentation/dialogs/field_dialog.dart';
+import 'package:subsmanager/presentation/widgets/dialogs/field_dialog.dart';
 
 final localeStr = Platform.localeName;
+
+const defaultPeriods = ["Monthly", "Semi-Annually", "Annually"];
 
 // enum SubPeriods {
 //   monthly,

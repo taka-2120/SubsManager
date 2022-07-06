@@ -1,25 +1,19 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:subsmanager/use_case/notifiers/periods.dart';
+import 'package:subsmanager/l10n/l10n.dart';
 
 extension PeriodIntExt on int? {
-  String periodToString(WidgetRef ref) {
-    final periods = ref
-        .watch(
-          periodsProvider.select((value) => value),
-        )
-        .periods;
+  String periodToString(L10n l10n) {
     int? period = this;
     String periodStr = "";
 
     switch (period) {
       case 0:
-        periodStr = periods[0];
+        periodStr = l10n.monthly;
         break;
       case 1:
-        periodStr = periods[1];
+        periodStr = l10n.semi_annually;
         break;
       case 2:
-        periodStr = periods[2];
+        periodStr = l10n.annually;
         break;
     }
     return periodStr;

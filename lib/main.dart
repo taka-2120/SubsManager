@@ -8,7 +8,6 @@ import 'package:subsmanager/presentation/pages/auth/auth_outer.dart';
 import 'package:subsmanager/presentation/pages/welcome/welcome_message.dart';
 import 'package:subsmanager/firebase_options.dart';
 import 'package:subsmanager/l10n/l10n.dart';
-import 'package:subsmanager/use_case/notifiers/periods.dart';
 import 'package:subsmanager/presentation/widgets/default_appbar_widget.dart';
 import 'package:subsmanager/use_case/notifiers/tab_index.dart';
 import 'package:subsmanager/presentation/pages/settings/settings.dart';
@@ -29,7 +28,7 @@ void main() async {
           channelKey: 'basic_channel',
           channelName: 'Basic notifications',
           channelDescription: 'Notification channel for basic tests',
-          defaultColor: Color(0xFF9D50DD),
+          defaultColor: const Color(0xFF9D50DD),
           ledColor: Colors.white)
     ],
     // Channel groups are only visual and are not required
@@ -93,7 +92,6 @@ class BasePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final tabIndex = ref.watch(tabIndexProvider);
     final readTabIndex = ref.read(tabIndexProvider.notifier);
-    final readPeriods = ref.read(periodsProvider.notifier);
     final readUserData = ref.read(userDataProvider.notifier);
     final theme = Theme.of(context);
     final l10n = L10n.of(context)!;
@@ -103,7 +101,6 @@ class BasePage extends HookConsumerWidget {
       () {
         final currentUser = FirebaseAuth.instance.currentUser!;
         readUserData.setData(currentUser.email!, currentUser.displayName);
-        readPeriods.updateLocale(l10n);
         return;
       },
       [],

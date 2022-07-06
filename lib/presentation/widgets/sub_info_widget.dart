@@ -1,5 +1,6 @@
 import 'package:dropdown_button2/custom_dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/extensions/date_ext.dart';
@@ -9,18 +10,26 @@ import 'package:subsmanager/presentation/widgets/default_divider_widget.dart';
 import 'package:subsmanager/presentation/widgets/favicon_widget.dart';
 import 'package:subsmanager/presentation/widgets/textfield_set_widget.dart';
 import 'package:subsmanager/theme.dart';
-import 'package:subsmanager/use_case/notifiers/periods.dart';
 import 'package:subsmanager/use_case/notifiers/sub_value_notifier.dart';
 
-class SubInfo extends ConsumerWidget {
+class SubInfo extends HookConsumerWidget {
   const SubInfo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final valueNotifier = ref.read(subValueNotifierProvider.notifier);
     final valueState = ref.watch(subValueNotifierProvider);
-    final periods = ref.watch(periodsProvider).periods;
     final l10n = L10n.of(context)!;
+    final periods = useState(defaultPeriods);
+
+    useEffect(() {
+      periods.value = [
+        l10n.monthly,
+        l10n.semi_annually,
+        l10n.annually,
+      ];
+      return;
+    });
 
     return Column(
       children: [
@@ -96,7 +105,7 @@ class SubInfo extends ConsumerWidget {
             CustomDropdownButton2(
               hint: "${l10n.select}...",
               value: valueState.period,
-              dropdownItems: periods,
+              dropdownItems: periods.value,
               onChanged: (value) => valueNotifier.updatePeriod(value),
             ),
           ],
