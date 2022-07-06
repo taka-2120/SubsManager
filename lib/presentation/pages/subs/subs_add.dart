@@ -35,7 +35,7 @@ class SubAddSheet extends ConsumerWidget {
               title: l10n.add,
               funcLeft: () => Navigator.pop(context),
               funcRight: () {
-                subsListState.addSub();
+                subsListState.addSub(context);
                 Navigator.of(context).pop();
               },
             ),

@@ -26,9 +26,22 @@ class RoundededButton extends StatelessWidget {
       margin: EdgeInsets.only(top: topPad),
       width: 200,
       decoration: BoxDecoration(
-        color: ((backgroundColor == null) ? entryBackground : backgroundColor)!
-            .withOpacity(isDisabled ? 0.2 : 0.6),
-        borderRadius: BorderRadius.circular(20),
+        color: ((backgroundColor == null) ? entryBackground : backgroundColor!)
+            .withOpacity(isDisabled ? 0.5 : 1.0),
+        borderRadius: BorderRadius.circular(25),
+        boxShadow: isDisabled
+            ? null
+            : [
+                BoxShadow(
+                  color: ((backgroundColor == null)
+                          ? Theme.of(context).shadowColor
+                          : backgroundColor!)
+                      .withOpacity(0.1),
+                  spreadRadius: 5,
+                  blurRadius: 10,
+                  offset: const Offset(0, 3),
+                ),
+              ],
       ),
       child: InkWell(
         onTap: isDisabled ? null : onTap,

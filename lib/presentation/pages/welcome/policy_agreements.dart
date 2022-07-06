@@ -5,6 +5,7 @@ import 'package:subsmanager/presentation/pages/welcome/end_intro.dart';
 import 'package:subsmanager/presentation/widgets/default_appbar_widget.dart';
 import 'package:subsmanager/presentation/widgets/rounded_button_widget.dart';
 import 'package:subsmanager/use_case/notifiers/welcome_settings.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 class PolicyAgreemtenes extends ConsumerWidget {
   const PolicyAgreemtenes({Key? key}) : super(key: key);
@@ -30,7 +31,7 @@ class PolicyAgreemtenes extends ConsumerWidget {
                 children: [
                   Image.asset(
                     "lib/assets/icons/lock.png",
-                    height: 90,
+                    height: 80,
                     fit: BoxFit.fitWidth,
                   ),
                   const Text(
@@ -42,17 +43,27 @@ class PolicyAgreemtenes extends ConsumerWidget {
                   ),
                 ],
               ),
-              SingleChildScrollView(
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    minWidth: MediaQuery.of(context).size.width,
-                  ),
-                  child: Container(
-                    padding: const EdgeInsets.all(15),
-                    child: const Text("Something..."),
+              const SizedBox(height: 10),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: FutureBuilder(
+                    future: DefaultAssetBundle.of(context)
+                        .loadString("lib/privacy_policy/privacy_policy_ja.md"),
+                    builder:
+                        (BuildContext context, AsyncSnapshot<String> snapshot) {
+                      if (snapshot.hasData) {
+                        return MarkdownBody(
+                          data: snapshot.data ?? "",
+                        );
+                      }
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    },
                   ),
                 ),
               ),
+              const SizedBox(height: 10),
               Column(
                 children: [
                   Row(

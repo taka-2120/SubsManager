@@ -1,8 +1,12 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/domain/auth/auth_services.dart';
 import 'package:subsmanager/domain/subs_list/models/sub_item.dart';
 import 'package:subsmanager/domain/subs_list/subs_list_repository.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:subsmanager/use_case/notifiers/notif_date.dart';
+import 'package:subsmanager/use_case/notifiers/notif_time.dart';
 import 'package:subsmanager/use_case/notifiers/sub_value_notifier.dart';
 import 'package:subsmanager/use_case/subs_list/state/subs_list_state.dart';
 import 'package:uuid/uuid.dart';
@@ -25,7 +29,7 @@ class SubsListNotifier extends StateNotifier<SubsListState> {
     super.dispose();
   }
 
-  Future<void> addSub() async {
+  Future<void> addSub(BuildContext context) async {
     final authState = _ref.read(authServicesProvider);
     final subValueState = _ref.read(subValueNotifierProvider);
 
@@ -47,6 +51,25 @@ class SubsListNotifier extends StateNotifier<SubsListState> {
       );
 
       await _ref.read(subsListRepositoryProvider).addSub(item: subItem);
+
+      //Setup Notification
+      // await AwesomeNotifications().createNotification(
+      //   content: NotificationContent(
+      //     id: 10,
+      //     channelKey: 'basic_channel',
+      //     title: 'Simple Notification',
+      //     body: 'Simple body',
+      //   ),
+      //   schedule: NotificationCalendar(
+      //       month: subItem.date!.month,
+      //       day: subItem.date!.day -
+      //           _ref.read(notifDateProvider.notifier).getDayBefore(),
+      //       hour: _ref.read(notifTimeProvider).hour,
+      //       minute: _ref.read(notifTimeProvider).minute,
+      //       second: 0,
+      //       repeats: true,
+      //       allowWhileIdle: true),
+      // );
     } on Exception catch (e) {
       if (kDebugMode) {
         print(e);

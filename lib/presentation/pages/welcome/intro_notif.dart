@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/l10n/l10n.dart';
-import 'package:subsmanager/notification_services.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:subsmanager/presentation/pages/welcome/policy_agreements.dart';
 import 'package:subsmanager/presentation/widgets/default_appbar_widget.dart';
 import 'package:subsmanager/presentation/widgets/rounded_button_widget.dart';
@@ -49,8 +49,15 @@ class IntroNotif extends ConsumerWidget {
                     topPad: 20,
                     isDisabled: false,
                     onTap: () {
-                      NotificationService().init();
-                      readWelcomeSettings.updateNotifState(true);
+                      AwesomeNotifications().isNotificationAllowed().then(
+                        (isAllowed) {
+                          if (!isAllowed) {
+                            AwesomeNotifications()
+                                .requestPermissionToSendNotifications();
+                          }
+                          readWelcomeSettings.updateNotifState(true);
+                        },
+                      );
                     },
                   ),
                   RoundededButton(

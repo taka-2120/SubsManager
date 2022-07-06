@@ -7,7 +7,7 @@ import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/pages/subs/subs_add.dart';
 import 'package:subsmanager/presentation/widgets/page_title_widget.dart';
-import 'package:subsmanager/presentation/widgets/subs_item.dart';
+import 'package:subsmanager/presentation/widgets/subs_item_widget.dart';
 import 'package:subsmanager/theme.dart';
 import 'package:subsmanager/use_case/notifiers/sort_option.dart';
 import 'package:subsmanager/use_case/notifiers/sub_value_notifier.dart';

@@ -9,4 +9,15 @@ class NotifDate extends StateNotifier<int> {
   void update(int value) {
     state = value;
   }
+
+  int getDayBefore() {
+    switch (state) {
+      case 8:
+        return 14;
+      case 9:
+        return 21;
+      default:
+        return state;
+    }
+  }
 }

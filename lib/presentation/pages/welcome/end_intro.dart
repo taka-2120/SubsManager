@@ -16,8 +16,10 @@ class EndIntro extends StatelessWidget {
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: const DefaultAppBar(),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(15),
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            minWidth: MediaQuery.of(context).size.width,
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
