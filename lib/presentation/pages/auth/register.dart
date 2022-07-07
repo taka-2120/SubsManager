@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/widgets/default_appbar_widget.dart';
+import 'package:subsmanager/presentation/widgets/loading_overlay_widget.dart';
 import 'package:subsmanager/presentation/widgets/page_title_widget.dart';
 import 'package:subsmanager/presentation/widgets/rounded_button_widget.dart';
 import 'package:subsmanager/presentation/widgets/textfield_set_widget.dart';
@@ -113,15 +114,7 @@ class Register extends HookWidget {
             ),
           ),
         ),
-        if (isLoading.value)
-          const Opacity(
-            opacity: 0.8,
-            child: ModalBarrier(dismissible: false, color: Colors.black),
-          ),
-        if (isLoading.value)
-          const Center(
-            child: CircularProgressIndicator(),
-          ),
+        if (isLoading.value) const LoadingOverlay()
       ],
     );
   }
