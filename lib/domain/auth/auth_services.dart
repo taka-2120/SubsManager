@@ -21,12 +21,15 @@ class AuthServices {
       email: email,
       password: pass,
     );
-    _auth.authStateChanges();
   }
 
   Future<void> signOut(BuildContext context, WidgetRef ref) async {
     await _auth.signOut();
-    InitializeValue().init(context, ref);
+    Future.microtask(
+      () {
+        InitializeValue().init(context, ref);
+      },
+    );
     _auth.authStateChanges();
   }
 

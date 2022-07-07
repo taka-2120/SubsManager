@@ -5,6 +5,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:subsmanager/domain/auth/auth_services.dart';
 import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
+import 'package:subsmanager/presentation/pages/auth/login.dart';
 import 'package:subsmanager/presentation/pages/settings/credits.dart';
 import 'package:subsmanager/presentation/pages/settings/notifications.dart';
 import 'package:subsmanager/presentation/widgets/page_title_widget.dart';
@@ -119,6 +120,11 @@ class Settings extends HookConsumerWidget {
                           disposable: true,
                           func: () {
                             AuthServices().signOut(context, ref);
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => const LogIn(),
+                              ),
+                            );
                           },
                         ),
                       ],
