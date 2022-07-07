@@ -10,7 +10,7 @@ import 'package:subsmanager/presentation/pages/settings/notifications.dart';
 import 'package:subsmanager/presentation/widgets/page_title_widget.dart';
 import 'package:subsmanager/presentation/widgets/settings_item_widget.dart';
 import 'package:subsmanager/theme.dart';
-import 'package:subsmanager/use_case/notifiers/user_data.dart';
+import 'package:subsmanager/use_case/user_data/notifier/user_data.dart';
 import 'package:subsmanager/use_case/notifiers/versions_notifier.dart';
 
 class Settings extends HookConsumerWidget {

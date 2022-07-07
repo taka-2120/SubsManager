@@ -5,7 +5,7 @@ import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/widgets/rounded_button_widget.dart';
 import 'package:subsmanager/presentation/widgets/sheet_header_widget.dart';
 import 'package:subsmanager/presentation/widgets/sub_info_widget.dart';
-import 'package:subsmanager/use_case/notifiers/sub_value_notifier.dart';
+import 'package:subsmanager/use_case/sub_value/notifier/sub_value_notifier.dart';
 import 'package:subsmanager/use_case/subs_list/notifier/subs_list_notifier.dart';
 import 'package:subsmanager/extensions/fee_double_str.dart';
 import 'package:subsmanager/extensions/period_int_str.dart';

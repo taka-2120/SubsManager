@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:subsmanager/domain/models/user_data/user_data.state.dart';
+import 'package:subsmanager/use_case/user_data/state/user_data.state.dart';
 
 final userDataProvider = StateNotifierProvider<UserData, UserDataState>(
   (ref) => UserData(),

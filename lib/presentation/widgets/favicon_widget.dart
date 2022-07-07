@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:subsmanager/use_case/get_favicon.dart';
 
 class Favicon extends HookWidget {
-  Favicon({
+  const Favicon({
     required this.url,
     required this.altColor,
     Key? key,

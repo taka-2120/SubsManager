@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/pages/welcome/end_intro.dart';
 import 'package:subsmanager/presentation/widgets/default_appbar_widget.dart';
 import 'package:subsmanager/presentation/widgets/rounded_button_widget.dart';
-import 'package:subsmanager/use_case/notifiers/welcome_settings.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
-class PolicyAgreemtenes extends ConsumerWidget {
+class PolicyAgreemtenes extends HookWidget {
   const PolicyAgreemtenes({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final l10n = L10n.of(context)!;
-    final welcomeSettings = ref.watch(welcomeSettingsProvider);
-    final readWelcomeSettings = ref.read(welcomeSettingsProvider.notifier);
+    final isAgreed = useState(false);
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
@@ -70,17 +68,16 @@ class PolicyAgreemtenes extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Checkbox(
-                        value: welcomeSettings.isAgreed,
-                        onChanged: (bool? value) => readWelcomeSettings
-                            .updateAgreeState(value ?? false),
-                      ),
+                          value: isAgreed.value,
+                          onChanged: (value) =>
+                              isAgreed.value = value ?? false),
                       Text(l10n.agree_privacy_policy)
                     ],
                   ),
                   RoundededButton(
                     text: l10n.next,
                     topPad: 20,
-                    isDisabled: !welcomeSettings.isAgreed,
+                    isDisabled: !isAgreed.value,
                     onTap: () {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(

@@ -2,9 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:subsmanager/domain/models/sub_value/sub_value.state.dart';
 import 'package:subsmanager/extensions/hex_color.dart';
 import 'package:subsmanager/use_case/get_favicon.dart';
+import 'package:subsmanager/use_case/sub_value/state/sub_value.state.dart';
 
 final subValueNotifierProvider =
     StateNotifierProvider<SubValueNotifier, SubValue>(

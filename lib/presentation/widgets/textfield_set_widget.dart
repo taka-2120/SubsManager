@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/presentation/widgets/default_divider_widget.dart';
 import 'package:subsmanager/theme.dart';
-import 'package:subsmanager/use_case/notifiers/sub_value_notifier.dart';
+import 'package:subsmanager/use_case/sub_value/notifier/sub_value_notifier.dart';
 
 class TextFieldSet extends ConsumerWidget {
   const TextFieldSet(

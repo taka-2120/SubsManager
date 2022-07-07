@@ -9,11 +9,10 @@ import 'package:subsmanager/presentation/pages/welcome/welcome_message.dart';
 import 'package:subsmanager/firebase_options.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/widgets/default_appbar_widget.dart';
-import 'package:subsmanager/use_case/notifiers/tab_index.dart';
 import 'package:subsmanager/presentation/pages/settings/settings.dart';
 import 'package:subsmanager/presentation/pages/subs/subs.dart';
 import 'package:subsmanager/theme.dart';
-import 'package:subsmanager/use_case/notifiers/user_data.dart';
+import 'package:subsmanager/use_case/user_data/notifier/user_data.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 
 const List<Widget> pageLists = [SubsMain(), Settings()];
@@ -90,8 +89,7 @@ class BasePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tabIndex = ref.watch(tabIndexProvider);
-    final readTabIndex = ref.read(tabIndexProvider.notifier);
+    final tabIndex = useState(0);
     final readUserData = ref.read(userDataProvider.notifier);
     final theme = Theme.of(context);
     final l10n = L10n.of(context)!;
@@ -110,7 +108,7 @@ class BasePage extends HookConsumerWidget {
       backgroundColor: theme.backgroundColor,
       appBar: const DefaultAppBar(),
       body: IndexedStack(
-        index: tabIndex,
+        index: tabIndex.value,
         children: pageLists,
       ),
       bottomNavigationBar: Container(
@@ -139,9 +137,11 @@ class BasePage extends HookConsumerWidget {
                 label: l10n.settings,
               ),
             ],
-            currentIndex: tabIndex,
+            currentIndex: tabIndex.value,
             selectedItemColor: primaryColor,
-            onTap: readTabIndex.update,
+            onTap: (val) {
+              tabIndex.value = val;
+            },
           ),
         ),
       ),

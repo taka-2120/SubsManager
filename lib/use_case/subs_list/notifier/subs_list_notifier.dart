@@ -5,7 +5,7 @@ import 'package:subsmanager/domain/auth/auth_services.dart';
 import 'package:subsmanager/domain/subs_list/models/sub_item.dart';
 import 'package:subsmanager/domain/subs_list/subs_list_repository.dart';
 import 'package:subsmanager/l10n/l10n.dart';
-import 'package:subsmanager/use_case/notifiers/sub_value_notifier.dart';
+import 'package:subsmanager/use_case/sub_value/notifier/sub_value_notifier.dart';
 import 'package:subsmanager/use_case/subs_list/state/subs_list_state.dart';
 import 'package:uuid/uuid.dart';
 import 'package:subsmanager/extensions/period_nstr_int.dart';

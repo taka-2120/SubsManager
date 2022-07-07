@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:subsmanager/presentation/pages/welcome/policy_agreements.dart';
 import 'package:subsmanager/presentation/widgets/default_appbar_widget.dart';
 import 'package:subsmanager/presentation/widgets/rounded_button_widget.dart';
-import 'package:subsmanager/use_case/notifiers/welcome_settings.dart';
 
-class IntroNotif extends ConsumerWidget {
+class IntroNotif extends HookWidget {
   const IntroNotif({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final l10n = L10n.of(context)!;
-    final welcomeSettings = ref.watch(welcomeSettingsProvider);
-    final readWelcomeSettings = ref.read(welcomeSettingsProvider.notifier);
+    final isNotifEnabled = useState(false);
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
@@ -55,7 +53,7 @@ class IntroNotif extends ConsumerWidget {
                             AwesomeNotifications()
                                 .requestPermissionToSendNotifications();
                           }
-                          readWelcomeSettings.updateNotifState(true);
+                          isNotifEnabled.value = true;
                         },
                       );
                     },
@@ -63,7 +61,7 @@ class IntroNotif extends ConsumerWidget {
                   RoundededButton(
                     text: l10n.next,
                     topPad: 20,
-                    isDisabled: !welcomeSettings.isNotifEnabled,
+                    isDisabled: !isNotifEnabled.value,
                     onTap: () {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(

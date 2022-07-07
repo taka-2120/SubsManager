@@ -9,7 +9,7 @@ import 'package:subsmanager/presentation/widgets/page_title_widget.dart';
 import 'package:subsmanager/presentation/widgets/sort_options_widget.dart';
 import 'package:subsmanager/presentation/widgets/subs_item_widget.dart';
 import 'package:subsmanager/theme.dart';
-import 'package:subsmanager/use_case/notifiers/sub_value_notifier.dart';
+import 'package:subsmanager/use_case/sub_value/notifier/sub_value_notifier.dart';
 import 'package:subsmanager/use_case/subs_list/notifier/subs_list_notifier.dart';
 
 class SubsMain extends StatelessWidget {

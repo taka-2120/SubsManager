@@ -9,7 +9,7 @@ import 'package:subsmanager/presentation/pages/subs/subs_edit.dart';
 import 'package:subsmanager/presentation/widgets/favicon_widget.dart';
 import 'package:subsmanager/theme.dart';
 import 'package:subsmanager/use_case/converters.dart';
-import 'package:subsmanager/use_case/notifiers/sub_value_notifier.dart';
+import 'package:subsmanager/use_case/sub_value/notifier/sub_value_notifier.dart';
 
 class SubsItem extends ConsumerWidget {
   const SubsItem({
