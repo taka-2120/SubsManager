@@ -8,6 +8,7 @@ import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/pages/auth/login.dart';
 import 'package:subsmanager/presentation/pages/settings/credits.dart';
 import 'package:subsmanager/presentation/pages/settings/notifications.dart';
+import 'package:subsmanager/presentation/widgets/dialogs/alert.dart';
 import 'package:subsmanager/presentation/widgets/page_title_widget.dart';
 import 'package:subsmanager/presentation/widgets/settings_item_widget.dart';
 import 'package:subsmanager/theme.dart';
@@ -102,7 +103,7 @@ class Settings extends HookConsumerWidget {
                           navigatable: false,
                           disposable: false,
                           func: () {
-                            showFieldDialog(context);
+                            showusernameDialog(context);
                           },
                         ),
                         SettingsItem(
@@ -113,17 +114,73 @@ class Settings extends HookConsumerWidget {
                           disposable: false,
                         ),
                         SettingsItem(
+                          icon: const Icon(Icons.password_rounded),
+                          left: "Change Password",
+                          right: "",
+                          navigatable: false,
+                          disposable: false,
+                          func: () {
+                            showPasswordDialog(context);
+                          },
+                        ),
+                        SettingsItem(
                           icon: const Icon(Icons.remove_circle_outline_rounded),
                           left: l10n.signout,
                           right: "",
-                          navigatable: true,
-                          disposable: true,
-                          func: () {
-                            AuthServices().signOut(context, ref);
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (context) => const LogIn(),
-                              ),
+                          navigatable: false,
+                          disposable: false,
+                          func: () async {
+                            await showDialog(
+                              barrierColor: Colors.black26,
+                              context: context,
+                              builder: (_) {
+                                return CustomAlertDialog(
+                                  title: "Confirmation",
+                                  description: "Do you sure want to logout?",
+                                  isOkOnly: false,
+                                  func: () {
+                                    AuthServices().signOut(ref);
+                                    Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                        builder: (context) => const LogIn(),
+                                      ),
+                                    );
+                                  },
+                                  optionLabel: l10n.signout,
+                                  mainColor: Colors.red,
+                                );
+                              },
+                            );
+                          },
+                        ),
+                        SettingsItem(
+                          icon: const Icon(Icons.delete),
+                          left: "Delete Account",
+                          right: "",
+                          navigatable: false,
+                          disposable: false,
+                          func: () async {
+                            await showDialog(
+                              barrierColor: Colors.black26,
+                              context: context,
+                              builder: (_) {
+                                return CustomAlertDialog(
+                                  title: "Important Confirmation",
+                                  description:
+                                      "Do you sure want to delete your account?\nThis operation cannot be undone, and your data will be permanently deleted.",
+                                  isOkOnly: false,
+                                  func: () {
+                                    AuthServices().delete();
+                                    Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                        builder: (context) => const LogIn(),
+                                      ),
+                                    );
+                                  },
+                                  optionLabel: "Delete",
+                                  mainColor: Colors.red,
+                                );
+                              },
                             );
                           },
                         ),

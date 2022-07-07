@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/l10n/l10n.dart';
+import 'package:subsmanager/presentation/widgets/dialogs/alert.dart';
 import 'package:subsmanager/presentation/widgets/rounded_button_widget.dart';
 import 'package:subsmanager/presentation/widgets/sheet_header_widget.dart';
 import 'package:subsmanager/presentation/widgets/sub_info_widget.dart';
@@ -79,9 +80,29 @@ class SubEditSheet extends HookConsumerWidget {
                       fontColor: const Color.fromARGB(255, 235, 35, 35),
                       topPad: 30,
                       isDisabled: false,
-                      onTap: () {
-                        listNotifier.deleteSub(item: listState.subsList[index]);
-                        Navigator.pop(context);
+                      onTap: () async {
+                        await showDialog(
+                          barrierColor: Colors.black26,
+                          context: context,
+                          builder: (_) {
+                            return CustomAlertDialog(
+                              title: "Confirmation",
+                              description:
+                                  "Do you sure want to delete this subscription?",
+                              isOkOnly: false,
+                              func: () {
+                                listNotifier.deleteSub(
+                                    item: listState.subsList[index]);
+
+                                Future.microtask(() {
+                                  Navigator.pop(context);
+                                });
+                              },
+                              optionLabel: "Delete",
+                              mainColor: Colors.red,
+                            );
+                          },
+                        );
                       },
                     ),
                   ],

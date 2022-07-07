@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
+import 'package:subsmanager/presentation/pages/auth/forget_pass.dart';
 import 'package:subsmanager/presentation/pages/auth/register.dart';
 import 'package:subsmanager/presentation/widgets/default_appbar_widget.dart';
 import 'package:subsmanager/presentation/widgets/loading_overlay_widget.dart';
@@ -84,6 +85,21 @@ class LogIn extends HookWidget {
                                 divider: false,
                                 showTitle: true,
                               ),
+                              TextButton(
+                                style: TextButton.styleFrom(
+                                  alignment: Alignment.centerLeft,
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const ForgetPass(),
+                                    ),
+                                  );
+                                },
+                                child: const Text("Forget Password"),
+                              ),
+                              const SizedBox(height: 30),
                               RoundededButton(
                                 text: l10n.login,
                                 fontColor: Colors.black,

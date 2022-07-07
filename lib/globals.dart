@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:subsmanager/l10n/l10n.dart';
+import 'package:subsmanager/presentation/widgets/dialogs/change_pass_dialog.dart';
 import 'package:subsmanager/presentation/widgets/dialogs/username_dialog.dart';
 
 final localeStr = Platform.localeName;
@@ -160,7 +161,7 @@ String getRegisterErrorsString(L10n l10n, String errors, bool isEmpty) {
   }
 }
 
-void showFieldDialog(BuildContext context) {
+void showusernameDialog(BuildContext context) {
   showDialog(
     barrierColor: Colors.black26,
     context: context,
@@ -169,6 +170,16 @@ void showFieldDialog(BuildContext context) {
         title: L10n.of(context)!.update_username,
         currentName: FirebaseAuth.instance.currentUser!.displayName ?? "",
       );
+    },
+  );
+}
+
+void showPasswordDialog(BuildContext context) {
+  showDialog(
+    barrierColor: Colors.black26,
+    context: context,
+    builder: (context) {
+      return ChangePassDialog();
     },
   );
 }

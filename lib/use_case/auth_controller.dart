@@ -32,7 +32,7 @@ class AuthController {
                 return CustomAlertDialog(
                   title: l10n.error,
                   description: getLogInErrorsString(l10n, "network", false),
-                  ok: true,
+                  isOkOnly: true,
                 );
               },
             );
@@ -67,6 +67,7 @@ class AuthController {
               final isEmpty = email.isEmpty ||
                   pass.isEmpty ||
                   (isLogin ? false : name!.isEmpty);
+              isLoading.value = false;
               await showDialog(
                 barrierColor: Colors.black26,
                 context: context,
@@ -76,7 +77,7 @@ class AuthController {
                     description: isLogin
                         ? getLogInErrorsString(l10n, e.code, isEmpty)
                         : getRegisterErrorsString(l10n, e.code, isEmpty),
-                    ok: true,
+                    isOkOnly: true,
                   );
                 },
               );
