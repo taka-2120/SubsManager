@@ -12,8 +12,10 @@ Future<void> _setNotification(Ref ref, MaterialLocalizations locale,
   const title = "SubsManager - The Billing Date Approaching";
   final body =
       "The billing date for ${item.name}'s ${item.fee.feeToString(currency: true)} is ${item.date!.dateToString(locale)}.";
+
   final id = item.id.hashCode;
   const channelKey = "yu-takahashi.subsmanager";
+
   var notifCalendar = NotificationCalendar(
     month: month,
     day: item.date!.day - ref.read(notifDateProvider.notifier).getDayBefore(),

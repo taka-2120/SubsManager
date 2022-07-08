@@ -14,10 +14,9 @@ _$_SubItem _$$_SubItemFromJson(Map<String, dynamic> json) => _$_SubItem(
       url: json['url'] as String? ?? "",
       hasIcon: json['hasIcon'] as bool? ?? false,
       altHexColorCode: json['altHexColorCode'] as String? ?? "0xFF32C9BD",
-      date: json['date'] == null
-          ? null
-          : DateTime.parse(json['date'] as String) ?? null,
-      period: json['period'] as int? ?? null,
+      date:
+          json['date'] == null ? null : DateTime.parse(json['date'] as String),
+      period: json['period'] as int?,
     );
 
 Map<String, dynamic> _$$_SubItemToJson(_$_SubItem instance) =>

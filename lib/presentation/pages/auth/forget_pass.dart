@@ -8,7 +8,6 @@ import 'package:subsmanager/presentation/widgets/loading_overlay_widget.dart';
 import 'package:subsmanager/presentation/widgets/page_title_widget.dart';
 import 'package:subsmanager/presentation/widgets/rounded_button_widget.dart';
 import 'package:subsmanager/presentation/widgets/textfield_set_widget.dart';
-import 'package:subsmanager/use_case/auth_controller.dart';
 
 class ForgetPass extends HookWidget {
   const ForgetPass({Key? key}) : super(key: key);
@@ -67,13 +66,13 @@ class ForgetPass extends HookWidget {
                                 topPad: 20,
                                 isDisabled: false,
                                 backgroundColor: Theme.of(context).primaryColor,
-                                onTap: () {
+                                onTap: () async {
                                   isLoading.value = true;
-                                  AuthServices().resetPassword(
+                                  await AuthServices().resetPassword(
                                     context,
                                     email: emailCtl.text,
-                                    isloading: isLoading,
                                   );
+                                  isLoading.value = false;
                                 },
                               ),
                             ],

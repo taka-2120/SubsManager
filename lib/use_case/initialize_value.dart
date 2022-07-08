@@ -13,7 +13,7 @@ class InitializeValue {
     ref.read(notifEnabledProvider.notifier).update(false);
     ref.read(notifDateProvider.notifier).update(3);
     ref.read(notifTimeProvider.notifier).update(TimeOfDay.now());
-    ref.read(sortOptionProvider.notifier).update(ref, 0);
+    ref.read(sortOptionProvider.notifier).update(0);
     ref.read(userDataProvider.notifier).init();
     ref.read(subValueNotifierProvider.notifier).init();
     ref.read(subsListNotifierProvider.notifier).init();

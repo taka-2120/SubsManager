@@ -34,7 +34,7 @@ void showSortOptions(BuildContext context, WidgetRef ref) async {
         .toList(),
   ).then(
     (item) {
-      sortOption.update(ref, item?.index ?? 0);
+      sortOption.update(item?.index ?? 0);
     },
   );
 }

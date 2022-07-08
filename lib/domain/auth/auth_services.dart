@@ -59,7 +59,6 @@ class AuthServices {
     BuildContext context, {
     required String currentPass,
     required String newPass,
-    required ValueNotifier<bool> isloading,
   }) async {
     final cred = EmailAuthProvider.credential(
       email: currentuserEmail!,
@@ -69,7 +68,6 @@ class AuthServices {
     _auth.currentUser!.reauthenticateWithCredential(cred).then((value) {
       _auth.currentUser!.updatePassword(newPass).then(
         (_) async {
-          isloading.value = false;
           await showDialog(
             barrierColor: Colors.black26,
             context: context,
@@ -84,7 +82,6 @@ class AuthServices {
         },
       ).catchError(
         (e) async {
-          isloading.value = false;
           await showDialog(
             barrierColor: Colors.black26,
             context: context,
@@ -100,7 +97,6 @@ class AuthServices {
       );
     }).catchError(
       (e) async {
-        isloading.value = false;
         await showDialog(
           barrierColor: Colors.black26,
           context: context,
@@ -124,12 +120,9 @@ class AuthServices {
   Future<void> resetPassword(
     BuildContext context, {
     required String email,
-    required ValueNotifier<bool> isloading,
   }) async {
-    isloading.value = true;
     await _auth.sendPasswordResetEmail(email: email).then(
       (value) async {
-        isloading.value = false;
         await showDialog(
           barrierColor: Colors.black26,
           context: context,
@@ -145,7 +138,6 @@ class AuthServices {
       },
     ).catchError(
       (e) async {
-        isloading.value = false;
         await showDialog(
           barrierColor: Colors.black26,
           context: context,

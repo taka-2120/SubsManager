@@ -93,12 +93,13 @@ class ChangePassDialog extends HookConsumerWidget {
                     if (currentPassCtl.text == "" || newPassCtl.text == "") {
                       error.value = true;
                     } else {
+                      isLoading.value = true;
                       await AuthServices().updatePassword(
                         context,
                         currentPass: currentPassCtl.text,
                         newPass: newPassCtl.text,
-                        isloading: isLoading,
                       );
+                      isLoading.value = false;
                       Future.microtask(() {
                         Navigator.of(context).pop();
                       });
