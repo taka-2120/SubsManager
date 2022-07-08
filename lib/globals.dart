@@ -10,23 +10,6 @@ final localeStr = Platform.localeName;
 
 const defaultPeriods = ["Monthly", "Semi-Annually", "Annually"];
 
-// enum SubPeriods {
-//   monthly,
-//   semiAnnually,
-//   annually,
-// }
-
-// getSubPeriodString(L10n l10n, SubPeriods periods) {
-//   switch (periods) {
-//     case SubPeriods.monthly:
-//       return l10n.monthly;
-//     case SubPeriods.semiAnnually:
-//       return l10n.semi_annually;
-//     case SubPeriods.annually:
-//       return l10n.annually;
-//   }
-// }
-
 enum KeyType {
   num,
   email,

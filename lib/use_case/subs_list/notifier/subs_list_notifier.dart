@@ -5,6 +5,7 @@ import 'package:subsmanager/domain/auth/auth_services.dart';
 import 'package:subsmanager/domain/subs_list/models/sub_item.dart';
 import 'package:subsmanager/domain/subs_list/subs_list_repository.dart';
 import 'package:subsmanager/l10n/l10n.dart';
+import 'package:subsmanager/use_case/notif_services.dart';
 import 'package:subsmanager/use_case/sub_value/notifier/sub_value_notifier.dart';
 import 'package:subsmanager/use_case/subs_list/state/subs_list_state.dart';
 import 'package:uuid/uuid.dart';
@@ -13,8 +14,7 @@ import 'package:subsmanager/extensions/fee_str_double.dart';
 
 final subsListNotifierProvider =
     StateNotifierProvider<SubsListNotifier, SubsListState>(
-  (ref) => SubsListNotifier(ref: ref),
-);
+        (ref) => SubsListNotifier(ref: ref));
 
 class SubsListNotifier extends StateNotifier<SubsListState> {
   SubsListNotifier({required Ref ref})
@@ -51,24 +51,8 @@ class SubsListNotifier extends StateNotifier<SubsListState> {
 
       await _ref.read(subsListRepositoryProvider).addSub(item: subItem);
 
-      //Setup Notification
-      // await AwesomeNotifications().createNotification(
-      //   content: NotificationContent(
-      //     id: 10,
-      //     channelKey: 'basic_channel',
-      //     title: 'Simple Notification',
-      //     body: 'Simple body',
-      //   ),
-      //   schedule: NotificationCalendar(
-      //       month: subItem.date!.month,
-      //       day: subItem.date!.day -
-      //           _ref.read(notifDateProvider.notifier).getDayBefore(),
-      //       hour: _ref.read(notifTimeProvider).hour,
-      //       minute: _ref.read(notifTimeProvider).minute,
-      //       second: 0,
-      //       repeats: true,
-      //       allowWhileIdle: true),
-      // );
+      final locale = MaterialLocalizations.of(context);
+      await setNotifByPeriod(_ref, locale, item: subItem);
     } on Exception catch (e) {
       if (kDebugMode) {
         print(e);
@@ -84,6 +68,7 @@ class SubsListNotifier extends StateNotifier<SubsListState> {
 
   Future<void> deleteSub({required SubItem item}) async {
     await _ref.read(subsListRepositoryProvider).deleteSub(item: item);
+    await cancelNotif(item);
     state = state.copyWith(
       subsList: state.subsList.where((todo) => todo.id != item.id).toList(),
     );

@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:subsmanager/presentation/pages/auth/auth_outer.dart';
 import 'package:subsmanager/presentation/pages/welcome/welcome_message.dart';
@@ -12,6 +13,7 @@ import 'package:subsmanager/presentation/widgets/default_appbar_widget.dart';
 import 'package:subsmanager/presentation/pages/settings/settings.dart';
 import 'package:subsmanager/presentation/pages/subs/subs.dart';
 import 'package:subsmanager/theme.dart';
+import 'package:subsmanager/use_case/notifiers/versions_notifier.dart';
 import 'package:subsmanager/use_case/user_data/notifier/user_data.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 
@@ -40,7 +42,6 @@ void main() async {
   );
 
   WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
     const ProviderScope(child: MyApp()),
@@ -94,11 +95,17 @@ class BasePage extends HookConsumerWidget {
     final theme = Theme.of(context);
     final l10n = L10n.of(context)!;
     const radius = Radius.circular(25);
+    final versionNotifier = ref.read(versionNotifierProvider.notifier);
 
     useEffect(
       () {
         final currentUser = FirebaseAuth.instance.currentUser!;
-        readUserData.setData(currentUser.email!, currentUser.displayName);
+        readUserData.setData(
+            currentUser.email!, currentUser.displayName ?? "Not Set");
+
+        PackageInfo.fromPlatform().then((value) {
+          versionNotifier.update(value.version);
+        });
         return;
       },
       [],

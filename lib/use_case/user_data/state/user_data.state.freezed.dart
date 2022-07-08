@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$UserDataState {
   String get email => throw _privateConstructorUsedError;
-  String? get username => throw _privateConstructorUsedError;
+  String get username => throw _privateConstructorUsedError;
   bool get error => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,7 +30,7 @@ abstract class $UserDataStateCopyWith<$Res> {
   factory $UserDataStateCopyWith(
           UserDataState value, $Res Function(UserDataState) then) =
       _$UserDataStateCopyWithImpl<$Res>;
-  $Res call({String email, String? username, bool error});
+  $Res call({String email, String username, bool error});
 }
 
 /// @nodoc
@@ -56,7 +56,7 @@ class _$UserDataStateCopyWithImpl<$Res>
       username: username == freezed
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       error: error == freezed
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -72,7 +72,7 @@ abstract class _$$_UserDataStateCopyWith<$Res>
           _$_UserDataState value, $Res Function(_$_UserDataState) then) =
       __$$_UserDataStateCopyWithImpl<$Res>;
   @override
-  $Res call({String email, String? username, bool error});
+  $Res call({String email, String username, bool error});
 }
 
 /// @nodoc
@@ -100,7 +100,7 @@ class __$$_UserDataStateCopyWithImpl<$Res>
       username: username == freezed
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       error: error == freezed
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -112,14 +112,15 @@ class __$$_UserDataStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_UserDataState implements _UserDataState {
-  _$_UserDataState({this.email = "", this.username = null, this.error = false});
+  _$_UserDataState(
+      {this.email = "", this.username = "Not Set", this.error = false});
 
   @override
   @JsonKey()
   final String email;
   @override
   @JsonKey()
-  final String? username;
+  final String username;
   @override
   @JsonKey()
   final bool error;
@@ -155,13 +156,13 @@ class _$_UserDataState implements _UserDataState {
 abstract class _UserDataState implements UserDataState {
   factory _UserDataState(
       {final String email,
-      final String? username,
+      final String username,
       final bool error}) = _$_UserDataState;
 
   @override
   String get email => throw _privateConstructorUsedError;
   @override
-  String? get username => throw _privateConstructorUsedError;
+  String get username => throw _privateConstructorUsedError;
   @override
   bool get error => throw _privateConstructorUsedError;
   @override

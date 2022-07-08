@@ -20,6 +20,7 @@ class SubInfo extends HookConsumerWidget {
     final valueNotifier = ref.read(subValueNotifierProvider.notifier);
     final valueState = ref.watch(subValueNotifierProvider);
     final l10n = L10n.of(context)!;
+    final locale = MaterialLocalizations.of(context);
     final periods = useState(defaultPeriods);
 
     useEffect(() {
@@ -75,7 +76,7 @@ class SubInfo extends HookConsumerWidget {
             ),
             MaterialButton(
               child: Text(
-                valueState.date.dateToString(context),
+                valueState.date.dateToString(locale),
                 style: const TextStyle(fontSize: 16),
               ),
               onPressed: () async {

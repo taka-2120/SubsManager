@@ -24,6 +24,7 @@ class SubsItem extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = L10n.of(context)!;
+    final locale = MaterialLocalizations.of(context);
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
@@ -97,7 +98,7 @@ class SubsItem extends ConsumerWidget {
                 height: 5,
               ),
               Text(
-                "${l10n.next}: ${item.date!.dateToString(context)}",
+                "${l10n.next}: ${item.date!.dateToString(locale)}",
                 style: const TextStyle(
                     color: borderColor,
                     fontWeight: FontWeight.w700,

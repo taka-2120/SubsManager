@@ -22,6 +22,7 @@ class NotifDatePicker extends ConsumerWidget {
     final readNotifDate = ref.read(notifDateProvider.notifier);
     final notifTime = ref.watch(notifTimeProvider);
     final readNotifTime = ref.read(notifTimeProvider.notifier);
+    final locale = MaterialLocalizations.of(context);
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
@@ -75,7 +76,7 @@ class NotifDatePicker extends ConsumerWidget {
                     ),
                     MaterialButton(
                       child: Text(
-                        notifTime.timeToString(context),
+                        notifTime.timeToString(locale),
                         style: const TextStyle(fontSize: 16),
                       ),
                       onPressed: () async {

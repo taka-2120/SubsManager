@@ -19,14 +19,14 @@ class UserData extends StateNotifier<UserDataState> {
     }
   }
 
-  Future<void> setData(String email, String? name) async {
+  Future<void> setData(String email, String name) async {
     state = state.copyWith(email: email, username: name);
   }
 
   Future<void> init() async {
     state = state.copyWith(
       email: "",
-      username: null,
+      username: "Not Set",
     );
   }
 }

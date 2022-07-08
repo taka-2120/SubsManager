@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/presentation/widgets/dialogs/alert.dart';
 import 'package:subsmanager/use_case/initialize_value.dart';
+import 'package:subsmanager/use_case/notif_services.dart';
 
 final authServicesProvider = Provider((ref) => AuthServices());
 
@@ -25,6 +26,7 @@ class AuthServices {
   }
 
   Future<void> signOut(WidgetRef ref) async {
+    await cancelAllNotif();
     await _auth.signOut();
     Future.microtask(
       () {
@@ -48,7 +50,8 @@ class AuthServices {
   }
 
   Future<void> delete() async {
-    _auth.currentUser!.delete();
+    await cancelAllNotif();
+    await _auth.currentUser!.delete();
     _auth.authStateChanges();
   }
 
@@ -111,6 +114,11 @@ class AuthServices {
         );
       },
     );
+  }
+
+  Future<void> updateUsername(String username) async {
+    await FirebaseAuth.instance.currentUser!.updateDisplayName(username);
+    FirebaseAuth.instance.userChanges();
   }
 
   Future<void> resetPassword(
