@@ -1,4 +1,6 @@
+import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/domain/auth/auth_services.dart';
 import 'package:subsmanager/globals.dart';
@@ -7,9 +9,11 @@ import 'package:subsmanager/presentation/pages/auth/login.dart';
 import 'package:subsmanager/presentation/pages/settings/credits.dart';
 import 'package:subsmanager/presentation/pages/settings/notifications.dart';
 import 'package:subsmanager/presentation/widgets/dialogs/alert.dart';
+import 'package:subsmanager/presentation/widgets/dialogs/change_pass_dialog.dart';
 import 'package:subsmanager/presentation/widgets/page_title_widget.dart';
 import 'package:subsmanager/presentation/widgets/settings_item_widget.dart';
 import 'package:subsmanager/theme.dart';
+import 'package:subsmanager/use_case/converters.dart';
 import 'package:subsmanager/use_case/notifiers/versions_notifier.dart';
 import 'package:subsmanager/use_case/user_data/notifier/user_data.dart';
 
@@ -81,9 +85,26 @@ class Settings extends ConsumerWidget {
                           icon: const Icon(Icons.feedback_rounded),
                           left: "Send Feedback",
                           right: "",
-                          navigatable: false,
+                          navigatable: true,
                           disposable: false,
-                          func: () {},
+                          func: () {
+                            BetterFeedback.of(context).show(
+                              (UserFeedback feedback) async {
+                                final screenshotFilePath =
+                                    await writeImageToStorage(
+                                        feedback.screenshot);
+
+                                final Email email = Email(
+                                  body: feedback.text,
+                                  subject: 'SubsManager - Feedback',
+                                  recipients: ['yu_tkhs@icloud.com'],
+                                  attachmentPaths: [screenshotFilePath],
+                                  isHTML: false,
+                                );
+                                await FlutterEmailSender.send(email);
+                              },
+                            );
+                          },
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 10, left: 15),
@@ -117,8 +138,14 @@ class Settings extends ConsumerWidget {
                           right: "",
                           navigatable: false,
                           disposable: false,
-                          func: () {
-                            showPasswordDialog(context);
+                          func: () async {
+                            await showDialog(
+                              barrierColor: Colors.black26,
+                              context: context,
+                              builder: (context) {
+                                return const ChangePassDialog();
+                              },
+                            );
                           },
                         ),
                         SettingsItem(

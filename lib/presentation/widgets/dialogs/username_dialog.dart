@@ -58,7 +58,12 @@ class UsernameDialog extends HookConsumerWidget {
             ),
           ),
           userData.error
-              ? Text(l10n.e_username_empty)
+              ? Text(
+                  l10n.e_username_empty,
+                  style: const TextStyle(
+                    color: Colors.red,
+                  ),
+                )
               : const SizedBox(
                   height: 10,
                 ),

@@ -1,3 +1,4 @@
+import 'package:feedback/feedback.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +45,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
-    const ProviderScope(child: MyApp()),
+    const ProviderScope(
+      child: MyApp(),
+    ),
   );
 }
 
@@ -61,25 +64,28 @@ class MyApp extends HookWidget {
       themeMode: ThemeMode.system,
       localizationsDelegates: L10n.localizationsDelegates,
       supportedLocales: L10n.supportedLocales,
-      home: FutureBuilder<SharedPreferences>(
-        future: SharedPreferences.getInstance(),
-        builder: (
-          BuildContext context,
-          AsyncSnapshot<SharedPreferences> snapshot,
-        ) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator(
-              backgroundColor: Theme.of(context).backgroundColor,
-            );
-          } else if (snapshot.data?.getBool("welcome") != null) {
-            return const AuthOuter();
-          } else {
-            return const AnimatedSwitcher(
-              duration: Duration(milliseconds: 300),
-              child: WelcomeMessage(),
-            );
-          }
-        },
+      home: BetterFeedback(
+        localizationsDelegates: L10n.localizationsDelegates,
+        child: FutureBuilder<SharedPreferences>(
+          future: SharedPreferences.getInstance(),
+          builder: (
+            BuildContext context,
+            AsyncSnapshot<SharedPreferences> snapshot,
+          ) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator(
+                backgroundColor: Theme.of(context).backgroundColor,
+              );
+            } else if (snapshot.data?.getBool("welcome") != null) {
+              return const AuthOuter();
+            } else {
+              return const AnimatedSwitcher(
+                duration: Duration(milliseconds: 300),
+                child: WelcomeMessage(),
+              );
+            }
+          },
+        ),
       ),
     );
   }

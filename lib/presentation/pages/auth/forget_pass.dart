@@ -4,6 +4,7 @@ import 'package:subsmanager/domain/auth/auth_services.dart';
 import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/widgets/default_appbar_widget.dart';
+import 'package:subsmanager/presentation/widgets/dialogs/alert.dart';
 import 'package:subsmanager/presentation/widgets/loading_overlay_widget.dart';
 import 'package:subsmanager/presentation/widgets/page_title_widget.dart';
 import 'package:subsmanager/presentation/widgets/rounded_button_widget.dart';
@@ -67,12 +68,27 @@ class ForgetPass extends HookWidget {
                                 isDisabled: false,
                                 backgroundColor: Theme.of(context).primaryColor,
                                 onTap: () async {
-                                  isLoading.value = true;
-                                  await AuthServices().resetPassword(
-                                    context,
-                                    email: emailCtl.text,
-                                  );
-                                  isLoading.value = false;
+                                  if (emailCtl.text == "") {
+                                    await showDialog(
+                                      barrierColor: Colors.black26,
+                                      context: context,
+                                      builder: (_) {
+                                        return const CustomAlertDialog(
+                                          title: "Error",
+                                          description:
+                                              "Please enter your email.",
+                                          isOkOnly: true,
+                                        );
+                                      },
+                                    );
+                                  } else {
+                                    isLoading.value = true;
+                                    await AuthServices().resetPassword(
+                                      context,
+                                      email: emailCtl.text,
+                                    );
+                                    isLoading.value = false;
+                                  }
                                 },
                               ),
                             ],

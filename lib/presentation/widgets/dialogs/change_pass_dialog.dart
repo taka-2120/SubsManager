@@ -61,7 +61,12 @@ class ChangePassDialog extends HookConsumerWidget {
             ),
           ),
           error.value
-              ? const Text("Please cannot be empty these fields.")
+              ? const Text(
+                  "Please cannot be empty these fields.",
+                  style: TextStyle(
+                    color: Colors.red,
+                  ),
+                )
               : const SizedBox(
                   height: 10,
                 ),

@@ -157,12 +157,12 @@ void showusernameDialog(BuildContext context) {
   );
 }
 
-void showPasswordDialog(BuildContext context) {
-  showDialog(
+void showPasswordDialog(BuildContext context) async {
+  await showDialog(
     barrierColor: Colors.black26,
     context: context,
     builder: (context) {
-      return ChangePassDialog();
+      return const ChangePassDialog();
     },
   );
 }
