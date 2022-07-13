@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
+import 'package:subsmanager/use_case/functions/sort_func.dart';
 import 'package:subsmanager/use_case/notifiers/sort_option.dart';
 
 void showSortOptions(BuildContext context, WidgetRef ref) async {

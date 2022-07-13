@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/presentation/widgets/default_divider_widget.dart';
 import 'package:subsmanager/theme.dart';
+import 'package:subsmanager/use_case/functions/keyboard_func.dart';
 import 'package:subsmanager/use_case/sub_value/notifier/sub_value_notifier.dart';
 
 class TextFieldSet extends ConsumerWidget {
@@ -14,7 +14,7 @@ class TextFieldSet extends ConsumerWidget {
       required this.suggestion,
       required this.divider,
       required this.showTitle,
-      this.rightContent,
+      this.favicon,
       this.bottomNotes,
       Key? key})
       : super(key: key);
@@ -26,7 +26,7 @@ class TextFieldSet extends ConsumerWidget {
   final bool suggestion;
   final bool divider;
   final bool showTitle;
-  final Widget? rightContent;
+  final Widget? favicon;
   final String? bottomNotes;
 
   @override
@@ -55,8 +55,8 @@ class TextFieldSet extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              (rightContent != null)
-                  ? Row(children: [rightContent!, const SizedBox(width: 4)])
+              (favicon != null)
+                  ? Row(children: [favicon!, const SizedBox(width: 4)])
                   : const SizedBox(
                       height: 0,
                       width: 0,
@@ -80,7 +80,7 @@ class TextFieldSet extends ConsumerWidget {
                       contentPadding: const EdgeInsets.all(10),
                     ),
                     onChanged: (text) {
-                      (rightContent != null)
+                      (favicon != null)
                           ? readSubValue.generateFavicon(text)
                           : null;
                     },

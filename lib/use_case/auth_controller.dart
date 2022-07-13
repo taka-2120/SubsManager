@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:subsmanager/domain/auth/auth_services.dart';
-import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/main.dart';
 import 'package:subsmanager/presentation/widgets/dialogs/alert.dart';
+import 'package:subsmanager/use_case/functions/fire_error_func.dart';
 import 'package:subsmanager/use_case/network.dart';
 
 class AuthController {

@@ -21,23 +21,17 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 const List<Widget> pageLists = [SubsMain(), Settings()];
 
 void main() async {
-  AwesomeNotifications().initialize(
-    // set the icon to null if you want to use the default app icon
-    'resource://drawable/res_app_icon',
+  await AwesomeNotifications().initialize(
+    'resource://drawable/app_icon',
     [
       NotificationChannel(
-          channelGroupKey: 'basic_channel_group',
-          channelKey: 'basic_channel',
-          channelName: 'Basic notifications',
-          channelDescription: 'Notification channel for basic tests',
+          channelGroupKey: 'yutakahashi.subsmanager_group',
+          channelKey: 'yutakahashi.subsmanager',
+          channelName: 'SubsManager',
+          channelDescription:
+              'This channel is for the billing date notifications.',
           defaultColor: const Color(0xFF9D50DD),
           ledColor: Colors.white)
-    ],
-    // Channel groups are only visual and are not required
-    channelGroups: [
-      NotificationChannelGroup(
-          channelGroupkey: 'basic_channel_group',
-          channelGroupName: 'Basic group')
     ],
     debug: true,
   );
@@ -114,7 +108,6 @@ class BasePage extends HookConsumerWidget {
         });
         return;
       },
-      [],
     );
 
     return Scaffold(

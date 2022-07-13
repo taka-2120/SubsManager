@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/domain/auth/auth_services.dart';
-import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/pages/auth/forget_pass.dart';
 import 'package:subsmanager/presentation/widgets/textfield_set_widget.dart';
+import 'package:subsmanager/use_case/functions/keyboard_func.dart';
 
 class ChangePassDialog extends HookConsumerWidget {
   const ChangePassDialog({Key? key}) : super(key: key);

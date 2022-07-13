@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/domain/auth/auth_services.dart';
-import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/pages/auth/login.dart';
 import 'package:subsmanager/presentation/pages/settings/credits.dart';
@@ -14,6 +13,7 @@ import 'package:subsmanager/presentation/widgets/page_title_widget.dart';
 import 'package:subsmanager/presentation/widgets/settings_item_widget.dart';
 import 'package:subsmanager/theme.dart';
 import 'package:subsmanager/use_case/converters.dart';
+import 'package:subsmanager/use_case/functions/dialog_func.dart';
 import 'package:subsmanager/use_case/notifiers/versions_notifier.dart';
 import 'package:subsmanager/use_case/user_data/notifier/user_data.dart';
 
