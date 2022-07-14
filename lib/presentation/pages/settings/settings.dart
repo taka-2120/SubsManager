@@ -9,8 +9,8 @@ import 'package:subsmanager/presentation/pages/settings/credits.dart';
 import 'package:subsmanager/presentation/pages/settings/notifications.dart';
 import 'package:subsmanager/presentation/widgets/dialogs/alert.dart';
 import 'package:subsmanager/presentation/widgets/dialogs/change_pass_dialog.dart';
-import 'package:subsmanager/presentation/widgets/page_title_widget.dart';
-import 'package:subsmanager/presentation/widgets/settings_item_widget.dart';
+import 'package:subsmanager/presentation/widgets/headers/page_title_widget.dart';
+import 'package:subsmanager/presentation/widgets/list_items/settings_item_widget.dart';
 import 'package:subsmanager/theme.dart';
 import 'package:subsmanager/use_case/converters.dart';
 import 'package:subsmanager/use_case/functions/dialog_func.dart';
@@ -142,7 +142,7 @@ class Settings extends ConsumerWidget {
                             await showDialog(
                               barrierColor: Colors.black26,
                               context: context,
-                              builder: (context) {
+                              builder: (_) {
                                 return const ChangePassDialog();
                               },
                             );

@@ -8,7 +8,7 @@ import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/widgets/default_divider_widget.dart';
 import 'package:subsmanager/presentation/widgets/favicon_widget.dart';
-import 'package:subsmanager/presentation/widgets/textfield_set_widget.dart';
+import 'package:subsmanager/presentation/widgets/textfields/textfield_set_widget.dart';
 import 'package:subsmanager/theme.dart';
 import 'package:subsmanager/use_case/functions/keyboard_func.dart';
 import 'package:subsmanager/use_case/sub_value/notifier/sub_value_notifier.dart';

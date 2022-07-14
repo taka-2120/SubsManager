@@ -13,10 +13,13 @@ class AuthOuter extends HookWidget {
 
     useEffect(() {
       FirebaseAuth.instance.authStateChanges().listen((user) {
-        if (user == null) {
-          isLoggedIn.value = false;
-        } else {
-          isLoggedIn.value = true;
+        switch (user == null) {
+          case true:
+            isLoggedIn.value = false;
+            break;
+          case false:
+            isLoggedIn.value = true;
+            break;
         }
       });
       return;

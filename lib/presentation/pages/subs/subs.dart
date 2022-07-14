@@ -5,22 +5,13 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:subsmanager/extensions/fee_double_str.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/pages/subs/subs_add.dart';
+import 'package:subsmanager/presentation/widgets/headers/page_title_widget.dart';
 import 'package:subsmanager/presentation/widgets/loading_overlay_widget.dart';
-import 'package:subsmanager/presentation/widgets/page_title_widget.dart';
 import 'package:subsmanager/presentation/widgets/sort_options_widget.dart';
-import 'package:subsmanager/presentation/widgets/subs_item_widget.dart';
+import 'package:subsmanager/presentation/widgets/list_items/subs_item_widget.dart';
 import 'package:subsmanager/theme.dart';
 import 'package:subsmanager/use_case/sub_value/notifier/sub_value_notifier.dart';
 import 'package:subsmanager/use_case/subs_list/notifier/subs_list_notifier.dart';
-
-class SubsMain extends StatelessWidget {
-  const SubsMain({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const SubsPage();
-  }
-}
 
 class SubsPage extends HookConsumerWidget {
   const SubsPage({Key? key}) : super(key: key);
@@ -157,15 +148,12 @@ class SubsPage extends HookConsumerWidget {
           ),
           floatingActionButton: FloatingActionButton(
             elevation: 4,
-            onPressed: () {
-              ref.read(subValueNotifierProvider.notifier).init();
-              showBarModalBottomSheet(
-                context: context,
-                builder: (context) => const SubAdd(),
-                bounce: true,
-                expand: true,
-              );
-            },
+            onPressed: () => showBarModalBottomSheet(
+              context: context,
+              builder: (context) => const SubAddSheet(),
+              bounce: true,
+              expand: true,
+            ),
             foregroundColor: customSwatch,
             tooltip: l10n.add,
             child: const Icon(

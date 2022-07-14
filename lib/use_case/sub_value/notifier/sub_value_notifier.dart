@@ -2,9 +2,13 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:subsmanager/domain/subs_list/models/sub_item.dart';
+import 'package:subsmanager/extensions/fee_double_str.dart';
 import 'package:subsmanager/extensions/hex_color.dart';
+import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/use_case/get_favicon.dart';
 import 'package:subsmanager/use_case/sub_value/state/sub_value.state.dart';
+import 'package:subsmanager/extensions/period_int_str.dart';
 
 final subValueNotifierProvider =
     StateNotifierProvider<SubValueNotifier, SubValue>(
@@ -63,6 +67,22 @@ class SubValueNotifier extends StateNotifier<SubValue> {
         hasIcon: value[1],
       );
     });
+  }
+
+  Future<void> setValues(BuildContext context, SubItem item) async {
+    final l10n = L10n.of(context)!;
+
+    state.name.text = item.name;
+    state.fee.text = item.fee.feeToString(currency: false);
+    state.url.text = item.url;
+
+    state = state.copyWith(
+      date: item.date!,
+      period: item.period.periodToString(l10n),
+      altColor: HexColor(item.altHexColorCode),
+    );
+
+    await generateFavicon(item.url);
   }
 
   void init() {

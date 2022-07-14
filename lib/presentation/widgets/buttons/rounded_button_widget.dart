@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../theme.dart';
+import 'package:subsmanager/theme.dart';
 
 class RoundededButton extends StatelessWidget {
   const RoundededButton({

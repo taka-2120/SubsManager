@@ -4,7 +4,7 @@ import 'package:subsmanager/l10n/l10n.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:subsmanager/presentation/pages/welcome/policy_agreements.dart';
 import 'package:subsmanager/presentation/widgets/default_appbar_widget.dart';
-import 'package:subsmanager/presentation/widgets/rounded_button_widget.dart';
+import 'package:subsmanager/presentation/widgets/buttons/rounded_button_widget.dart';
 
 class IntroNotif extends HookWidget {
   const IntroNotif({Key? key}) : super(key: key);
@@ -46,29 +46,26 @@ class IntroNotif extends HookWidget {
                     text: l10n.enable_notif,
                     topPad: 20,
                     isDisabled: false,
-                    onTap: () {
-                      AwesomeNotifications().isNotificationAllowed().then(
-                        (isAllowed) {
-                          if (!isAllowed) {
-                            AwesomeNotifications()
-                                .requestPermissionToSendNotifications();
-                          }
-                          isNotifEnabled.value = true;
-                        },
-                      );
-                    },
+                    onTap: () =>
+                        AwesomeNotifications().isNotificationAllowed().then(
+                      (isAllowed) {
+                        if (!isAllowed) {
+                          AwesomeNotifications()
+                              .requestPermissionToSendNotifications();
+                        }
+                        isNotifEnabled.value = true;
+                      },
+                    ),
                   ),
                   RoundededButton(
                     text: l10n.next,
                     topPad: 20,
                     isDisabled: !isNotifEnabled.value,
-                    onTap: () {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (context) => const PolicyAgreemtenes(),
-                        ),
-                      );
-                    },
+                    onTap: () => Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (_) => const PolicyAgreemtenes(),
+                      ),
+                    ),
                   ),
                 ],
               ),

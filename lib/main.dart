@@ -18,7 +18,7 @@ import 'package:subsmanager/use_case/notifiers/versions_notifier.dart';
 import 'package:subsmanager/use_case/user_data/notifier/user_data.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 
-const List<Widget> pageLists = [SubsMain(), Settings()];
+const List<Widget> pageLists = [SubsPage(), Settings()];
 
 void main() async {
   await AwesomeNotifications().initialize(
@@ -119,8 +119,10 @@ class BasePage extends HookConsumerWidget {
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          borderRadius:
-              const BorderRadius.only(topLeft: radius, topRight: radius),
+          borderRadius: const BorderRadius.only(
+            topLeft: radius,
+            topRight: radius,
+          ),
           boxShadow: [
             BoxShadow(
               color: theme.hoverColor,
@@ -130,8 +132,10 @@ class BasePage extends HookConsumerWidget {
           ],
         ),
         child: ClipRRect(
-          borderRadius:
-              const BorderRadius.only(topLeft: radius, topRight: radius),
+          borderRadius: const BorderRadius.only(
+            topLeft: radius,
+            topRight: radius,
+          ),
           child: BottomNavigationBar(
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
@@ -145,9 +149,7 @@ class BasePage extends HookConsumerWidget {
             ],
             currentIndex: tabIndex.value,
             selectedItemColor: primaryColor,
-            onTap: (val) {
-              tabIndex.value = val;
-            },
+            onTap: (val) => tabIndex.value = val,
           ),
         ),
       ),

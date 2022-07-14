@@ -70,7 +70,7 @@ class SubsItem extends ConsumerWidget {
                   ref.read(subValueNotifierProvider.notifier).init();
                   showBarModalBottomSheet(
                     context: context,
-                    builder: (context) => SubEdit(index),
+                    builder: (context) => SubEditSheet(index),
                     bounce: true,
                     expand: true,
                   );
