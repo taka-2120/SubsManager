@@ -10,7 +10,6 @@ import 'package:subsmanager/presentation/widgets/loading_overlay_widget.dart';
 import 'package:subsmanager/presentation/widgets/sort_options_widget.dart';
 import 'package:subsmanager/presentation/widgets/list_items/subs_item_widget.dart';
 import 'package:subsmanager/theme.dart';
-import 'package:subsmanager/use_case/sub_value/notifier/sub_value_notifier.dart';
 import 'package:subsmanager/use_case/subs_list/notifier/subs_list_notifier.dart';
 
 class SubsPage extends HookConsumerWidget {

@@ -97,7 +97,7 @@ class LogIn extends HookWidget {
                                     ),
                                   );
                                 },
-                                child: const Text("Forget Password"),
+                                child: Text(l10n.forget_pass),
                               ),
                               const SizedBox(height: 30),
                               RoundededButton(

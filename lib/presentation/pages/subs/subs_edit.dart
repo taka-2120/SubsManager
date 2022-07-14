@@ -55,7 +55,7 @@ class SubEditSheet extends HookConsumerWidget {
                   children: [
                     const SubInfo(),
                     RoundededButton(
-                      text: l10n.delete_sub,
+                      text: l10n.delete,
                       fontColor: const Color.fromARGB(255, 235, 35, 35),
                       topPad: 30,
                       isDisabled: false,

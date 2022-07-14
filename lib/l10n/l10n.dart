@@ -118,11 +118,11 @@ abstract class L10n {
   /// **'Edit'**
   String get edit;
 
-  /// No description provided for @delete_sub.
+  /// No description provided for @delete.
   ///
   /// In en, this message translates to:
   /// **'Delete'**
-  String get delete_sub;
+  String get delete;
 
   /// No description provided for @name.
   ///
@@ -394,6 +394,42 @@ abstract class L10n {
   /// **'Update Username'**
   String get update_username;
 
+  /// No description provided for @change_pass.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Password'**
+  String get change_pass;
+
+  /// No description provided for @forget_pass.
+  ///
+  /// In en, this message translates to:
+  /// **'Forget Password'**
+  String get forget_pass;
+
+  /// No description provided for @reset_email_note.
+  ///
+  /// In en, this message translates to:
+  /// **'The reset email will be sent to this address.'**
+  String get reset_email_note;
+
+  /// No description provided for @reset_email.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Reset Email'**
+  String get reset_email;
+
+  /// No description provided for @send_feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Feedback'**
+  String get send_feedback;
+
+  /// No description provided for @delete_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Account'**
+  String get delete_account;
+
   /// No description provided for @error.
   ///
   /// In en, this message translates to:
@@ -478,6 +514,36 @@ abstract class L10n {
   /// **'Username cannot be empty.'**
   String get e_username_empty;
 
+  /// No description provided for @e_no_email.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your email address.'**
+  String get e_no_email;
+
+  /// No description provided for @imp_confirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Important Cnofirmation'**
+  String get imp_confirmation;
+
+  /// No description provided for @conf_delete_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you sure want to delete your account?\nThis operation cannot be undone, and your data will be permanently deleted.'**
+  String get conf_delete_account;
+
+  /// No description provided for @confirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Cnofirmation'**
+  String get confirmation;
+
+  /// No description provided for @conf_logout.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you sure want to logout?'**
+  String get conf_logout;
+
   /// No description provided for @d_ok.
   ///
   /// In en, this message translates to:
@@ -543,6 +609,12 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Thank you for using SubsManager!\n\nLet\'s get startd to setup this app first, and register to our services!'**
   String get welcome_msg;
+
+  /// No description provided for @join_us.
+  ///
+  /// In en, this message translates to:
+  /// **'Join Us Now!'**
+  String get join_us;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {

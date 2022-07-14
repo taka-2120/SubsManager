@@ -33,8 +33,8 @@ class ForgetPass extends HookWidget {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        const PageTitle(
-                          title: "Forget Password",
+                        PageTitle(
+                          title: l10n.forget_pass,
                           back: true,
                           rightButton: false,
                           rightFunc: null,
@@ -57,12 +57,11 @@ class ForgetPass extends HookWidget {
                                 suggestion: false,
                                 divider: false,
                                 showTitle: true,
-                                bottomNotes:
-                                    "The reset email will be sent to this address.",
+                                bottomNotes: l10n.reset_email_note,
                               ),
                               const SizedBox(height: 50),
                               RoundededButton(
-                                text: "Send Reset Email",
+                                text: l10n.reset_email,
                                 fontColor: Colors.black,
                                 topPad: 20,
                                 isDisabled: false,
@@ -72,14 +71,11 @@ class ForgetPass extends HookWidget {
                                     await showDialog(
                                       barrierColor: Colors.black26,
                                       context: context,
-                                      builder: (_) {
-                                        return const CustomAlertDialog(
-                                          title: "Error",
-                                          description:
-                                              "Please enter your email.",
-                                          isOkOnly: true,
-                                        );
-                                      },
+                                      builder: (_) => CustomAlertDialog(
+                                        title: l10n.error,
+                                        description: l10n.e_no_email,
+                                        isOkOnly: true,
+                                      ),
                                     );
                                   } else {
                                     isLoading.value = true;

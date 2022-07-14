@@ -5,7 +5,7 @@
     "first_add": "+ボタンをタップしてサブスクを追加しましょう!",
     "add": "追加",
     "edit": "編集",
-    "delete_sub": "削除",
+    "delete": "削除",
     "name": "名前",
     "fee": "金額",
     "url": "URL",
@@ -14,8 +14,8 @@
     "billing_period": "支払いサイクル",
     "select": "選択",
 
-    "intro_title": "Introduction",
-    "intro_notif": "This app can notify you the billing date and prices. \nWe will send a notification 3 days before the billing date, but you can change this later in Settings tab. \nIn order to send notifications to you, please allow sending notification.",
+    "intro_title": "紹介",
+    "intro_notif": "このアプリでは、登録されたサブスクの支払日とその金額を指定した日時にお知らせします。\nデフォルトでは支払日の3日前に通知を送信しますが、これはあとから設定タブから変更可能です。\n通知を送信するため、通知の許可をしてください。",
 
     "settings": "設定",
     "general": "一般",
@@ -57,6 +57,12 @@
     "register": "新規登録",
     "signout": "サインアウト",
     "update_username": "ユーザー名を更新",
+    "change_pass": "パスワードを変更",
+    "forget_pass": "パスワードを忘れた場合",
+    "reset_email_note": "パスワードのリセット用のメールがこのアドレスに送信されます。",
+    "reset_email": "リセットメールを送信",
+    "send_feedback": "フィードバックを送信",
+    "delete_account": "アカウントを削除",
 
     "error": "エラー",
     "e_fill": "名前、金額、支払いサイクルを正しく選択してください。",
@@ -72,6 +78,12 @@
     "e_all_disabled": "このメールアドレスとパスワードは現在無効化されています。",
     "e_weak_pass": "パスワードが弱すぎます。パスワードは最低6文字以上入力してください。",
     "e_username_empty": "ユーザー名は空欄にできません。",
+    "e_no_email": "メールアドレスを入力してください。",
+
+    "imp_confirmation": "重要な確認",
+    "conf_delete_account": "本当にアカウントを削除しますか？\nこの操作は取り消すことはできません。サブスクリプションデータは完全に消去されます。",
+    "confirmation": "確認",
+    "conf_logout": "本当にログアウトしますか？",
 
     "d_ok": "OK",
     "d_continue": "続ける",
@@ -84,5 +96,6 @@
     "all_done": "すべて完了です！",
     "done_msg": "次に、ログインもしくは登録をしてください！",
     "lets_go": "さあ始めましょう！",
-    "welcome_msg": "SubsManagerをダウンロードしていただきありがとうございます！\n\n早速初期設定をして、ログインもしくは登録をしましょう！" 
+    "welcome_msg": "SubsManagerをダウンロードしていただきありがとうございます！\n\n早速初期設定をして、ログインもしくは登録をしましょう！",
+    "join_us": "登録を始めましょう！"
 }

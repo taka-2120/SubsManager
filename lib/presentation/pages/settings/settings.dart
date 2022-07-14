@@ -83,7 +83,7 @@ class Settings extends ConsumerWidget {
                         ),
                         SettingsItem(
                           icon: const Icon(Icons.feedback_rounded),
-                          left: "Send Feedback",
+                          left: l10n.send_feedback,
                           right: "",
                           navigatable: true,
                           disposable: false,
@@ -134,7 +134,7 @@ class Settings extends ConsumerWidget {
                         ),
                         SettingsItem(
                           icon: const Icon(Icons.password_rounded),
-                          left: "Change Password",
+                          left: l10n.change_pass,
                           right: "",
                           navigatable: false,
                           disposable: false,
@@ -160,8 +160,8 @@ class Settings extends ConsumerWidget {
                               context: context,
                               builder: (_) {
                                 return CustomAlertDialog(
-                                  title: "Confirmation",
-                                  description: "Do you sure want to logout?",
+                                  title: l10n.confirmation,
+                                  description: l10n.conf_logout,
                                   isOkOnly: false,
                                   func: () {
                                     AuthServices().signOut(ref);
@@ -180,7 +180,7 @@ class Settings extends ConsumerWidget {
                         ),
                         SettingsItem(
                           icon: const Icon(Icons.delete),
-                          left: "Delete Account",
+                          left: l10n.delete_account,
                           right: "",
                           navigatable: false,
                           disposable: false,
@@ -190,9 +190,8 @@ class Settings extends ConsumerWidget {
                               context: context,
                               builder: (_) {
                                 return CustomAlertDialog(
-                                  title: "Important Confirmation",
-                                  description:
-                                      "Do you sure want to delete your account?\nThis operation cannot be undone, and your data will be permanently deleted.",
+                                  title: l10n.imp_confirmation,
+                                  description: l10n.conf_delete_account,
                                   isOkOnly: false,
                                   func: () {
                                     AuthServices().delete();
@@ -202,7 +201,7 @@ class Settings extends ConsumerWidget {
                                       ),
                                     );
                                   },
-                                  optionLabel: "Delete",
+                                  optionLabel: l10n.delete,
                                   mainColor: Colors.red,
                                 );
                               },

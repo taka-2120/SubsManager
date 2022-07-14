@@ -41,7 +41,7 @@ class EndIntro extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               RoundededButton(
-                text: "Let's Go!",
+                text: l10n.lets_go,
                 topPad: 20,
                 isDisabled: false,
                 onTap: () {

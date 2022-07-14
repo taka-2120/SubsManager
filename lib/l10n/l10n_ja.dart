@@ -20,7 +20,7 @@ class L10nJa extends L10n {
   String get edit => '編集';
 
   @override
-  String get delete_sub => '削除';
+  String get delete => '削除';
 
   @override
   String get name => '名前';
@@ -44,10 +44,10 @@ class L10nJa extends L10n {
   String get select => '選択';
 
   @override
-  String get intro_title => 'Introduction';
+  String get intro_title => '紹介';
 
   @override
-  String get intro_notif => 'This app can notify you the billing date and prices. \nWe will send a notification 3 days before the billing date, but you can change this later in Settings tab. \nIn order to send notifications to you, please allow sending notification.';
+  String get intro_notif => 'このアプリでは、登録されたサブスクの支払日とその金額を指定した日時にお知らせします。\nデフォルトでは支払日の3日前に通知を送信しますが、これはあとから設定タブから変更可能です。\n通知を送信するため、通知の許可をしてください。';
 
   @override
   String get settings => '設定';
@@ -158,6 +158,24 @@ class L10nJa extends L10n {
   String get update_username => 'ユーザー名を更新';
 
   @override
+  String get change_pass => 'パスワードを変更';
+
+  @override
+  String get forget_pass => 'パスワードを忘れた場合';
+
+  @override
+  String get reset_email_note => 'パスワードのリセット用のメールがこのアドレスに送信されます。';
+
+  @override
+  String get reset_email => 'リセットメールを送信';
+
+  @override
+  String get send_feedback => 'フィードバックを送信';
+
+  @override
+  String get delete_account => 'アカウントを削除';
+
+  @override
   String get error => 'エラー';
 
   @override
@@ -200,6 +218,21 @@ class L10nJa extends L10n {
   String get e_username_empty => 'ユーザー名は空欄にできません。';
 
   @override
+  String get e_no_email => 'メールアドレスを入力してください。';
+
+  @override
+  String get imp_confirmation => '重要な確認';
+
+  @override
+  String get conf_delete_account => '本当にアカウントを削除しますか？\nこの操作は取り消すことはできません。サブスクリプションデータは完全に消去されます。';
+
+  @override
+  String get confirmation => '確認';
+
+  @override
+  String get conf_logout => '本当にログアウトしますか？';
+
+  @override
   String get d_ok => 'OK';
 
   @override
@@ -231,4 +264,7 @@ class L10nJa extends L10n {
 
   @override
   String get welcome_msg => 'SubsManagerをダウンロードしていただきありがとうございます！\n\n早速初期設定をして、ログインもしくは登録をしましょう！';
+
+  @override
+  String get join_us => '登録を始めましょう！';
 }

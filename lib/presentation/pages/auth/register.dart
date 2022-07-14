@@ -34,8 +34,8 @@ class Register extends HookWidget {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        const PageTitle(
-                          title: "Join Us Now!",
+                        PageTitle(
+                          title: l10n.join_us,
                           back: true,
                           rightButton: false,
                           rightFunc: null,
