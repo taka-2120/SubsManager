@@ -13,9 +13,9 @@ class ChangePassDialog extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = L10n.of(context)!;
-    final currentPassCtl = TextEditingController();
-    final newPassCtl = TextEditingController();
-    final error = useState(false);
+    final currentPassController = TextEditingController();
+    final newPassController = TextEditingController();
+    final isEmptyError = useState(false);
     final isLoading = useState(false);
 
     return Dialog(
@@ -41,7 +41,7 @@ class ChangePassDialog extends HookConsumerWidget {
             child: TextFieldSet(
               title: "Current Password",
               type: KeyType.norm,
-              controller: currentPassCtl,
+              controller: currentPassController,
               secured: true,
               suggestion: true,
               divider: true,
@@ -53,14 +53,14 @@ class ChangePassDialog extends HookConsumerWidget {
             child: TextFieldSet(
               title: "New Password",
               type: KeyType.norm,
-              controller: newPassCtl,
+              controller: newPassController,
               secured: true,
               suggestion: true,
               divider: false,
               showTitle: false,
             ),
           ),
-          error.value
+          isEmptyError.value
               ? const Text(
                   "Please cannot be empty these fields.",
                   style: TextStyle(
@@ -95,14 +95,15 @@ class ChangePassDialog extends HookConsumerWidget {
                 height: 50,
                 child: InkWell(
                   onTap: () async {
-                    if (currentPassCtl.text == "" || newPassCtl.text == "") {
-                      error.value = true;
+                    if (currentPassController.text == "" ||
+                        newPassController.text == "") {
+                      isEmptyError.value = true;
                     } else {
                       isLoading.value = true;
                       await AuthServices().updatePassword(
                         context,
-                        currentPass: currentPassCtl.text,
-                        newPass: newPassCtl.text,
+                        currentPassword: currentPassController.text,
+                        newPassword: newPassController.text,
                       );
                       isLoading.value = false;
                       Future.microtask(() {

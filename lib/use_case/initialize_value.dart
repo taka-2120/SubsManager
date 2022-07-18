@@ -10,7 +10,7 @@ import 'package:subsmanager/use_case/subs_list/notifier/subs_list_notifier.dart'
 
 class InitializeValue {
   void init(WidgetRef ref) {
-    ref.read(notifEnabledProvider.notifier).update(false);
+    ref.read(notifEnabledProvider.notifier).updateNotifState(false);
     ref.read(notifDateProvider.notifier).update(3);
     ref.read(notifTimeProvider.notifier).update(TimeOfDay.now());
     ref.read(sortOptionProvider.notifier).update(0);

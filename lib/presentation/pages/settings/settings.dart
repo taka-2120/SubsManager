@@ -194,7 +194,7 @@ class Settings extends ConsumerWidget {
                                   description: l10n.conf_delete_account,
                                   isOkOnly: false,
                                   func: () {
-                                    AuthServices().delete();
+                                    AuthServices().deleteUser();
                                     Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
                                         builder: (context) => const LogIn(),

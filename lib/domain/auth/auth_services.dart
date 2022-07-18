@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/presentation/widgets/dialogs/alert.dart';
 import 'package:subsmanager/use_case/initialize_value.dart';
 import 'package:subsmanager/use_case/notif_services.dart';
@@ -9,17 +10,15 @@ final authServicesProvider = Provider((ref) => AuthServices());
 
 class AuthServices {
   AuthServices();
-  final _auth = FirebaseAuth.instance;
-
-  String get currentUid => _auth.currentUser!.uid;
-  String? get currentuserName => _auth.currentUser!.displayName;
-  String? get currentuserEmail => _auth.currentUser!.email;
+  String get currentUid => authInstance.currentUser!.uid;
+  String? get currentuserName => authInstance.currentUser!.displayName;
+  String? get currentuserEmail => authInstance.currentUser!.email;
 
   Future<void> signIn({
     required String email,
     required String pass,
   }) async {
-    await _auth.signInWithEmailAndPassword(
+    await authInstance.signInWithEmailAndPassword(
       email: email,
       password: pass,
     );
@@ -27,13 +26,13 @@ class AuthServices {
 
   Future<void> signOut(WidgetRef ref) async {
     await cancelAllNotif();
-    await _auth.signOut();
+    await authInstance.signOut();
     Future.microtask(
       () {
         InitializeValue().init(ref);
       },
     );
-    _auth.authStateChanges();
+    authInstance.authStateChanges();
   }
 
   Future<void> register({
@@ -41,32 +40,32 @@ class AuthServices {
     required String pass,
     required String name,
   }) async {
-    await _auth.createUserWithEmailAndPassword(
+    await authInstance.createUserWithEmailAndPassword(
       email: email,
       password: pass,
     );
-    _auth.currentUser!.updateDisplayName(name);
-    _auth.authStateChanges();
+    authInstance.currentUser!.updateDisplayName(name);
+    authInstance.authStateChanges();
   }
 
-  Future<void> delete() async {
+  Future<void> deleteUser() async {
     await cancelAllNotif();
-    await _auth.currentUser!.delete();
-    _auth.authStateChanges();
+    await authInstance.currentUser!.delete();
+    authInstance.authStateChanges();
   }
 
   Future<void> updatePassword(
     BuildContext context, {
-    required String currentPass,
-    required String newPass,
+    required String currentPassword,
+    required String newPassword,
   }) async {
     final cred = EmailAuthProvider.credential(
       email: currentuserEmail!,
-      password: currentPass,
+      password: currentPassword,
     );
 
-    _auth.currentUser!.reauthenticateWithCredential(cred).then((value) {
-      _auth.currentUser!.updatePassword(newPass).then(
+    authInstance.currentUser!.reauthenticateWithCredential(cred).then((value) {
+      authInstance.currentUser!.updatePassword(newPassword).then(
         (_) async {
           await showDialog(
             barrierColor: Colors.black26,
@@ -81,14 +80,14 @@ class AuthServices {
           );
         },
       ).catchError(
-        (e) async {
+        (error) async {
           await showDialog(
             barrierColor: Colors.black26,
             context: context,
             builder: (_) {
               return CustomAlertDialog(
                 title: "Error",
-                description: e.toString(),
+                description: error.toString(),
                 isOkOnly: true,
               );
             },
@@ -96,14 +95,14 @@ class AuthServices {
         },
       );
     }).catchError(
-      (e) async {
+      (error) async {
         await showDialog(
           barrierColor: Colors.black26,
           context: context,
           builder: (_) {
             return CustomAlertDialog(
               title: "Error",
-              description: e.toString(),
+              description: error.toString(),
               isOkOnly: true,
             );
           },
@@ -113,15 +112,15 @@ class AuthServices {
   }
 
   Future<void> updateUsername(String username) async {
-    await FirebaseAuth.instance.currentUser!.updateDisplayName(username);
-    FirebaseAuth.instance.userChanges();
+    await authInstance.currentUser!.updateDisplayName(username);
+    authInstance.userChanges();
   }
 
   Future<void> resetPassword(
     BuildContext context, {
     required String email,
   }) async {
-    await _auth.sendPasswordResetEmail(email: email).then(
+    await authInstance.sendPasswordResetEmail(email: email).then(
       (value) async {
         await showDialog(
           barrierColor: Colors.black26,
@@ -137,14 +136,14 @@ class AuthServices {
         );
       },
     ).catchError(
-      (e) async {
+      (error) async {
         await showDialog(
           barrierColor: Colors.black26,
           context: context,
           builder: (_) {
             return CustomAlertDialog(
               title: "Error",
-              description: e.toString(),
+              description: error.toString(),
               isOkOnly: true,
             );
           },

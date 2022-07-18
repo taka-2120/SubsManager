@@ -1,24 +1,20 @@
 import 'package:feedback/feedback.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/presentation/pages/auth/auth_outer.dart';
 import 'package:subsmanager/presentation/pages/welcome/welcome_message.dart';
 import 'package:subsmanager/firebase_options.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/widgets/default_appbar_widget.dart';
-import 'package:subsmanager/presentation/pages/settings/settings.dart';
-import 'package:subsmanager/presentation/pages/subs/subs.dart';
 import 'package:subsmanager/theme.dart';
 import 'package:subsmanager/use_case/notifiers/versions_notifier.dart';
 import 'package:subsmanager/use_case/user_data/notifier/user_data.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
-
-const List<Widget> pageLists = [SubsPage(), Settings()];
 
 void main() async {
   await AwesomeNotifications().initialize(
@@ -99,9 +95,8 @@ class BasePage extends HookConsumerWidget {
 
     useEffect(
       () {
-        final currentUser = FirebaseAuth.instance.currentUser!;
-        readUserData.setData(
-            currentUser.email!, currentUser.displayName ?? "Not Set");
+        readUserData.setData(authInstance.currentUser!.email!,
+            authInstance.currentUser!.displayName ?? "Not Set");
 
         PackageInfo.fromPlatform().then((value) {
           versionNotifier.update(value.version);
