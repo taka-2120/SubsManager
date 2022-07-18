@@ -9,11 +9,11 @@ import 'package:subsmanager/use_case/user_data/notifier/user_data.dart';
 import 'package:subsmanager/use_case/subs_list/notifier/subs_list_notifier.dart';
 
 class InitializeValue {
-  void init(BuildContext context, WidgetRef ref) {
-    ref.read(notifEnabledProvider.notifier).update(false);
+  void init(WidgetRef ref) {
+    ref.read(notifEnabledProvider.notifier).updateNotifState(false);
     ref.read(notifDateProvider.notifier).update(3);
     ref.read(notifTimeProvider.notifier).update(TimeOfDay.now());
-    ref.read(sortOptionProvider.notifier).update(ref, 0);
+    ref.read(sortOptionProvider.notifier).update(0);
     ref.read(userDataProvider.notifier).init();
     ref.read(subValueNotifierProvider.notifier).init();
     ref.read(subsListNotifierProvider.notifier).init();

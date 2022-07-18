@@ -6,11 +6,17 @@ class CustomAlertDialog extends StatelessWidget {
     Key? key,
     required this.title,
     required this.description,
-    required this.ok,
+    required this.isOkOnly,
+    this.func,
+    this.optionLabel,
+    this.mainColor,
   }) : super(key: key);
 
   final String title, description;
-  final bool ok;
+  final bool isOkOnly;
+  final VoidCallback? func;
+  final String? optionLabel;
+  final Color? mainColor;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +52,7 @@ class CustomAlertDialog extends StatelessWidget {
           const Divider(
             height: 1,
           ),
-          ok
+          isOkOnly
               ? SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: 50,
@@ -72,15 +78,15 @@ class CustomAlertDialog extends StatelessWidget {
                       width: MediaQuery.of(context).size.width,
                       height: 50,
                       child: InkWell(
-                        onTap: () {
-                          //do somethig
-                        },
+                        onTap: func,
                         child: Center(
                           child: Text(
-                            l10n.d_continue,
+                            optionLabel ?? l10n.d_continue,
                             style: TextStyle(
                               fontSize: 18.0,
-                              color: Theme.of(context).primaryColor,
+                              color: (mainColor == null)
+                                  ? Theme.of(context).primaryColor
+                                  : mainColor,
                               fontWeight: FontWeight.bold,
                             ),
                           ),

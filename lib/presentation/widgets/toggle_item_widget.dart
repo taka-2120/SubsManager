@@ -25,7 +25,7 @@ class ToggleItem extends ConsumerWidget {
           Text(title),
           Switch.adaptive(
             value: notifEnabled,
-            onChanged: readNotifEnabled.update,
+            onChanged: readNotifEnabled.updateNotifState,
             activeTrackColor: Colors.lightGreenAccent,
             activeColor: Colors.green,
           )

@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
-import 'package:subsmanager/presentation/widgets/textfield_set_widget.dart';
+import 'package:subsmanager/presentation/widgets/textfields/textfield_set_widget.dart';
+import 'package:subsmanager/use_case/functions/keyboard_func.dart';
 import 'package:subsmanager/use_case/user_data/notifier/user_data.dart';
 
 class UsernameDialog extends HookConsumerWidget {
-  UsernameDialog({
+  const UsernameDialog({
     Key? key,
     required this.title,
     required this.currentName,
   }) : super(key: key);
 
   final String title, currentName;
-  final newNameCtl = TextEditingController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = L10n.of(context)!;
     final userData = ref.watch(userDataProvider.select((value) => value));
     final readUserData = ref.read(userDataProvider.notifier);
+    final newNameCtl = TextEditingController();
 
     useEffect(() {
       newNameCtl.text = currentName;
@@ -58,7 +58,12 @@ class UsernameDialog extends HookConsumerWidget {
             ),
           ),
           userData.error
-              ? Text(l10n.e_username_empty)
+              ? Text(
+                  l10n.e_username_empty,
+                  style: const TextStyle(
+                    color: Colors.red,
+                  ),
+                )
               : const SizedBox(
                   height: 10,
                 ),

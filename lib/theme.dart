@@ -32,15 +32,18 @@ final lightTheme = ThemeData(
   dialogBackgroundColor: const Color.fromARGB(255, 240, 240, 240),
 );
 
-const MaterialColor customSwatch = MaterialColor(0xFF36DCCF, <int, Color>{
-  50: Color(0xFFE7FBF9),
-  100: Color(0xFFC3F5F1),
-  200: Color(0xFF9BEEE7),
-  300: Color(0xFF72E7DD),
-  400: Color(0xFF54E1D6),
-  500: Color(0xFF36DCCF),
-  600: Color(0xFF30D8CA),
-  700: Color(0xFF29D3C3),
-  800: Color(0xFF22CEBD),
-  900: Color(0xFF16C5B2),
-});
+const MaterialColor customSwatch = MaterialColor(
+  0xFF36DCCF,
+  <int, Color>{
+    50: Color(0xFFE7FBF9),
+    100: Color(0xFFC3F5F1),
+    200: Color(0xFF9BEEE7),
+    300: Color(0xFF72E7DD),
+    400: Color(0xFF54E1D6),
+    500: Color(0xFF36DCCF),
+    600: Color(0xFF30D8CA),
+    700: Color(0xFF29D3C3),
+    800: Color(0xFF22CEBD),
+    900: Color(0xFF16C5B2),
+  },
+);

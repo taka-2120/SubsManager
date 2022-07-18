@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/extensions/date_ext.dart';
-import 'package:subsmanager/globals.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/widgets/default_divider_widget.dart';
 import 'package:subsmanager/theme.dart';
+import 'package:subsmanager/use_case/functions/notif_date_func.dart';
 import 'package:subsmanager/use_case/notifiers/notif_date.dart';
 import 'package:subsmanager/use_case/notifiers/notif_enabled.dart';
 import 'package:subsmanager/use_case/notifiers/notif_time.dart';
@@ -22,6 +22,7 @@ class NotifDatePicker extends ConsumerWidget {
     final readNotifDate = ref.read(notifDateProvider.notifier);
     final notifTime = ref.watch(notifTimeProvider);
     final readNotifTime = ref.read(notifTimeProvider.notifier);
+    final locale = MaterialLocalizations.of(context);
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
@@ -75,7 +76,7 @@ class NotifDatePicker extends ConsumerWidget {
                     ),
                     MaterialButton(
                       child: Text(
-                        notifTime.timeToString(context),
+                        notifTime.timeToString(locale),
                         style: const TextStyle(fontSize: 16),
                       ),
                       onPressed: () async {

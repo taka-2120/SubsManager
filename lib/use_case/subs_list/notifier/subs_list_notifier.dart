@@ -1,10 +1,11 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subsmanager/domain/auth/auth_services.dart';
 import 'package:subsmanager/domain/subs_list/models/sub_item.dart';
 import 'package:subsmanager/domain/subs_list/subs_list_repository.dart';
 import 'package:subsmanager/l10n/l10n.dart';
+import 'package:subsmanager/presentation/widgets/dialogs/alert.dart';
+import 'package:subsmanager/use_case/notif_services.dart';
 import 'package:subsmanager/use_case/sub_value/notifier/sub_value_notifier.dart';
 import 'package:subsmanager/use_case/subs_list/state/subs_list_state.dart';
 import 'package:uuid/uuid.dart';
@@ -13,8 +14,7 @@ import 'package:subsmanager/extensions/fee_str_double.dart';
 
 final subsListNotifierProvider =
     StateNotifierProvider<SubsListNotifier, SubsListState>(
-  (ref) => SubsListNotifier(ref: ref),
-);
+        (ref) => SubsListNotifier(ref: ref));
 
 class SubsListNotifier extends StateNotifier<SubsListState> {
   SubsListNotifier({required Ref ref})
@@ -31,49 +31,58 @@ class SubsListNotifier extends StateNotifier<SubsListState> {
     final authState = _ref.read(authServicesProvider);
     final subValueState = _ref.read(subValueNotifierProvider);
     final l10n = L10n.of(context)!;
+    final locale = MaterialLocalizations.of(context);
+    final isEmpty = (subValueState.name.text == "" ||
+        subValueState.fee.text == "" ||
+        subValueState.period == null);
 
-    try {
-      final subItem = SubItem(
-        uid: authState.currentUid,
-        id: const Uuid().v1(),
-        name: subValueState.name.text,
-        fee: subValueState.fee.text.feeToDouble(),
-        url: subValueState.url.text,
-        hasIcon: subValueState.hasIcon,
-        altHexColorCode: subValueState.altColor.value.toRadixString(16),
-        date: subValueState.date,
-        period: subValueState.period.periodToInt(l10n),
-      );
+    switch (isEmpty) {
+      case true:
+        //Empty Error
+        return showDialog(
+          barrierColor: Colors.black26,
+          context: context,
+          builder: (_) => CustomAlertDialog(
+            title: l10n.error,
+            description: l10n.e_fill,
+            isOkOnly: true,
+          ),
+        );
+      case false:
+        try {
+          final subItem = SubItem(
+            uid: authState.currentUid,
+            id: const Uuid().v1(),
+            name: subValueState.name.text,
+            fee: subValueState.fee.text.feeToDouble(),
+            url: subValueState.url.text,
+            hasIcon: subValueState.hasIcon,
+            altHexColorCode: subValueState.altColor.value.toRadixString(16),
+            date: subValueState.date,
+            period: subValueState.period.periodToInt(l10n),
+          );
 
-      state = state.copyWith(
-        subsList: [...state.subsList, subItem],
-      );
+          state = state.copyWith(
+            subsList: [...state.subsList, subItem],
+          );
 
-      await _ref.read(subsListRepositoryProvider).addSub(item: subItem);
+          await _ref.read(subsListRepositoryProvider).addSub(item: subItem);
+          await setNotifByPeriod(_ref, locale, item: subItem);
 
-      //Setup Notification
-      // await AwesomeNotifications().createNotification(
-      //   content: NotificationContent(
-      //     id: 10,
-      //     channelKey: 'basic_channel',
-      //     title: 'Simple Notification',
-      //     body: 'Simple body',
-      //   ),
-      //   schedule: NotificationCalendar(
-      //       month: subItem.date!.month,
-      //       day: subItem.date!.day -
-      //           _ref.read(notifDateProvider.notifier).getDayBefore(),
-      //       hour: _ref.read(notifTimeProvider).hour,
-      //       minute: _ref.read(notifTimeProvider).minute,
-      //       second: 0,
-      //       repeats: true,
-      //       allowWhileIdle: true),
-      // );
-    } on Exception catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-      return;
+          Future.microtask(() {
+            Navigator.pop(context);
+          });
+        } catch (e) {
+          showDialog(
+            barrierColor: Colors.black26,
+            context: context,
+            builder: (_) => CustomAlertDialog(
+              title: l10n.error,
+              description: "${l10n.e_unexpected}\n${e.toString()}",
+              isOkOnly: true,
+            ),
+          );
+        }
     }
   }
 
@@ -82,10 +91,30 @@ class SubsListNotifier extends StateNotifier<SubsListState> {
     state = state.copyWith(subsList: subsList);
   }
 
-  Future<void> deleteSub({required SubItem item}) async {
-    await _ref.read(subsListRepositoryProvider).deleteSub(item: item);
-    state = state.copyWith(
-      subsList: state.subsList.where((todo) => todo.id != item.id).toList(),
+  Future<void> deleteSub(BuildContext context, {required SubItem item}) async {
+    showDialog(
+      barrierColor: Colors.black26,
+      context: context,
+      builder: (_) => CustomAlertDialog(
+        title: "Confirmation",
+        description: "Do you sure want to delete this subscription?",
+        isOkOnly: false,
+        func: () async {
+          //Delete Action
+          await _ref.read(subsListRepositoryProvider).deleteSub(item: item);
+          await cancelNotif(item);
+          state = state.copyWith(
+            subsList:
+                state.subsList.where((todo) => todo.id != item.id).toList(),
+          );
+
+          Future.microtask(() {
+            Navigator.pop(context);
+          });
+        },
+        optionLabel: "Delete",
+        mainColor: Colors.red,
+      ),
     );
   }
 
@@ -152,6 +181,10 @@ class SubsListNotifier extends StateNotifier<SubsListState> {
     state = state.copyWith(subsList: updatedList);
 
     await _ref.read(subsListRepositoryProvider).updateSub(item: subItem);
+
+    Future.microtask(() {
+      Navigator.of(context).pop();
+    });
   }
 
   void init() {

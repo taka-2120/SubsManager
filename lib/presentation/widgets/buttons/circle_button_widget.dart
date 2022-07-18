@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../theme.dart';
+import 'package:subsmanager/theme.dart';
 
 class CircleButton extends StatelessWidget {
   const CircleButton({

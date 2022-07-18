@@ -20,7 +20,7 @@ class L10nEn extends L10n {
   String get edit => 'Edit';
 
   @override
-  String get delete_sub => 'Delete';
+  String get delete => 'Delete';
 
   @override
   String get name => 'Name';
@@ -158,6 +158,24 @@ class L10nEn extends L10n {
   String get update_username => 'Update Username';
 
   @override
+  String get change_pass => 'Change Password';
+
+  @override
+  String get forget_pass => 'Forget Password';
+
+  @override
+  String get reset_email_note => 'The reset email will be sent to this address.';
+
+  @override
+  String get reset_email => 'Send Reset Email';
+
+  @override
+  String get send_feedback => 'Send Feedback';
+
+  @override
+  String get delete_account => 'Delete Account';
+
+  @override
   String get error => 'Error';
 
   @override
@@ -200,6 +218,21 @@ class L10nEn extends L10n {
   String get e_username_empty => 'Username cannot be empty.';
 
   @override
+  String get e_no_email => 'Please enter your email address.';
+
+  @override
+  String get imp_confirmation => 'Important Cnofirmation';
+
+  @override
+  String get conf_delete_account => 'Do you sure want to delete your account?\nThis operation cannot be undone, and your data will be permanently deleted.';
+
+  @override
+  String get confirmation => 'Cnofirmation';
+
+  @override
+  String get conf_logout => 'Do you sure want to logout?';
+
+  @override
   String get d_ok => 'OK';
 
   @override
@@ -231,4 +264,7 @@ class L10nEn extends L10n {
 
   @override
   String get welcome_msg => 'Thank you for using SubsManager!\n\nLet\'s get startd to setup this app first, and register to our services!';
+
+  @override
+  String get join_us => 'Join Us Now!';
 }

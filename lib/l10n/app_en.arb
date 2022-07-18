@@ -5,7 +5,7 @@
     "first_add": "Tap + button to add your subscriptions!",
     "add": "Add",
     "edit": "Edit",
-    "delete_sub": "Delete",
+    "delete": "Delete",
     "name": "Name",
     "fee": "Fee",
     "url": "URL",
@@ -57,6 +57,12 @@
     "register": "Register",
     "signout": "Sign Out",
     "update_username": "Update Username",
+    "change_pass": "Change Password",
+    "forget_pass": "Forget Password",
+    "reset_email_note": "The reset email will be sent to this address.",
+    "reset_email": "Send Reset Email",
+    "send_feedback": "Send Feedback",
+    "delete_account": "Delete Account",
     
     "error": "Error",
     "e_fill": "Please fill name, fee, and billing period correctly.",
@@ -72,6 +78,12 @@
     "e_all_disabled": "This Email address or password is currently disabled.",
     "e_weak_pass": "Your password is too weak. It should be 6 letters or more.",
     "e_username_empty": "Username cannot be empty.",
+    "e_no_email": "Please enter your email address.",
+
+    "imp_confirmation": "Important Cnofirmation",
+    "conf_delete_account": "Do you sure want to delete your account?\nThis operation cannot be undone, and your data will be permanently deleted.",
+    "confirmation": "Cnofirmation",
+    "conf_logout": "Do you sure want to logout?",
 
     "d_ok": "OK",
     "d_continue": "Continue",
@@ -84,5 +96,6 @@
     "all_done": "All Done!",
     "done_msg": "Next, please login or register to our service!",
     "lets_go": "Let's Go!",
-    "welcome_msg": "Thank you for using SubsManager!\n\nLet's get startd to setup this app first, and register to our services!" 
+    "welcome_msg": "Thank you for using SubsManager!\n\nLet's get startd to setup this app first, and register to our services!",
+    "join_us": "Join Us Now!"
 }

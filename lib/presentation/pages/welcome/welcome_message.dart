@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/pages/welcome/intro_notif.dart';
 import 'package:subsmanager/presentation/widgets/default_appbar_widget.dart';
-import 'package:subsmanager/presentation/widgets/rounded_button_widget.dart';
+import 'package:subsmanager/presentation/widgets/buttons/rounded_button_widget.dart';
 
 class WelcomeMessage extends StatelessWidget {
   const WelcomeMessage({Key? key}) : super(key: key);
@@ -49,13 +49,11 @@ class WelcomeMessage extends StatelessWidget {
                 text: l10n.next,
                 topPad: 20,
                 isDisabled: false,
-                onTap: () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) => const IntroNotif(),
-                    ),
-                  );
-                },
+                onTap: () => Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (_) => const IntroNotif(),
+                  ),
+                ),
               ),
             ],
           ),

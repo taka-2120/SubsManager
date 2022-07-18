@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../theme.dart';
+import 'package:subsmanager/theme.dart';
 
 class SettingsItem extends StatelessWidget {
   const SettingsItem({

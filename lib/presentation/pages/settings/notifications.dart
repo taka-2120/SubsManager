@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../widgets/notif_date_picker_widget.dart';
-import '../../widgets/page_title_widget.dart';
-import '../../widgets/toggle_item_widget.dart';
+import 'package:subsmanager/presentation/widgets/headers/page_title_widget.dart';
 import 'package:subsmanager/l10n/l10n.dart';
+import 'package:subsmanager/presentation/widgets/notif_date_picker_widget.dart';
+import 'package:subsmanager/presentation/widgets/toggle_item_widget.dart';
 
 class Notifications extends StatelessWidget {
   const Notifications({Key? key}) : super(key: key);

@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/pages/auth/auth_outer.dart';
 import 'package:subsmanager/presentation/widgets/default_appbar_widget.dart';
-import 'package:subsmanager/presentation/widgets/rounded_button_widget.dart';
+import 'package:subsmanager/presentation/widgets/buttons/rounded_button_widget.dart';
 
 class EndIntro extends StatelessWidget {
   const EndIntro({Key? key}) : super(key: key);
@@ -41,7 +41,7 @@ class EndIntro extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               RoundededButton(
-                text: "Let's Go!",
+                text: l10n.lets_go,
                 topPad: 20,
                 isDisabled: false,
                 onTap: () {
@@ -50,7 +50,7 @@ class EndIntro extends StatelessWidget {
 
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                      builder: (context) => const AuthOuter(),
+                      builder: (_) => const AuthOuter(),
                     ),
                   );
                 },

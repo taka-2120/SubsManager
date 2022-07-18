@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../../theme.dart';
-import 'circle_button_widget.dart';
+import 'package:subsmanager/presentation/widgets/buttons/circle_button_widget.dart';
+import 'package:subsmanager/theme.dart';
 
 class PageTitle extends StatelessWidget {
   const PageTitle({

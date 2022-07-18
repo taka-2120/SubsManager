@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:subsmanager/domain/auth/auth_services.dart';
 import 'package:subsmanager/l10n/l10n.dart';
 import 'package:subsmanager/presentation/widgets/default_appbar_widget.dart';
+import 'package:subsmanager/presentation/widgets/dialogs/alert.dart';
 import 'package:subsmanager/presentation/widgets/headers/page_title_widget.dart';
 import 'package:subsmanager/presentation/widgets/loading_overlay_widget.dart';
 import 'package:subsmanager/presentation/widgets/buttons/rounded_button_widget.dart';
 import 'package:subsmanager/presentation/widgets/textfields/textfield_set_widget.dart';
-import 'package:subsmanager/use_case/auth_controller.dart';
 import 'package:subsmanager/use_case/functions/keyboard_func.dart';
 
-class Register extends HookWidget {
-  const Register({Key? key}) : super(key: key);
+class ForgetPass extends HookWidget {
+  const ForgetPass({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final l10n = L10n.of(context)!;
     final isLoading = useState(false);
-    final TextEditingController nameCtl = TextEditingController();
     final TextEditingController emailCtl = TextEditingController();
-    final TextEditingController passCtl = TextEditingController();
 
     return Stack(
       children: [
@@ -35,23 +34,13 @@ class Register extends HookWidget {
                     child: Column(
                       children: [
                         PageTitle(
-                          title: l10n.join_us,
+                          title: l10n.forget_pass,
                           back: true,
                           rightButton: false,
                           rightFunc: null,
                           rightIcon: null,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(15),
-                            child: Image.asset(
-                              "lib/assets/start.png",
-                              height: 120,
-                              fit: BoxFit.fitWidth,
-                            ),
-                          ),
-                        ),
+                        const SizedBox(height: 15),
                         Padding(
                           padding: const EdgeInsets.only(
                             left: 15,
@@ -60,48 +49,43 @@ class Register extends HookWidget {
                           ),
                           child: Column(
                             children: [
-                              const SizedBox(
-                                height: 15,
-                              ),
-                              TextFieldSet(
-                                title: l10n.username,
-                                type: KeyType.norm,
-                                controller: nameCtl,
-                                secured: false,
-                                suggestion: true,
-                                divider: true,
-                                showTitle: true,
-                              ),
                               TextFieldSet(
                                 title: l10n.email,
                                 type: KeyType.email,
                                 controller: emailCtl,
                                 secured: false,
                                 suggestion: false,
-                                divider: true,
-                                showTitle: true,
-                              ),
-                              TextFieldSet(
-                                title: l10n.pass,
-                                type: KeyType.norm,
-                                controller: passCtl,
-                                secured: true,
-                                suggestion: false,
                                 divider: false,
                                 showTitle: true,
+                                bottomNotes: l10n.reset_email_note,
                               ),
+                              const SizedBox(height: 50),
                               RoundededButton(
-                                text: l10n.register,
+                                text: l10n.reset_email,
+                                fontColor: Colors.black,
                                 topPad: 20,
                                 isDisabled: false,
-                                onTap: () => AuthController().connectFB(
-                                  context,
-                                  isLoading: isLoading,
-                                  isLogin: false,
-                                  email: emailCtl.text,
-                                  pass: passCtl.text,
-                                  name: nameCtl.text,
-                                ),
+                                backgroundColor: Theme.of(context).primaryColor,
+                                onTap: () async {
+                                  if (emailCtl.text == "") {
+                                    await showDialog(
+                                      barrierColor: Colors.black26,
+                                      context: context,
+                                      builder: (_) => CustomAlertDialog(
+                                        title: l10n.error,
+                                        description: l10n.e_no_email,
+                                        isOkOnly: true,
+                                      ),
+                                    );
+                                  } else {
+                                    isLoading.value = true;
+                                    await AuthServices().resetPassword(
+                                      context,
+                                      email: emailCtl.text,
+                                    );
+                                    isLoading.value = false;
+                                  }
+                                },
                               ),
                             ],
                           ),
